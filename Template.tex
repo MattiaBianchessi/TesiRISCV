@@ -9,17 +9,18 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,italian]{babel}
 \usepackage[hyphens]{url}
-
+\usepackage{csquotes}
 % Per generare il file PDF aderente alle specifiche PDF/A-1b. Verificarne poi la validità.
 %\usepackage[a-1b]{pdfx}
 
 \usepackage{hyperref}
-
 \usepackage{graphicx}
-
 \usepackage{lipsum}% Per inserire testo a caso in attesa di realizzare i capitoli
-
 \usepackage{listings}
+\usepackage{epigraph} % per le frasi inizio capitolo
+\usepackage{fancyhdr}
+\usepackage{refcheck}
+
 \lstset{
 	% 	language=bash
 	frame=single,
@@ -27,21 +28,16 @@
 	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
 	basicstyle=\ttfamily\footnotesize
 }
-
-\usepackage[backend=biber,
-style=alphabetic,
-%citestyle=authoryear
+%--- BIBIOGRAFIA
+\usepackage[ backend=biber, style=alphabetic,
+%citestyle=authoryear 
 ]{biblatex}
 
-\usepackage{epigraph} % per le frasi inizio capitolo
-
-\usepackage{fancyhdr}
+\addbibresource{Biblio.bib}
+%---
 
 \usepackage[colorinlistoftodos]{todonotes}
 %\usepackage[disable]{todonotes}
-
-\usepackage{refcheck}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -49,8 +45,8 @@ style=alphabetic,
 % Frontespizio
 \begin{titlepage}
 \begin{center}
-\includegraphics[width=\textwidth]{Logo.jpg}\\
-{\large{\bf Corso di Laurea ...}}
+\includegraphics[width=\textwidth]{Img/Logo.jpg}\\
+{\large{\bf Corso di Laurea Informatica}}
 \end{center}
 \vspace{12mm}
 \begin{center}
@@ -63,16 +59,16 @@ style=alphabetic,
 \vspace{12mm}
 \begin{flushleft}
 {\large{\bf Relatore:}}
-{\large{...}}\\
+{\large{Trentini Andrea}}\\
 \vspace{4mm}
 {\large{\bf Correlatore:}}
-{\large{...}}\\
+{\large{Carraturo Alexjan}}\\
 \end{flushleft}
 \vspace{12mm}
 \begin{flushright}
 {\large{\bf Tesi di Laurea di:}}
-{\large{CANDIDATO}}\\
-{\large{\bf Matr. xxxxxxx}}\\
+{\large{Bianchessi Mattia}}\\
+{\large{\bf Matr. 931455}}\\
 \end{flushright}
 \vspace{4mm}
 \begin{center}
@@ -83,19 +79,25 @@ style=alphabetic,
 
 \tableofcontents
 
-
 % o sections (dipende dal documentclass)
-\chapter{Cap1}
 
-TCP/IP over Avian Carriers\cite{waitzman1990standard}
-
-\chapter{Cap2}
-\chapter{Cap3}
-\chapter{Cap4}
+\chapter{RISC-V}
 
 
-\bibliographystyle{plain}
-\bibliography{Biblio}
+
+\chapter{ISA RISC-V}
+\chapter{BenchMarking}
+\chapter{Comparativa}
+\chapter{Progetti }
+
+Ciao
+
+\cite{waitzman1990standard}  
+
+Dopo
+
 %\addcontentsline{toc}{chapter}{Bibliografia}
+
+\printbibliography
 
 \end{document}
