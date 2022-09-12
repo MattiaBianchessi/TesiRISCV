@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%
 \documentclass[12pt,a4paper]{report}
 % o article, book, ...
 
@@ -76,12 +76,58 @@
 \end{center}
 \end{titlepage}
 
+%%%%%%%%%%
+% TODO
+%%%%%%%%%%
+\listoftodos
+
+%%%%%%%%
+\chapter*{Introduzione}
+
+Introduzione 
+\todo{Introduzione \ldots}
+
+
 
 \tableofcontents
 
 % o sections (dipende dal documentclass)
 
 \chapter{RISC-V}
+\todo{Rileggi/Correggi capitolo 1: RISC-V \ldots} 
+
+% OUTLINE CH 1
+%	definizione di computer \\
+%	presentazione progetto \\
+%	applicazione dalla nascita ad oggi  \\
+
+
+\section{Dal codice alle istruzioni}
+\begin{quote}
+\textbf{Computer}  :
+Apparecchio elettronico in grado di svolgere operazioni matematiche e logiche e di memorizzare informazioni a una velocità e in una quantità superiori a quelle di cui è comunemente capace il cervello umano; nelle sue componenti materiali ( hardware ) [..] e da un insieme di circuiti e di dispositivi sui quali si svolgono le funzioni di memoria, di elaborazione e di controllo, che avvengono grazie a programmi contenenti istruzioni ( software ); tali programmi sono basati su un sistema di computazione binario e sono scritti in vari linguaggi di programmazione;
+\cite{DefinizioneComputer}
+\end{quote}
+
+Essere in grado di programmare significa essere in grado di scrivere un elenco di istruzioni interpretabili dal computer ed eseguibili. Il linguaggio scelto, che sia di alto livello o di basso livello,  deve essere tradotto in linguaggio macchina in questo modo puo essere eseguito dal nostro computer. Questo processo di chiama processo di compilazione mediante il quale il codice , scritto in linguaggio leggibile (human readeable) viene tradotto in codice sorgente che verrà poi sottoposto a determinate verifiche per poter essere approvato e trasformato in codice oggetto e poi file eseguibile.\\
+All' interno del computer la componente che si occupa dell' esecuzione del codice è la CPU che,  leggendo le istruzioni tradotte dal codice (scritto e poi compilato) esegue delle operazioni specifiche. Come è normale pensare esistono differenti processori , differenti per frequenza di clock, memoria di cache, architettura interna  o tensione di alimentazione. Quindi il è necessario che il codice si chiaro e capibile per un determinato processore. \\
+
+Un'Instruction Set Architecture (ISA) definisce il modello astratto di un computer ovvero come la CPU controlla hardware e software., specificando sia ciò che il processore è in grado di fare sia come viene fatto.
+
+L'ISA fornisce l'unico modo attraverso il quale un utente è in grado di interagire con l'hardware. Può essere visto come un manuale del programmatore perché è la parte della macchina visibile al programmatore in linguaggio macchina,  allo scrittore del compilatore e al programmatore dell'applicazione.
+L'ISA, inoltre, definisce i tipi di dati supportati, i registri, il modo in cui l'hardware gestisce la memoria principale. 
+
+In informatica esistono due tipi popolari di architetture basate sul set di istruzioni. Si tratta di CISC (Complex Instruction Set Computing) e RISC (Reduced Instruction Set Computing).
+
+
+Il primo approccio consiste in un ISA formata da un set di istruzioni in grado di eseguire operazioni complesse tramite una singola istruzione. Contrariamente il secondo approccio snellisce il set di istruzioni che porta ad avere un architettura più semplice e lineare.
+
+\section{progetto RISC-V}
+Il RISC-V è un progetto open source basato su un architettura di tipo RISC. Il progetto iniziato nel 2010 all'Università della California, Berkeley. In origine Prof. Krste Asanoviće e alcuni studenti (Yunsup Lee e Andrew Waterman) svilupparono un ISA per scopi didattici, inizialmente solo progettata e successivamente, dopo dei finanziamenti, prodotta. Il primo workshop risale al 2015 e al lancio il progetto contava 36 membri fondatori.
+
+L'interesse per RISC-V non è dovuto all' architettura RISC o alla tecnologia rivoluzionaria ma il punto fondamentale è che RISC-V è uno standard libero che consente a chiunque di sviluppare in modo libero il proprio hardware per seguire il software.\\
+
+Dopo il lancio il progetto fu studiato e utilizzato da molte realtà , come ad esempio in DARPA e Linux Foundation ,  e fu per questo che si fece conoscere molto presto al mondo.  Ora Il progetto RISC-V presenta numerose partnership con aziende e una community sparsa per tutto  il mondo.
 
 
 
@@ -92,7 +138,7 @@
 
 Ciao
 
-\cite{waitzman1990standard}  
+ % \cite{waitzman1990standard}  
 
 Dopo
 
