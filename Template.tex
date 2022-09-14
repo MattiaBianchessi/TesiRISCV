@@ -15,11 +15,13 @@
 
 \usepackage{hyperref}
 \usepackage{graphicx}
+\graphicspath{ {Img/} }
 \usepackage{lipsum}% Per inserire testo a caso in attesa di realizzare i capitoli
 \usepackage{listings}
 \usepackage{epigraph} % per le frasi inizio capitolo
 \usepackage{fancyhdr}
 \usepackage{refcheck}
+
 
 \lstset{
 	% 	language=bash
@@ -90,6 +92,8 @@ Introduzione
 
 
 \tableofcontents
+\listoffigures
+\listoftables
 
 % o sections (dipende dal documentclass)
 
@@ -136,8 +140,98 @@ Dopo il lancio il progetto fu studiato e utilizzato da molte realtà , come ad e
 \section{ISA Base}
 \section{ISA Ext}
 
+\chapter{Compilatori}
+
+\todo{Rileggi capitolo\ldots}
+
+\section{Descrizione}
+Un compilatore è un programma che trasforma il codice sorgente scritto in un determinato linguaggio di programmazione,  in un altro linguaggio informatico (codice target). Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile. Il linguaggio attraversa diverse fasi prima di diventare il codice target. La prima attivita è l' analisi lessicale dove il programma viene analizzato parola per parola e genera dei token. La seconda attivita è l analisi sintattica dove viene controllata la correttezza formale del programma. In questa fase i token precedentemente generati vengono analizzati e utilizzati per generare una struttura ad albero che nella fase di analisi semantica viene analizzato per verificare la correttezza delle espressioni scritte.  Infine viene generato il codice target.  Alcuni compilatori prevedono un ulteriore fase la fase di ottimizzazione dove il codice viene ottimizzato 
+
+\begin{figure}
+\includegraphics[width = \textwidth]{SchemaCompilatore.png}
+\caption{Schema meccanismo di compilazione}
+\end{figure}
+
+
+Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
+
+\section{Storia}
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato . Il primo compilatore implementato è stato scritto da Grace Hopper , coniando il termine "compilatore". Il primo compilatore , chiamato sistema A-0,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva (la versione A-2 datata 1953)fu il primo software libero e open source della storia dell'informatica. \\
+
+Il primo compilatore ALGOL 58 fu completato alla fine del 1958 da Friedrich L. Bauer , Hermann Bottenbruch, Heinz Rutishauser e Klaus Samelson per il computer Z22 . 
+Nel 1960, un compilatore Fortran esteso, ALTAC, era disponibile sulla Philco 2000, quindi è probabile che un programma Fortran sia stato compilato per le architetture di computer IBM e Philco a metà del 1960.  Il primo linguaggio di alto livello multipiattaforma noto è stato COBOL. 
+
+Come qualsiasi altro software, ci sono vantaggi nell'implementare un compilatore in un linguaggio di alto livello. In particolare, un compilatore può essere self-hosted , ovvero scritto nel linguaggio di programmazione che compila. Il sopracitato compilatore di Böhm è un compilatore self-hosted. Il suo compilatore, oltre ad essere completo, fu il primo definito con il proprio linguaggio.
+Oltre a quel compilatore possiamo citare il Navy Electronics Laboratory International ALGOL Compiler (NELIAC) o il Lisp.\\
+
+Come durante una comunicazione verbale anche i programmi hanno una propria grammatica con regole queste vengono analizzate da un parser, generato da un generatore, ha lo scopo di analizzare come è scritto il programma e generare i token associati. Un primo progetto risale al 1960 come progetto dell università di Università di Manchester, non è da considerare un compilatore moderno ma un buon punto per la costruzione e per l ideazione del sistema Unix nel 1969 da parte di Ken Thompson.\\
+
+\section{Cross-compilazione}
+Un compilatore incrociato è un compilatore in grado di creare codice eseguibile per una piattaforma diversa da quella su cui è in esecuzione il compilatore. Ad esempio, un compilatore che viene eseguito su un PC ma genera codice che viene eseguito su uno smartphone Android è un compilatore incrociato.
+
+Un compilatore incrociato è utile per compilare codice per più piattaforme da un host di sviluppo. La compilazione diretta sulla piattaforma di destinazione potrebbe non essere fattibile, ad esempio su sistemi embedded con risorse informatiche limitate.
+
+\section{Compilatori moderni}
+
+gcc, LLVM, AMR
+
+
 \chapter{BenchMarking}
 \section{Descrizione board}
+
+La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
+
+\begin{figure}
+\includegraphics[width = \textwidth]{D1H-BoardTopView.png}
+\caption{Board vista dall' alto}
+
+\includegraphics[width = \textwidth]{D1H-BoardBlockView.png}
+\caption{Schema a blocchi della scheda di sviluppo}
+\end{figure}
+
+\vspace{2cm}
+\begin{table}
+\centering
+\begin{tabular}{|r|c|}
+\hline
+CPU & Allwinner D1-H \\
+\hline
+Clock & 1GHz\\
+\hline
+DRAM & DDR3 2GB\\
+\hline
+Memoria & 256MB  spin-nand integrato\\
+\hline 
+Supporto memoria & USB e  SD\\
+\hline
+Rete & Gigabit Ethernet,  2.4G WiFi e Bluetooth , antenna integrata\\
+\hline
+Display & MIPI-DSI + TP, HDMI, SPI \\
+\hline
+Audio & jack per cuffie da 3,5 mm\\
+\hline
+Tasti & FEL, LRADC OK\\
+\hline
+Luci &  alimentazione, LED tricolore\\
+\hline
+DEBUG & UART, USB ADB\\
+\hline
+USB & USB , USB OTG, USB2.0\\
+\hline
+PIN & array di pin 40\\
+\hline
+Alimentazione & USB-C  5V-2A\\
+\hline
+Dimensioni & lunghezza 85 mm * larghezza 56 mm * spessore 1,7 mm\\
+\hline
+
+\end{tabular}
+\caption{Caratteristiche della board}
+\end{table}
+
+\section{Ulteriori informazioni}
+BAD TITLE !!!\\
+info ambiente di sviluppo
 \section{presentazione programmi}
 
 \chapter{Comparativa}
