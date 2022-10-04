@@ -1,0 +1,8 @@
+mult8:
+        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp-4], edi
+        mov     eax, DWORD PTR [rbp-4]
+        sal     eax, 3
+        pop     rbp
+        ret

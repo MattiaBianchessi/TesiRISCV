@@ -1,0 +1,10 @@
+mul31:
+        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp-4], edi
+        mov     edx, DWORD PTR [rbp-4]
+        mov     eax, edx
+        sal     eax, 5
+        sub     eax, edx
+        pop     rbp
+        ret
