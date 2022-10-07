@@ -924,9 +924,8 @@ La prima matrice generata ha valori tra 1 e 200, la seconda ha valori tra 1 e 10
 Per ogni matrice vengono eseguite 5 prove da cui viene calcolato il tempo medio di esecuzione
 
 \subsection{Prime Number}
-Il programma generai primi 5000 numeri primi. Viene calcolato il tempo di esecuzione. Nella directory sono presenti 2 programmi. Il primo 'prime.c' che controlla da 2 in poi se n-esimo numero è divisibile. 
-\todo{Analizza costo algoritmo}
-Il secondo utilizza il crivello di Atkin per calcolare i numeri primi. \todo{Info Sieve of Atkin}.
+Il programma generai primi 5000 numeri primi. I programmi vengono compilati ed eseguiti con differenti livelli di ottimizzazione del compilatore e viene calcolato il tempo di esecuzione. 
+Il programma 'prime.c' controlla da 2 in poi se n-esimo numero è divisibile se non è divisibile allora lo memorizzo altrimenti passo al prossimo numero.  
 
 \subsection{Moltiplicazione o shift}
 Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra 0 e maxInt e un array di potenze di 2 comprese tra 2 e 1024. Entrambi gli array hanno 1000 elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di 1000 operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift).
@@ -944,7 +943,8 @@ Gli algoritmi di sorting utilizzati sono:
 \end{itemize}
 
 Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni set vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell array da ordinare, come ad esempio utilizzando il BubbleSort vengono oridinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
-\todo{Info arlogitmi}
+
+\todo{Info algoritmi sorting ?}
 
 \subsection{BackTracking}
 
@@ -1076,7 +1076,7 @@ La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati i
 \end{table}
 	
 	
-\section{analisi codice assembly}
+\section{Analisi codice assembly}
 Osserviamo i compilatori a confronto.  I Compilatori confrontati sono \textit{gcc RISC-V},  \textit{gcc ARM} e \textit{gcc x86\_64}.  I compilatori RISC-V e ARM vengono confrontati per il loro focus sul ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0).
 
 
@@ -1541,7 +1541,6 @@ Il tempo di esecuzione nel caso peggiore di $\mathcal{O}(n!) $, il tempo di esec
 
 \subsection{Heap sort}
 L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata è in-place.
-\todo{info algo}
 
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Algoritmo heap sort scritto in c}, label = {Code:HeapSort}]{PorzioniCodice/Sorting/Heap.c}	
 
@@ -1675,7 +1674,7 @@ Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e un
    \label{Fig:AllSort_RB}
 \end{figure}
 
-I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. Possiamo concludere che il miglioramento è dato dalla CPU e dalla memoria.  \todo{More}
+I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. Possiamo concludere che il miglioramento è dato dalla CPU e dalla memoria.  Per quanto riguarda gli algoritmi possiamo dire che in tutti tre i casi quicksort è il migliore.
 
 \section{BackTracking}
 Un altro problema che si puo affrontare è il problema del backtracking, ovvero quella tecnica per cui è necessario tornare su dei passi precedenti per trovare la soluzione al problema. Il primo programma utilizzato è un solutore di sudoku.
@@ -1716,10 +1715,6 @@ maze2 &0.009123 & 0.000371  \\ \hline
 	\label{Tab:MazeSolver}
 	\end{table}
 
-\todo{More}
-\todo{add Reference}
-
-
 
 \chapter{Progetti}
 \todo{Rileggi/Correggi capitolo 6: Progetti \ldots}
@@ -1743,7 +1738,7 @@ L’uso di processori RISC-V è crescente,  le grandi aziende stanno già cercan
 Tuttavia, solo perché qualcosa è gratuito non significa che prenderà il comando. Prendiamo come esempio il sistema Linux la maggior parte delle distribuzioni sono gratuite, ma Linux costituisce una piccola percentuale dei sistemi operativi in tutto il mondo.   Con il migliorare della tecnologia il supporto a RISC-V aumenterà, grazie anche alla community, che porterà i progetisti ad avere un opzione di un architettura gratuita senza limitazioni e altamente configurabile ed estendibile ma non si ha certezza se prenderà una grossa fetta di mercato.
 
 \chapter{Conclusione}
-\textbf{DESKTOP CON PROCESSORE RISC-V SEE BIB}
+% \textbf{DESKTOP CON PROCESSORE RISC-V SEE BIB}
 %\addcontentsline{toc}{chapter}{Bibliografia}
 
 \printbibliography
