@@ -21,7 +21,7 @@
 % \usepackage{refcheck}
 
 \usepackage{pgfplots} 
-\pgfplotsset{compat=1.18} 
+%\pgfplotsset{compat=1.18} 
 
 
 \lstset{
@@ -197,10 +197,14 @@ Introduzione
 \textbf{Computer}  :
 Apparecchio elettronico in grado di svolgere operazioni matematiche e logiche e di memorizzare informazioni a una velocità e in una quantità superiori a quelle di cui è comunemente capace il cervello umano; nelle sue componenti materiali ( hardware ) [..] e da un insieme di circuiti e di dispositivi sui quali si svolgono le funzioni di memoria, di elaborazione e di controllo, che avvengono grazie a programmi contenenti istruzioni ( software ); tali programmi sono basati su un sistema di computazione binario e sono scritti in vari linguaggi di programmazione;
 \cite{DefinizioneComputer}
-\end{quote}
+\end{quote}\todo{atrent: non so se sta bene in una tesi di informatica... a meno di non introdurre il motivo per cui lo spieghi}
+
+\todo{atrent: non va lo spazio tra le parentesi a il contenuto}
+\todo{atrent: non va lo spazio prima delle virgole}
 
 Essere in grado di programmare significa essere in grado di scrivere un elenco di istruzioni interpretabili dal computer ed eseguibili. Il linguaggio scelto, che sia di alto livello o di basso livello,  deve essere tradotto in linguaggio macchina in questo modo puo essere eseguito dal nostro computer. Questo processo di chiama processo di compilazione mediante il quale il codice , scritto in linguaggio leggibile (human readeable) viene tradotto in codice sorgente che verrà poi sottoposto a determinate verifiche per poter essere approvato e trasformato in codice oggetto e poi file eseguibile.\\
-All' interno del computer la componente che si occupa dell' esecuzione del codice è la CPU che,  leggendo le istruzioni tradotte dal codice (scritto e poi compilato) esegue delle operazioni specifiche. Come è normale pensare esistono differenti processori , differenti per frequenza di clock, memoria di cache, architettura interna  o tensione di alimentazione. Quindi il è necessario che il codice si chiaro e capibile per un determinato processore. \\
+All' interno del computer la componente che si occupa dell' esecuzione del codice è la CPU che,  leggendo le istruzioni tradotte dal codice (scritto e poi compilato) esegue delle operazioni specifiche. Come è normale pensare esistono differenti processori , differenti per frequenza di clock, memoria di cache, architettura interna  o tensione di alimentazione. Quindi il è necessario che il codice si chiaro e capibile per un determinato processore.
+\todo{atrent: non servono i '\\' a fine paragrafo}
 
 Un'Instruction Set Architecture (ISA) definisce il modello astratto di un computer ovvero come la CPU controlla hardware e software., specificando sia ciò che il processore è in grado di fare sia come viene fatto.
 
@@ -209,6 +213,7 @@ L'ISA, inoltre, definisce i tipi di dati supportati, i registri, il modo in cui 
 
 In informatica esistono due tipi popolari di architetture basate sul set di istruzioni. Si tratta di CISC (Complex Instruction Set Computing) e RISC (Reduced Instruction Set Computing).
 
+\todo{atrent: il tono di questa intro è troppo "giornalistico" per una tesi di informatica}
 
 Il primo approccio consiste in un ISA formata da un set di istruzioni in grado di eseguire operazioni complesse tramite una singola istruzione. Contrariamente il secondo approccio snellisce il set di istruzioni che porta ad avere un architettura più semplice e lineare.
 
@@ -248,6 +253,7 @@ La base dell ISA di RISC-V è fissa di base a lunghezza 32-bit ma è modificabil
 
 \subsection{Memorizzazione} 
 Le istruzioni sono memorizzati in blocchi da 16.bit memorizzati in maniera little-endianess , non modificabile. Se ad esempio si ha un istruzione su 32 bit l’istruzione avviene divisa in due blocchi da 16-bit la parte più bassa dell istruzione viene memorizzata nel primo pacchetto e la parte più alta nel secondo pacchetto (Figura~ \ref{fig:memorizza_Istruzioni}). 
+\todo{atrent: pacchetto?}
 
 \begin{figure}
 \includegraphics[width = \textwidth]{SomeLineCodeRISC.png}
@@ -259,7 +265,9 @@ Le istruzioni sono memorizzati in blocchi da 16.bit memorizzati in maniera littl
 Si parla di eccezione quando una condizione non comune avviene a run time associata a un istruzione.
 Si parla di trap quando verifica un trasferimento di controllo, da parte del trap handler, da un thread ad un altro. Si parla di interrupt quando la situazione imprevista è qualcosa di esterno.
 
-\subsection{Nomi delle estensioni}
+\todo{atrent: la terminologia tecnica in inglese, se non è assorbita dall'italiano va messa in corsivo}
+
+\subsection{Nomi delle estensioni}\todo{atrent: spiegare cosa si intende con estensione}
 Nel manuale sono trattate diverse estensioni ognuna delle quali è identificata da una lettera 
 M, A, F, D Q ,L, C, B, J ,T, P,V, N ogni estensione aggiunge delle istruzioni per un proprio fine. Oltre alle estensioni sono presentati 4 ISA di base RV32I, RV32E, RV64I, RV128I. Per ogni estensione e versione base sono indicate le versioni e se una di queste sono versioni definitive.
 (Tabella 2.1)
@@ -299,7 +307,7 @@ N & 1.1 & N\\
 
 La tabella  \ref{tab:nomenclaturaISA}  presenta i set base RV32I, RV32E, RV64I, RV128I con le rispettive versioni. Ogni set presenta la casella 'Definitiva' che specifica se il set o l 'estensione è definitiva (S) o non lo è (N).
 
-\section{ISA Base}
+\section{ISA Base}\todo{atrent: ha senso entrare così in dettaglio? (mi riferisco alle sezioni da qui fino alla "altri set") se sì va motivato}
 L'istruction set base ha la sigla di RV32I. 
 
 \begin{quote}
@@ -628,13 +636,13 @@ Un compilatore è un programma che trasforma il codice sorgente scritto in un de
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
 \label{Fig:MeccanismoCompilazione}
-\end{figure}
+\end{figure}\todo{atrent: vale in generale, se le figure sono prese da altri testi vanno citati}
 
 
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato . Il primo compilatore implementato è stato scritto da Grace Hopper , coniando il termine "compilatore". Il primo compilatore , chiamato sistema A-0,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva (la versione A-2 datata 1953)fu il primo software libero e open source della storia dell'informatica. \\
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato . Il primo compilatore implementato è stato scritto da Grace Hopper , coniando il termine ``compilatore''.\todo{atrent: in generale le virgolette in \LaTeX\ si fanno così} Il primo compilatore , chiamato sistema A-0,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva (la versione A-2 datata 1953)fu il primo software libero e open source della storia dell'informatica.\todo{atrent: bibliografia!!!}
 
 Il primo compilatore ALGOL 58 fu completato alla fine del 1958 da Friedrich L. Bauer , Hermann Bottenbruch, Heinz Rutishauser e Klaus Samelson per il computer Z22 . 
 Nel 1960, un compilatore Fortran esteso, ALTAC, era disponibile sulla Philco 2000, quindi è probabile che un programma Fortran sia stato compilato per le architetture di computer IBM e Philco a metà del 1960.  Il primo linguaggio di alto livello multipiattaforma noto è stato COBOL. 
@@ -646,7 +654,9 @@ Come durante una comunicazione verbale anche i programmi hanno una propria gramm
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
-Un compilatore incrociato è un compilatore in grado di creare codice eseguibile per una piattaforma diversa da quella su cui è in esecuzione il compilatore. Ad esempio, un compilatore che viene eseguito su un PC ma genera codice che viene eseguito su uno smartphone Android è un compilatore incrociato.
+Un compilatore incrociato\todo{atrent: questa mi sa tanto di traduzione automatica!!! non farmi scoprire che hai google-tradotto pezzi da roba in rete...} è un compilatore in grado di creare codice eseguibile per una piattaforma diversa da quella su cui è in esecuzione il compilatore. Ad esempio, un compilatore che viene eseguito su un PC ma genera codice che viene eseguito su uno smartphone Android è un compilatore incrociato.
+
+\todo{atrent: ATTENZIONE!!! copincollato da https://it.upwiki.one/wiki/cross_compiler - MI FERMO QUI}
 
 Un compilatore incrociato è utile per compilare codice per più piattaforme da un host di sviluppo. La compilazione diretta sulla piattaforma di destinazione potrebbe non essere fattibile, ad esempio su sistemi embedded con risorse informatiche limitate.
 
