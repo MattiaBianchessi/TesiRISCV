@@ -221,7 +221,7 @@ Il primo approccio consiste in un ISA formata da un set di istruzioni in grado d
 Il RISC-V è un progetto open source basato su un architettura di tipo RISC. Il progetto iniziato nel 2010 all'Università della California, Berkeley. In origine Prof. Krste Asanoviće e alcuni studenti (Yunsup Lee e Andrew Waterman) svilupparono un ISA per scopi didattici, inizialmente solo progettata e successivamente, dopo dei finanziamenti, prodotta. Il primo workshop risale al 2015 e al lancio il progetto contava 36 membri fondatori.
 
 L'interesse per RISC-V non è dovuto all' architettura RISC o alla tecnologia rivoluzionaria ma il punto fondamentale è che RISC-V è uno standard libero che consente a chiunque di sviluppare in modo libero il proprio hardware per seguire il software.\\
-
+\todo{axj: non mi è chiaro il senso di "svilupporare il proprio hardware per seguire il software}
 Dopo il lancio il progetto fu studiato e utilizzato da molte realtà , come ad esempio in DARPA e Linux Foundation ,  e fu per questo che si fece conoscere molto presto al mondo.  Ora Il progetto RISC-V presenta numerose partnership con aziende e una community sparsa per tutto  il mondo.
 
 
@@ -318,7 +318,7 @@ instruction that always traps and might be able to implement the FENCE and FENCE
 any other ISA extension (except the A extension, which requires additional hardware support for
 atomicity).\cite{RISCV_ISA-DOC}
 \end{quote}
-
+\todo{axj: nella citazione si parla in inglese IS base, che può andare bene, ma in primo luogo offrirei una traduzione in Italiano. Nella sezione successiva parli sempre di RV32I ma solo in termini di registri. Al posto di "caratterizzato" direi "include"}
 \section{RV32I}
 Il set è caratterizzato da registri a 32 bit. 31 dei quali registri general-purpose che memorizzano valori interi, identificati dalle sigle x1 - x31, il registro x0 è presente la costante 0.  Il termine XLEN rappresenta la lunghezza dei registri che in questo caso è 32.(Figura \ref{Fig:registri_arc_32})
 
@@ -335,6 +335,7 @@ Il set è caratterizzato da registri a 32 bit. 31 dei quali registri general-pur
 Di base questo set presenta sei formati di istruzione (R/I/S/U/B/J) come mostrato in figura  (Figura 2.4).
 Tutti i formati sono su 32 bit. In questi formati i registri source (rs1 e rs2) e il registro destination (rd) vengono mantenuti nelle stesse posizioni per semplificare la decodifica.
 
+\todo{axj: parli di registri sorgente e destinazione, ma fino ad  ora si sono visti solo nell'immagine}
 
 \begin{itemize}
 	\item R:  Il formato presenta i due registri source e il registro destinazione
@@ -350,12 +351,12 @@ Tutti i formati sono su 32 bit. In questi formati i registri source (rs1 e rs2) 
 	\caption{Formati istruzione RISC-V}
 	\label{Fig:Formati_istruzioni_RV32I}
 \end{figure}
-
+\todo{axj: Da dove vengono queste immagini?}
 
 \subsection{Istruzioni per computazione intera}
 La maggior parte delle istruzioni che computano su valori interi opera su bit XLEN dei valori contenuti nei registri. Le istruzioni sono codificate e utilizzato il formato I (register-immediate) o il formato R (register-register). Il registro di destinazione.  La destinazione (rd) è la stessa per le istruzioni I che per le R.  Le istruzioni a computazione intera non causano eccezioni aritmetiche.\\
 
-
+\todo{axj: Onestamente, io che conosco l'argomento ho fatto fatica a capire di cosa parli. Non dico che ci sia un errore, ma che forse sei stato un filo stringato nella forma}
 
 \subsection{Istruzioni registro-immediate}
 Istruzioni di questo tipo utilizzano il formato I:
@@ -498,6 +499,9 @@ RV32I fornisce una serie di contatori a livello utente di sola lettura a 64 bit,
 	\label{Fig:Istruzioni_TimerCounter}
 \end{figure}
 
+\todo{axj: Pare a me o tutta la parte precedente arriva quasi uguale da qui (vedi commento) ?}
+% (https://opencores.org/websvn/filedetails?repname=neorv32&path=%2Fneorv32%2Ftrunk%2Fdocs%2Freferences%2Friscv-privileged.pdf&rev=66)? 
+
 \subsection{Pseudo-istruzioni}
 Nel manuale dell ISA di RISC-V sono presentate anche le pseudo-istruzioni di base. Le pseudo-istruzioni presentate mostrano che la maggior parte delle istruzioni ha una traduzione 1 a 1 con istruzioni regolari. Con l'inserimento si da la possibilità di avere un codice assembly molto piu comprensibile e intuitivo, naturalmente la compattezza del codice solo in alcuni casi, con le istruzioni standard, in quanto solo qualche pseudo-istruzione viene tradotta con piu istruzioni regolari.Questo comporta , per un programmatore RISC-V, a non dover configurare delle pseudo-istruzioni di utilità. Comunque è possibile costumizzare l'ISA inserendo altre pseudo.istruzioni.
 
@@ -605,6 +609,7 @@ Come ultima cosa con questa estensione è introdotta un istruzione:
 \end{table}
 
 
+\todo{axj: citando il buon Rovazzi, è tutto molto interessante, ma forse eccessivo. Come diceva Andrea, a meno di fare un confronto totale con l'architettura di confronto, cosa che non raccomando, questo corso accelerato di architetture degli elaboratori è un po' pesante e senza un reale obiettivo}
 
 \subsection{E per Embedded}
 RV32E Isa sviluppato per dispositivi Embedded. La differenza principale sta nel avere la meta dei registri x0-x15 (x0 mantiene sempre la costante 0) al posto dei 32 di RV32I. Le istruzioni utilizzabili sono le istruzioni che utilizzano i registri ammissibili mentre le istruzioni che richiedono i registri x16-x31 risultano illegali e , se utilizzate, sollevano eccezioni. Anche con RV32E può essere estensibile con alcune estensioni standard.
@@ -631,7 +636,7 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 
 \section{Descrizione}
 Un compilatore è un programma che trasforma il codice sorgente scritto in un determinato linguaggio di programmazione,  in un altro linguaggio informatico (codice target). Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile. Il linguaggio attraversa diverse fasi prima di diventare il codice target. La prima attivita è l' analisi lessicale dove il programma viene analizzato parola per parola e genera dei token. La seconda attivita è l analisi sintattica dove viene controllata la correttezza formale del programma. In questa fase i token precedentemente generati vengono analizzati e utilizzati per generare una struttura ad albero che nella fase di analisi semantica viene analizzato per verificare la correttezza delle espressioni scritte.  Infine viene generato il codice target.  Alcuni compilatori prevedono un ulteriore fase la fase di ottimizzazione dove il codice viene ottimizzato 
-
+\todo{axj: "Linguaggio informatico" non ha molto senso. Raramente tutta l'ottimizzazione è lasciata dopo la generazione del codice binario}
 \begin{figure}
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
@@ -719,8 +724,10 @@ OS: Alibaba Group Enterprise Linux Server release 7.2 (Paladin)\\
 Kernel: 4.9.151–015.ali3000.alios7.x86\_ 64\\
 Compilatori: Clang/LLVM 8.0 GCC8.3.1\\
 
+\todo{axj: Te possino.... "Alibaba Group Enterprise Linux Server release 7.2"... aaaarrrrgghhhhh}
+
 \textbf{Programma}\\
-SPEC CPU 2017 è un set di strumenti di test del sottosistema CPU per testare CPU, cache, memoria e compilatore. Contiene 43 test di quattro categorie, tra cui SPECspeed 2017 INT e FP per la velocità  di calcolo intera e in virgola mobile e SPECrate 2017 INT e FP che testano il tasso di concorrenza intero e a virgola mobile. Clang non supportando il Fortran. sono stati scelti C/C++ per testare la differenza di prestazioni single-core tra i programmi binari generati da Clang e GCC.\\
+SPEC CPU 2017 è un set di strumenti di test del sottosistema CPU per testare CPU, cache, memoria e compilatore. Contiene 43 test di quattro categorie, tra cui SPECspeed 2017 INT e FP per la velocità  di calcolo intera e in virgola mobile e SPECrate 2017 INT e FP che testano il tasso di concorrenza intero e a virgola mobile. Clang non supportando il Fortran. sono stati scelti C/C++ per testare la differenza di prestazioni single-core tra i programmi binari generati da Clang e GCC.\\\todo{axj:Questo periodo è decisamente poco fluido}
 Di seguito alcuni grafici che rappresentano il tempo di compilazione di alcuni test e le performance del codice generato.
 
 \begin{figure}[h]
@@ -730,8 +737,11 @@ Di seguito alcuni grafici che rappresentano il tempo di compilazione di alcuni t
  \label{Fig:Tempo di compilazione}
 \end{figure}
 
+
 Il processo di compilazione di GCC è il seguente: leggere il file sorgente, preelaborare il file sorgente, viene convertito in un IR, ottimizzato e generato un file assembly. Quindi l'assemblatore genera un file oggetto. 
 Clang e LLVM non si basano su compilatori indipendenti, ma integrano compilatori auto-implementati nel back-end.  Rispetto a GCC, la struttura dei dati di LLVM, è più concisa e occupa meno memoria durante la compilazione ed è più veloce.  Pertanto, Clang  è vantaggioso in termini di tempo di compilazione, come dimostrano i dati ottenuti dalla compilazione \ref{Fig:Tempo di compilazione}.
+
+\todo{axj: Pare a me o il grafico dice il contrario?}
 
 \begin{figure}[h]
 \centering
