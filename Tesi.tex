@@ -193,6 +193,7 @@ Introduzione
 RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel} e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V.
 
 
+
 \section{Gli obbiettivi di RISC-V}
 Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco gli obbiettivi di RISC-V. Gli obbiettivi dichiarati , nell'introduzione, della specifica dell' ISA user-mode sono:
 \begin{itemize}
@@ -347,7 +348,7 @@ Rispettivamente il valore di XLEN per RV64I e per RV128I è 128.
 
 Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le linee guida per fare delle proprie estensioni.
 
-
+\todo{Ho trovato i primi 2 capitoli molto più leggibili. Hai fatto bene a smaltire}
 
 %%
 %Capitolo 3: Compilatori
@@ -391,6 +392,7 @@ Il primo GCC (GNU Compiler Collection) fu creato nel 1987 oggi viene sviluppato 
 
 Il secondo nato nel 2005 sviluppato da Apple Inc.  Inizialmente fu sviluppato con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
+\textit{Domanda: Ma tu hai usato CLANG? }
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno  sempre più espressivi e astratti.  Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
@@ -510,7 +512,7 @@ Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10
 \todo{Info algoritmi sorting ?}
 
 \subsection{BackTracking}
-
+\todo{Forse qui devi riformattare il testo}
 In questa direcotry sono contenuti due programmi:
 
 Un solutore di sudoku
@@ -561,7 +563,7 @@ Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
 	
 	\caption{Tempi di esecuzione MacBook-Air}
 	\end{table}
-	
+	\todo{Non ho trovato il riferimento alle specifiche del MacBook Air che stai utilizzando come termine di paragone. Ad ogni modo, trattandosi di un benchmark credo sia più interessante sapere la CPU e non se è un computer che fa molto figo se ci vai da Starbuks. Non ne voglio fare una questione \textbf{NOBRAND}, ma il produttore del portatile cambia relativamente poco}
 	\begin{table}[h!]
 		\centering
 		\begin{tabular}{{| l | c | c | c | c | c | c |}}
@@ -581,9 +583,9 @@ Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
 	\centering
 		\includegraphics[scale= 0.4]{PorzioniCodice/Operazioni/Grafico.png}
 	\end{figure}
-	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il MacBook il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  i tempi di esecuzioni della stessa operazione sono piu o meno lo stesso valore e il rapporto rimane simile per tutte le operazioni.
-	Il tempo di esecuzione totale del programma è di 23.653595 per Macbook mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC, risultato abbastanza prevedibile. Confrontando le architetture il processore del MacBook è di 2.2 GHz con memoria da 8Gb da 1600MHz mentre il processore RISC è di 1 GHz con memoria da 2Gb a 1333 MHz.
-	Avere una CPU da 1 Hertz significa avere un processore che può fare una cosa al secondo,  quindi il processore del Mac può eseguire 2.2 miliardi di operazioni in un solo secondo di contro il processore RISC solamente 1 miliardo, meno della metà invece la memoria RAM il processore RISC è di 2Gb con 1333 MHz di frequenza e il MacBook 8Gb con 1600 MHz.
+	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il MacBook il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  i tempi di esecuzioni della stessa operazione sono piu o meno lo stesso valore e il rapporto rimane simile per tutte le operazioni.\todo{non ho capito esattamente cosa volevi dire qui. Non dico che sia sbagliato, ma solo che non mi è chiaro}
+	Il tempo di esecuzione totale del programma è di 23.653595 per Macbook mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC, risultato abbastanza prevedibile. Confrontando le architetture il processore del MacBook è di 2.2 GHz con memoria da 8Gb da 1600MHz mentre il processore RISC è di 1 GHz con memoria da 2Gb a 1333 MHz.\todo{OK qui specifichi il Clock, ma che CPU è? Magari lo hai scritto da qualche parte e me lo sono perso, ad ogni modo dovrebbe essere menzionato all'inizio del confronto}
+	Avere una CPU da 1 Hertz significa avere un processore che può fare una cosa al secondo\todo{Ma anche no, dipende molto dall'architettura, ma in quelle moderne gli Hz ti dicono solo il clock, ma ad oggi le istruzioni richiedono svariati cicli di clock per eseguire una micro-istruzione},  quindi il processore del Mac può eseguire 2.2 miliardi di operazioni in un solo secondo di contro il processore RISC solamente 1 miliardo, meno della metà invece la memoria RAM il processore RISC è di 2Gb con 1333 MHz di frequenza e il MacBook 8Gb con 1600 MHz.
 
 
 
@@ -759,7 +761,7 @@ La funzione dato un numero di tipo intero restituisce il numero moltiplicato per
 
 
 \vspace{0.3 cm}
-Nel sorgente RISC-V \ref{Code:Add2RISC} l'operazione di moltiplicazione per 2 avviene tramite uno shift logical left di 1 bit (SLLIW). Stesso concetto avviene nel sorgente ARM \ref{Code:Add2X86} dove l 'operazione di moltiplicazione per 2 avviene tramite lo shift left di 1 bit. Invece nel sorgente x86 \ref{Code:Add2ARM} la moltiplicazione avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di 2 (ad esempio in figura 3) le operazioni avvengono tutte tramite shift left di un opportuno valore. Con la figura 4 viene mostrato il calcolo di una moltiplicazione per 8. Nei casi RISC-V e ARM il calcolo avviene attraverso Shift e nel caso x86 avviene anche qui uno shift.
+Nel sorgente RISC-V \ref{Code:Add2RISC} l'operazione di moltiplicazione per 2 avviene tramite uno shift logical left di 1 bit (SLLIW). Stesso concetto avviene nel sorgente ARM \ref{Code:Add2X86} dove l 'operazione di moltiplicazione per 2 avviene tramite lo shift left di 1 bit. Invece nel sorgente x86 \ref{Code:Add2ARM} la moltiplicazione avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di 2 (ad esempio in figura 3) le operazioni avvengono tutte tramite shift left di un opportuno valore. Con la figura 4 viene mostrato il calcolo di una moltiplicazione per 8. Nei casi RISC-V e ARM il calcolo avviene attraverso Shift e nel caso x86 avviene anche qui uno shift.\todo{https://www.youtube.com/watch?v=glJXTWl9FB4}
 
 
 \vspace{0.3 cm}
@@ -1293,10 +1295,10 @@ Sempre in una realtà quotidiana Patrick Little, CEO di SiFive, ha dichiarato ch
 \todo{Rileggi/Correggi capitolo 7: Dibattito \ldots}
 
 Quando si parla di processori una cosa importate da prendere in considerazione è ISA, quando si vuole scrivere un programma è molto utile conoscere il target per il proprio codice. Nell'ecosistema eterogeneo degli ISA i piu utilizzati sono x86 e ARM che hanno un approccio CISC e RISC rispettivamente. Le due ISA vengono applicate a sistemi ben differenti, ad esmpio il sistema sviluppato da Intel si applica a sistemi di grandi dimensione  come i sistemi HPC e i cluster mentre l'ambiente ARM viene utilizzato a sistemi ben piu piccoli. In questo contesto RISC-V, con il suo approccio RISC, sembrerebbe che voglia sostituirsi  ARM. \\
-Facciamo confronto con ARM e RISC il primo è basato su un IP proprietario che viene concesso alle società con un numero relativamente contenuto di fornitori, RISC invece ha un architettura delle specifiche royalty-free e i processori sono disponibili e esistono anche core con licenza commerciale. Le community hanno dimensino differenti, piu strutturata quella di ARM che aiuta i progettisti per specifiche applicazioni, contraposta è quella di RISC , che con poco piu di 10 anni di vita la community è piu contenuta main continua crescita. ARM dispone di team di ingegneri che sviluppano sistemi hardware che rendono facile per i progettisti incorporare CPU ARM, mentre i progettisti possono sperimentare e sviluppare sistemi RISC-V gratuitamente, c’è poco o nessun supporto per la progettazione dell’hardware. Per concludere L’ISA RISC-V è organizzato in gruppi di istruzioni  e offre la possibilità di utilizzare estensioni fornendo allo standard ISA  un supporto per applicazioni specifiche. Ad esempio, l’estensione RISC-V Vector (RVV) recentemente rilasciata consente ai core del processore basati su RISC-V ISA di elaborare array di dati insieme alle tradizionali operazioni scalari, per accelerare il calcolo di singoli flussi di istruzioni su grandi insiemi di dati.  In contradizione con l'approccio iniziale di ARM che non forniva estendibilità ma solo in seguito.\\
+Facciamo confronto con ARM e RISC il primo è basato su un IP proprietario che viene concesso alle società con un numero relativamente contenuto di fornitori\todo{???}, RISC invece ha un architettura delle specifiche royalty-free e i processori sono disponibili e esistono anche core con licenza commerciale\todo{Blinda la supercazzola prematurata come se fosse antani}. Le community hanno dimensino differenti, piu strutturata quella di ARM che aiuta i progettisti per specifiche applicazioni, contraposta è quella di RISC , che con poco piu di 10 anni di vita la community è piu contenuta main continua crescita\todo{Come sopra}. ARM dispone di team di ingegneri che sviluppano sistemi hardware che rendono facile per i progettisti incorporare CPU ARM, mentre i progettisti possono sperimentare e sviluppare sistemi RISC-V gratuitamente, c’è poco o nessun supporto per la progettazione dell’hardware. Per concludere L’ISA RISC-V è organizzato in gruppi di istruzioni  e offre la possibilità di utilizzare estensioni fornendo allo standard ISA  un supporto per applicazioni specifiche. Ad esempio, l’estensione RISC-V Vector (RVV) recentemente rilasciata consente ai core del processore basati su RISC-V ISA di elaborare array di dati insieme alle tradizionali operazioni scalari, per accelerare il calcolo di singoli flussi di istruzioni su grandi insiemi di dati.  In contradizione con l'approccio iniziale di ARM che non forniva estendibilità ma solo in seguito.\\
 Passiamo ora a sistemi un po piu grandi.  L'azienda E4 Computer Engineering ha progettato il suo primo Arm-based cluster nel 2012 (INSERISCI NOTE BIB).  Oggi l' E4 sta  integrando un cluster basato sul processore HiFive Unmatched (di SiFive). Questa azione inaugura una nuova era di sviluppo RISC-V basato su Linux. Il processore utilizzato è basatosu RISC-V che utilizza multi-core ad alte prestazioni, 64 bit dual-issue e superscalare.  In questo modo si fornisce l’accesso ad entrambe le architetture ARM e RISC-V, cosicchè gli utenti e sviluppatori possono testare ampiamente le loro applicazioni e codici e fornire indicazioni per trovare la migliore soluzione complessiva ai loro requisiti.
 
-L’uso di processori RISC-V è crescente,  le grandi aziende stanno già cercando alternative ad ARM. Anche se ARM è stata acquisita da  NVIDIA,  RISC-V si fa sentire sul mercato. Alcuni dei suoi partner sono Google, Intel e Huawei o altri come Arduino, AntMicro e Oculus.  \\
+L’uso di processori RISC-V è crescente,  le grandi aziende stanno già cercando alternative ad ARM. Anche se ARM è stata acquisita da  NVIDIA\todo{In realtà no, sono stati bloccati dal governo britannico},  RISC-V si fa sentire sul mercato. Alcuni dei suoi partner sono Google, Intel e Huawei o altri come Arduino, AntMicro e Oculus.  \\
 
 Tuttavia, solo perché qualcosa è gratuito non significa che prenderà il comando. Prendiamo come esempio il sistema Linux la maggior parte delle distribuzioni sono gratuite, ma Linux costituisce una piccola percentuale dei sistemi operativi in tutto il mondo.   Con il migliorare della tecnologia il supporto a RISC-V aumenterà, grazie anche alla community, che porterà i progetisti ad avere un opzione di un architettura gratuita senza limitazioni e altamente configurabile ed estendibile ma non si ha certezza se prenderà una grossa fetta di mercato.
 
