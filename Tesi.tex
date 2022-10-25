@@ -162,19 +162,25 @@ sorting=ynt,
 \end{center}
 \end{titlepage}
 
-%%%%%%%%%%
-% TODO
-%%%%%%%%%%
+
 \listoftodos
 
 %%%%%%%%
 \chapter*{Introduzione}
+\todo{RIleggi}
+%\textbf{Oggetto della tesi}
+Il processore è il componente hardware con il quale vengono svolte le istruzioni.
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che può eseguire. RISC-V , un \textit{istruction set} basato su un approccio \textit{ reduced instruction set computer}, sta facendo parlare di sè.   
 
-Introduzione 
+%\textbf{OBIETTIVI}
+L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
 
-\todo{Introduzione \ldots}
+%\textbf{METODI E STRUMENTI}
+Per la valutazione sono stati scrittura dei codici in linguaggio c compilati con la toolchain di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori.
+In alcuni casi viene anche analizzato il sorgente compilato.
 
-
+%\textbf{Struttura }
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. I capitolo 4 e 5 vengono presentati alcuni programmi utilizzati per la valutazione e analizzati i risultati ottenuti.
 
 \tableofcontents
 \listoffigures
@@ -217,7 +223,7 @@ L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA su
 Le celle della memoria principale sono di lunghezza variabile a seconda dell ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare.
 
 %Modalita indirizzamento
-Avendo tutte le istruzioni di lunghezza fissa non è possibile avere direttamente costanti o indirizzi superiori lla lunghezza assegnata al campo dell istruzione. La soluzione è l'utilizzo della modalità di indirizzamento
+Avendo tutte le istruzioni di lunghezza fissa non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell istruzione. La soluzione è l'utilizzo della modalità di indirizzamento
 \begin{itemize}
 	\item \textbf{indirizzamento immediato}, l’operando è una costante nell’istruzione è comunque limitato dai bit assegnati del campo.
 	\item \textbf{indirizzamento a registro} l’operando è un registro.
@@ -301,7 +307,7 @@ N & 1.1 & N\\
 	\label{tab:nomenclaturaISA}
 \end{table}
 
-La tabella  \ref{tab:nomenclaturaISA}, presa da SPEC-2.2 \todo{add ref},  presenta i set base e le estensioni standard con le rispettive versioni. Ogni base o estensione presenta la casella ''Definitiva'' che specifica se il set o l 'estensione è definitiva (S) o non lo è (N).
+La tabella  \ref{tab:nomenclaturaISA}, presa da SPEC-2.2 \cite{ISA},  presenta i set base e le estensioni standard con le rispettive versioni. Ogni base o estensione presenta la casella ''Definitiva'' che specifica se il set o l 'estensione è definitiva (S) o non lo è (N).
 
 
 
@@ -313,8 +319,9 @@ Di base l'ISA presenta un piccolo insieme di istruzioni  Le istruzioni base sono
 	\includegraphics[width = \textwidth]{FormatiIstruzione.png}
 	\caption{Formati istruzione RISC-V}
 	\label{Fig:Formati_istruzioni_RV32I}
+	\cite{ISA}
 \end{figure}
-\todo{axj: Da dove vengono queste immagini?}
+% from 
 
 
 In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il registro destinazione (\textit{rd}) vengono mantenuti nelle stesso posizioni per velocizzare la codifica.
@@ -363,6 +370,7 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 
 
 \begin{figure}
+\centering
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
 \label{Fig:MeccanismoCompilazione}
@@ -384,7 +392,6 @@ se scritto nel linguaggio di programmazione che compila.  Un esempio è il sopra
 \label{Sec:Cross}
 Con il termine \textbf{Cross.compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross-compilatore. Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. 
 
-% https://it.upwiki.one/wiki/cross_compiler
 
 \section{Compilatori moderni}
 Nel ecosistema dei compilatori moderni i due dei piu famosi sono: GCC e CLANG.
@@ -392,7 +399,7 @@ Il primo GCC (GNU Compiler Collection) fu creato nel 1987 oggi viene sviluppato 
 
 Il secondo nato nel 2005 sviluppato da Apple Inc.  Inizialmente fu sviluppato con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
-\textit{Domanda: Ma tu hai usato CLANG? }
+\textit{Domanda: Ma tu hai usato CLANG? } 
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno  sempre più espressivi e astratti.  Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
@@ -428,7 +435,7 @@ La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwi
 \end{figure}
 
 \vspace{2cm}
-\begin{table}[h!]
+\begin{table}[h]
 \centering
 \begin{tabular}{|r|c|}
 \hline
@@ -509,36 +516,35 @@ Gli algoritmi di sorting utilizzati sono:
 
 Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni set vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell array da ordinare, come ad esempio utilizzando il BubbleSort vengono oridinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
 
-\todo{Info algoritmi sorting ?}
 
 \subsection{BackTracking}
-\todo{Forse qui devi riformattare il testo}
 In questa direcotry sono contenuti due programmi:
+\begin{itemize}
+	\item Un solutore di sudoku
+	\item Un solutore di labirinti
+\end{itemize}
 
-Un solutore di sudoku
-Un solutore di labirinti
-In entrambi i casi vengono utilizzate tecniche di backtracking. Lo scopo è quello di valutare il tempo di esecuizione di programmi che fanno uso del backtracking su processore RISC.
+In entrambi i casi vengono utilizzate tecniche di backtracking.  Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
 
-Sudoku
-Nel file sudoku.h sono presenti 8 sudoku di varia difficoltà, 2 di essi non sono fattibili, uno per costruzione(sbagliato in partenza) e l 'altro è impossibile risolverlo per la configurazione.
+\textbf{Sudoku}
 
-MazeSolver
-Questa directory è presente il file mazeGen.py che è stato utilizzato come generatore di labirinti. Il solutore mazeSolver.c, una volta in esecuzione, chiede il path del labirinto da risolvere e successivamente è possibile salvare la soluzione, se trovta, in un nuovo file.
+Il solutore di sudoku risolve il puzzle matematico.  Sono presenti otto sudoku nel file sudoku.h di varia difficoltà, 2 di essi non sono fattibili, uno per costruzione(sbagliato in partenza) e l 'altro è impossibile risolverlo per la configurazione.
 
-Labirinto personale
-Il file con estensione .txt, se si vuole utilizzare un altro labirinto, dovrà avere:
+\textbf{MazeSolver}
 
-sulla prima linea il numero di linee del labirinto.
-sulla seconda linea il numero di colonne.
-dalla terza in poi il labirinto che dovrà avere un simbolo , come ad esempio '\#', per indicare i muri, lo spazio ' ' per indicare i corridoi, uno e un solo simbolo 'I' per indicare l' inizio e uno e un solo simbolo 'O' per indicare l' uscita del labirinto.
-Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
+Il solutore mazeSolver.c, una volta in esecuzione, chiede il path del labirinto da risolvere e successivamente è possibile salvare la soluzione, se trovata, in un nuovo file.  Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
+In directory è presente un ulteriore file mazeGen.py che è stato utilizzato come generatore di labirinti. 
+Inoltre viene fornita la possibilità di utilizzare un proprio labirinto, il labirinto personale dovrà avere l'estensione .txt specificare il numero di linee e il numero di colonne del labirinto sulle prime due righe. Successivamente  il labirinto. Le componenti del labirinto sono i muri , indicati con \#, un inizio , indicato con 'I' e una fine con 'O'. Le zone dello attraversabili sono idenficate dallo spazio ' '.
 
 
 \chapter{Comparativa}
 
+\section*{MacBook Air}\label{Macbook Air}
+Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha un processore 2,2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz.
+
 \section{Operazioni}
 	Con il programma operazioni viene visualizzato il tempo di esecuzione di alcune operazioni matematiche di base. Come mostrato nelle porzioni di codice Code \ref{Code:Sum},\ref{Code:Sub}, \ref{Code:Mul}, \ref{Code:Div}, \ref{Code:Mod} mostrano le funzioni che si occupano delle operazioni. Ogni funzione, semplicemente, cicla ogni elemento dell' array a e dell array b, ne esegue l'operazione e memorizza il risultato in un array c. L'array a ha valori interi compresi tra 1 e 200, l'array b ha valori interi compresi tra 1 e 100,  le matrici utilizzate sono matrici quadrate e le dimensioni utilizzate sono 1000, 2500, 5000, 8000, 10000, 15000. Per ogni operazione vengono eseguite 5 prove da cui viene calcolato il tempo medio di esecuzione. 
-	Per riferimento il programma è stato utilizzato anche su un MacBook Air. 
+	Per riferimento il programma è stato utilizzato anche su un MacBook Air \ref{MacBook Air}. 
 	
 	\lstinputlisting[language=c,  style = Cstyle, caption = Addizione,  label ={Code:Sum} ]{PorzioniCodice/Operazioni/sum.c}
 	\lstinputlisting[language=c,  style = Cstyle, caption = Sottrazione, label ={Code:Sub}]{PorzioniCodice/Operazioni/sub.c}
@@ -563,7 +569,7 @@ Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
 	
 	\caption{Tempi di esecuzione MacBook-Air}
 	\end{table}
-	\todo{Non ho trovato il riferimento alle specifiche del MacBook Air che stai utilizzando come termine di paragone. Ad ogni modo, trattandosi di un benchmark credo sia più interessante sapere la CPU e non se è un computer che fa molto figo se ci vai da Starbuks. Non ne voglio fare una questione \textbf{NOBRAND}, ma il produttore del portatile cambia relativamente poco}
+	
 	\begin{table}[h!]
 		\centering
 		\begin{tabular}{{| l | c | c | c | c | c | c |}}
@@ -583,11 +589,9 @@ Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
 	\centering
 		\includegraphics[scale= 0.4]{PorzioniCodice/Operazioni/Grafico.png}
 	\end{figure}
-	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il MacBook il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  i tempi di esecuzioni della stessa operazione sono piu o meno lo stesso valore e il rapporto rimane simile per tutte le operazioni.\todo{non ho capito esattamente cosa volevi dire qui. Non dico che sia sbagliato, ma solo che non mi è chiaro}
-	Il tempo di esecuzione totale del programma è di 23.653595 per Macbook mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC, risultato abbastanza prevedibile. Confrontando le architetture il processore del MacBook è di 2.2 GHz con memoria da 8Gb da 1600MHz mentre il processore RISC è di 1 GHz con memoria da 2Gb a 1333 MHz.\todo{OK qui specifichi il Clock, ma che CPU è? Magari lo hai scritto da qualche parte e me lo sono perso, ad ogni modo dovrebbe essere menzionato all'inizio del confronto}
-	Avere una CPU da 1 Hertz significa avere un processore che può fare una cosa al secondo\todo{Ma anche no, dipende molto dall'architettura, ma in quelle moderne gli Hz ti dicono solo il clock, ma ad oggi le istruzioni richiedono svariati cicli di clock per eseguire una micro-istruzione},  quindi il processore del Mac può eseguire 2.2 miliardi di operazioni in un solo secondo di contro il processore RISC solamente 1 miliardo, meno della metà invece la memoria RAM il processore RISC è di 2Gb con 1333 MHz di frequenza e il MacBook 8Gb con 1600 MHz.
-
-
+	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il MacBook il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  %tolto: parla del nulla
+	Il tempo di esecuzione totale del programma è di 23.653595 per Macbook mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC, risultato abbastanza prevedibile. Confrontando le architetture il processore del MacBook è di 2.2 GHz con memoria da 8Gb da 1600MHz mentre il processore RISC è di 1 GHz con memoria da 2Gb a 1333 MHz.
+	
 
 \section{PrimeNumber}
 Il programma utilizza una scansione lineare per trovare i primi 5000 numeri primi. In seguito viene mostrato il codice della funzione principale.  La funzione controlla dal numero 2 in avanti se il numero è primo, se lo è viene inserito nell array altrimenti no e il ciclo viene eseguito fino a trovare 5000 numeri primi.  
@@ -607,12 +611,12 @@ I file sono stati compilato con diverse livelli di ottimizzazione.
 \label{Tab:TempoPrime}
 \end{table}
 Come precedentemente notato è l'ordine di grandezza di differenza dei due processori. Andando a guardare nei sorgenti assembly notiamo delle differenze. La prima abbastanza ovvia è la dimensione del file che nel caso dell ottimizzazione 0 è superiore (172 linee 4KB) rispetto all livello 2 (130 linee 4KB).Il secondo è l'utilizzao dell'istruzione nop nell livello 0.
-Il codice \ref{Code:primeO0} fa riferimento alla porzione di codice dove vengono utilizzate le istruzioni nop.\\
+Il codice \ref{Code:primeO0} fa riferimento alla porzione di codice dove vengono utilizzate le istruzioni nop.
 
 \lstinputlisting[language = Risc-v,  caption =Sorgente prime ottimizzato con -O0,  label ={Code:primeO0},  firstline=48,lastline=55 ]{PorzioniCodice/Prime/prime0.s}
 
 La pseudo-istruzione nop(No operation) ha come implementazione addi x0, x0, 0 è intiutivo capre che somma zero (costante) al registro contenente zero (x0) e lo memorizza nel registro x0. Questo è un caso eccezionale in cui si ha la possibilità di scrivere il registro x0, seppur con poco significato algebricamente, ogni altro caso in cui si vuole modificare il registro x0 solleverebbe errori. La motivazione della presenza di queste operazioni è più un fatto storico.
-La maggior parte delle implementazioni hardware ha degli interlock. Se un'istruzione necessita di dati che non sono ancora disponibili, la pipeline si interrompe finché i dati non sono disponibili. Oppure, se si tratta di una pipeline di esecuzione fuori ordine, un'istruzione si blocca finché i dati non sono disponibili e altre istruzioni possono continuare l'esecuzione.\\
+La maggior parte delle implementazioni hardware ha degli interlock. Se un'istruzione necessita di dati che non sono ancora disponibili, la pipeline si interrompe finché i dati non sono disponibili. Oppure, se si tratta di una pipeline di esecuzione fuori ordine, un'istruzione si blocca finché i dati non sono disponibili e altre istruzioni possono continuare l'esecuzione.
 I nop emessi dal compilatore con -O0  non vengono emessi a -O1 o superiore. Un ulteriore modo di utilizzo dell istruzione nop è quello di confronto diretto tra i sorgenti compilati con livelli di ottimizzazione differente. Il compilatore emette delle operazioni nop  in modo da avere un posto dove allegare le informazioni sul numero di riga con il comando -g durante la compilazione. Se una destinazione non dispone di interblocchi hardware, è compito del backend di destinazione aggiungere eventuali nop che potrebbero essere necessari per il corretto funzionamento sulla destinazione. Al momento non ci sono target RISC-V supportati da gcc che lo richieda.
 
 
@@ -744,7 +748,7 @@ Infine per x86 il calcolo avviene tra le righe 7 e 11 nello stesso modo con cui 
      \end{subfigure}
     
         \caption{Funzione di somma}
-        
+        \label{Fig:code2}
 \end{figure}
 
 
@@ -759,10 +763,10 @@ Infine per x86 il calcolo avviene tra le righe 7 e 11 nello stesso modo con cui 
 La funzione dato un numero di tipo intero restituisce il numero moltiplicato per 2.  Per i sorgenti le parti di preparazione sono simili per le rispettive preparazioni precedenti.
 
 
-
 \vspace{0.3 cm}
-Nel sorgente RISC-V \ref{Code:Add2RISC} l'operazione di moltiplicazione per 2 avviene tramite uno shift logical left di 1 bit (SLLIW). Stesso concetto avviene nel sorgente ARM \ref{Code:Add2X86} dove l 'operazione di moltiplicazione per 2 avviene tramite lo shift left di 1 bit. Invece nel sorgente x86 \ref{Code:Add2ARM} la moltiplicazione avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di 2 (ad esempio in figura 3) le operazioni avvengono tutte tramite shift left di un opportuno valore. Con la figura 4 viene mostrato il calcolo di una moltiplicazione per 8. Nei casi RISC-V e ARM il calcolo avviene attraverso Shift e nel caso x86 avviene anche qui uno shift.\todo{https://www.youtube.com/watch?v=glJXTWl9FB4}
+Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplicazione per 2. Questa avviene per RISC-V e per ARM tramite uno shift logical left di 1 bit (SLLIW) mentre per x86 avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di 2  le operazioni avvengono tutte tramite shift left di un opportuno valore.  Con la figura \ref{Fig:mult8} viene mostrato il calcolo di una moltiplicazione per 8. In tutti i casi il calcolo avviene attraverso Shift.
 
+% \todo{https://www.youtube.com/watch?v=glJXTWl9FB4}
 
 \vspace{0.3 cm}
 
@@ -815,9 +819,9 @@ Nel sorgente RISC-V \ref{Code:Add2RISC} l'operazione di moltiplicazione per 2 av
      \end{subfigure}
     
         \caption{Moltiplicazione per 8}
-        
+        \label{Fig:mult8}
 \end{figure}
-
+\todo{Battitura: nome fuzione}
 \vspace{0.3 cm}
 
 \textbf{Moltiplicazione per una costante}
@@ -843,13 +847,18 @@ Vengono presentati due codici molto simili, il primo moltiplica il numero per 31
 
 \vspace{0.3 cm}
 
-Nel caso della moltiplicazione per 31 l'approccio dei 3 sorgenti è identico. Viene calcolata la moltiplicazione per 32 attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per 31. Se il valore costante fosse 33 , il numero successivo alla potenza di 2, l' operazione di sottrazione viene sostituita con una di addizione. Nel caso più generale invece abbiamo un approccio differente.\\
-Partendo dall x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga 6.  Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga 8) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga 6 e 7) vengono riempiti con gli operandi. Infine l' implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per 30 avviene prima uno shift di 4 ( moltiplicazione per 16) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di 1 (moltiplicazione per 2). \\ Quindi: \\ 
+Nel caso della moltiplicazione per 31 l'approccio dei 3 sorgenti è identico. Viene calcolata la moltiplicazione per 32 attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per 31. Se il valore costante fosse 33 , il numero successivo alla potenza di 2, l' operazione di sottrazione viene sostituita con una di addizione. Nel caso più generale invece abbiamo un approccio differente.
+
+Partendo dall x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga 6.  Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga 8) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga 6 e 7) vengono riempiti con gli operandi. Infine l' implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per 30 avviene prima uno shift di 4 ( moltiplicazione per 16) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di 1 (moltiplicazione per 2).  Quindi: 
+\begin{center}
+	\vspace{0.2cm}
 $((num * 2^4) - num ) * 2^1 = $ 
 
 $ =((num * 16 ) - num ) * 2 =$ 
 
 $ = 15 * num * 2 =  num *30 $ 
+\end{center}
+
 
 \vspace{0.2 cm}
 In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazioni per ottenere il valore della costante.
@@ -913,16 +922,13 @@ In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazion
 Per quanto riguarda la divisione viene utilizzato la stessa metodologia della moltiplicazione.
 
 
-
-
 \section{MonteCarloPi}
 % valutazione generatore numeri casuali 
 Al giorno d'oggi è comune utilizzare la generazione di numeri casuali in tecniche o simulazioni, ad esempio numeri di conto bancario e crittografia. È una tecnica necessaria e di base nella programmazione di computer. Non è possibile avere un generatore scelto tra tanti senza valutarne la casualità. Ad esempio un generatore che genera dei valori tra 0 e 100 ma con probabilità maggiore su uno specifico valore, è normale pensare che se si utilizza piu probabilmente verra generato quel numero di tutti gli altri. Un altro esempio se utilizzassimo un generatore che ha  una probabilità uniforme nel generare numeri  generiamo i primi 10 valori e questi sono 1,2,3,4,5,6,7,8,9,10 notiamo subito una sequenza riconoscibile e la casualità del prossimo numero è poco randomica.
-Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità dell n+1 esimo numero dopo n numeri.
+Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità del n+1 esimo numero dopo n numeri.
 
 \subsection{Generatore casuale}
 Per il programma è stato utilizzata la funzione rand() del linguaggio c. Per la valutazione dei valori sono state generati i valori da 0 a 99, estremi inclusi, per 5 volte. I campioni non presentano predicibilità e seguono una distribuzione normale. Possiamo concludere che il generatore è un generatore accettabile.
-
 
 % valori calcolati e tempo di exe
 Un utilizzo del generatore di numeri casuali è un algoritmo di Monte Carlo. Il metodo di Monte Carlo è un'ampia classe di metodi computazionali basati sul campionamento casuale per ottenere risultati numerici.  In particolare si è utilizzato il metodo applicato al calcolo del pigreco.
@@ -933,7 +939,7 @@ In pratica il metodo funziona così: si generano numeri casuali compresi tra 0 e
 \centering
 \includegraphics[scale=0.3]{Img/qCirc.png}
 \end{figure}
-Una volta generati i punti e valutati se ricadono all interno del primo quadrante del cerchio il calcolo del valore del pigreco è facile: \\
+Una volta generati i punti e valutati se ricadono all interno del primo quadrante del cerchio il calcolo del valore del pigreco è facile: 
 
 \vspace{1cm}
 $ \pi = 4 * \frac{Punti interni alla circonferenza}{Numero di ounti generati} $ 
@@ -1014,7 +1020,7 @@ Caso migliore &           $ \mathcal{O}(n)$   \\
 	\caption{complessita bubble sort}
 	\label{Tab:CompBubbleSort}
 \end{table}
-\\
+
 Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo e i tempi di esecuzione(Tab \ref{Tab:Tempi esecuzione Bubblesort}) secondo la dimensione dell array e la situazione iniziale dell array:
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Algoritmo bubble sort scritto in c}, label = {Code:BubbleSort}]{PorzioniCodice/Sorting/Bubble.c}	
 
@@ -1190,8 +1196,8 @@ In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa i
 		\label{Fig:PcSort}
 	\end{table}
 
-La tabella \ref{Fig:PcSort} mostra i tempi di esecuzione degli algoritmi di ordinamento. Confrontando i tempi del PC e si nota che in generale si ha, circa, un ordine di grandezza di differenza ricordando i 2.2 GHz del processore e 8Gb da 1600MHz del MacBook confrontati con il processore da 1 GHz con memoria da 2Gb a 1333 MHz vengono tradotti in un miglior tempo di esecuzione di un fattore 10.
-Un altro confronto lo possiamo fare con raspberry pi \footnote{Il modello utilizzato è il modello Raspberry model B mostrato in figura \ref{Fig:RBmodelB} }.
+La tabella \ref{Fig:PcSort} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti sul PC. 
+Un altro confronto lo possiamo fare con raspberry pi \footnote{Il modello utilizzato è il modello Raspberry model B mostrato in figura \ref{Fig:RBmodelB}}.
 
 \begin{figure}[h]
 \centering
@@ -1239,7 +1245,7 @@ Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e un
    \label{Fig:AllSort_RB}
 \end{figure}
 
-I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. Possiamo concludere che il miglioramento è dato dalla CPU e dalla memoria.  Per quanto riguarda gli algoritmi possiamo dire che in tutti tre i casi quicksort è il migliore.
+I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. 
 
 \section{BackTracking}
 Un altro problema che si puo affrontare è il problema del backtracking, ovvero quella tecnica per cui è necessario tornare su dei passi precedenti per trovare la soluzione al problema. Il primo programma utilizzato è un solutore di sudoku.
@@ -1268,7 +1274,7 @@ Il secondo problema che utilizza il backtracking è un solutore di labirinti.
 
 \begin{table}
 \centering
-\begin{tabular}{  |l | c | c |}
+\begin{tabular}{  | l | c | c |}
 \hline
  & RISC & PC  \\ \hline
 maze0 & 0.000102 & 0.000007  \\ \hline
@@ -1280,31 +1286,13 @@ maze2 &0.009123 & 0.000371  \\ \hline
 	\label{Tab:MazeSolver}
 	\end{table}
 
-
-\chapter{Progetti}
-\todo{Rileggi/Correggi capitolo 6: Progetti \ldots}
-Un progetto, con poco piu di dieci anni, ha gia ricevuto molte attenzioni da parte delle aziende. A oggi sono diverse le aziende che hanno scelto RISC-V per i loro progetti, e sembra che l'ISA sia ora pronta a fare il grande salto.  Due anni fa la statunitense Micro Magic, ha annunciato quello che ha definito "il core RISC-V a 64 bit più veloce al mondo", una soluzione che secondo loro è in grado di battere chip di ultima generazione come l'Apple M1 e le soluzioni basate su ARM.  L'azienda ha dimostrato una prototipo in grado di operare a 5 GHz. Un risultato, probabilmente, collegato a questo è che l' Apple ha deciso di tagliare i ponti con le architetture x86. La casa di Cupertino sembra che si voglia rivolgere verso l'architettura open source RISC-V. A confermarlo è un annuncio di lavoro per un \textit{"RISC-V High Performance Programmer"}.\\
-Al momento non c'è nulla che indichi che  Apple sia pronta a lasciare arm per passare a RISC-V, ma probabilmente integrerà nell'ecosistema attuale qualche processore RISC-V. Anche un altra grande azienda, AMD, ha pubblicato un annuncio di lavoro per una CPU RISC-V non ben precisata. Anche nel mondo del machine learning RISC-V si fa sentire.  Recentemente è stato presentato un acceleratore per il machine learning basato su un chip RISC-V, chiamato ET-SoC-1. Il processore è  dotato di 1088 core: a bordo della scheda vi sono sei chip. ET-SoC-1 può funzionare come processore standalone o come acceleratore.Secondo il CEO  di Esperanto Technologies si tratta del chip RISC-V commerciale \textit{ "più veloce al mondo"}. \\
-Tornando nel contesto domestico alcune notizie ipotizzano un laptop nominato ROMA.
-Per ROMA le aziende DeepComputing e Xcalibyte hanno deciso di scommettere su  RISC-V, progettando un laptop differente rispetto ai moderni moderni. Il portatile avrà una CPU quad-core, GPU e NPU (Neural Processing Unit) per l’accelerazione 3D. Sarà equipaggiato con 256 GB di SSD e 16 GB di RAM. Supporterà la maggior parte dei sistemi Linux. Il laptop è stato pensato principalmente per gli sviluppatori che scrivono codice per architettura RISC ma nulla vieta che successivamente sarà disponibile una versione per i non programmatori.\\
-Sempre in una realtà quotidiana Patrick Little, CEO di SiFive, ha dichiarato che entro il 2023 probabilmente vedremo sul mercato il primo smartphone basato su RISC-V sottolineando le enormi potenzialità dell'architettura e del design della sua azienda.
-
-
-
-\chapter{Dibattito ARM vs RISC-V}
-\todo{Rileggi/Correggi capitolo 7: Dibattito \ldots}
-
-Quando si parla di processori una cosa importate da prendere in considerazione è ISA, quando si vuole scrivere un programma è molto utile conoscere il target per il proprio codice. Nell'ecosistema eterogeneo degli ISA i piu utilizzati sono x86 e ARM che hanno un approccio CISC e RISC rispettivamente. Le due ISA vengono applicate a sistemi ben differenti, ad esmpio il sistema sviluppato da Intel si applica a sistemi di grandi dimensione  come i sistemi HPC e i cluster mentre l'ambiente ARM viene utilizzato a sistemi ben piu piccoli. In questo contesto RISC-V, con il suo approccio RISC, sembrerebbe che voglia sostituirsi  ARM. \\
-Facciamo confronto con ARM e RISC il primo è basato su un IP proprietario che viene concesso alle società con un numero relativamente contenuto di fornitori\todo{???}, RISC invece ha un architettura delle specifiche royalty-free e i processori sono disponibili e esistono anche core con licenza commerciale\todo{Blinda la supercazzola prematurata come se fosse antani}. Le community hanno dimensino differenti, piu strutturata quella di ARM che aiuta i progettisti per specifiche applicazioni, contraposta è quella di RISC , che con poco piu di 10 anni di vita la community è piu contenuta main continua crescita\todo{Come sopra}. ARM dispone di team di ingegneri che sviluppano sistemi hardware che rendono facile per i progettisti incorporare CPU ARM, mentre i progettisti possono sperimentare e sviluppare sistemi RISC-V gratuitamente, c’è poco o nessun supporto per la progettazione dell’hardware. Per concludere L’ISA RISC-V è organizzato in gruppi di istruzioni  e offre la possibilità di utilizzare estensioni fornendo allo standard ISA  un supporto per applicazioni specifiche. Ad esempio, l’estensione RISC-V Vector (RVV) recentemente rilasciata consente ai core del processore basati su RISC-V ISA di elaborare array di dati insieme alle tradizionali operazioni scalari, per accelerare il calcolo di singoli flussi di istruzioni su grandi insiemi di dati.  In contradizione con l'approccio iniziale di ARM che non forniva estendibilità ma solo in seguito.\\
-Passiamo ora a sistemi un po piu grandi.  L'azienda E4 Computer Engineering ha progettato il suo primo Arm-based cluster nel 2012 (INSERISCI NOTE BIB).  Oggi l' E4 sta  integrando un cluster basato sul processore HiFive Unmatched (di SiFive). Questa azione inaugura una nuova era di sviluppo RISC-V basato su Linux. Il processore utilizzato è basatosu RISC-V che utilizza multi-core ad alte prestazioni, 64 bit dual-issue e superscalare.  In questo modo si fornisce l’accesso ad entrambe le architetture ARM e RISC-V, cosicchè gli utenti e sviluppatori possono testare ampiamente le loro applicazioni e codici e fornire indicazioni per trovare la migliore soluzione complessiva ai loro requisiti.
-
-L’uso di processori RISC-V è crescente,  le grandi aziende stanno già cercando alternative ad ARM. Anche se ARM è stata acquisita da  NVIDIA\todo{In realtà no, sono stati bloccati dal governo britannico},  RISC-V si fa sentire sul mercato. Alcuni dei suoi partner sono Google, Intel e Huawei o altri come Arduino, AntMicro e Oculus.  \\
-
-Tuttavia, solo perché qualcosa è gratuito non significa che prenderà il comando. Prendiamo come esempio il sistema Linux la maggior parte delle distribuzioni sono gratuite, ma Linux costituisce una piccola percentuale dei sistemi operativi in tutto il mondo.   Con il migliorare della tecnologia il supporto a RISC-V aumenterà, grazie anche alla community, che porterà i progetisti ad avere un opzione di un architettura gratuita senza limitazioni e altamente configurabile ed estendibile ma non si ha certezza se prenderà una grossa fetta di mercato.
+%--------
 
 \chapter{Conclusione}
-% \textbf{DESKTOP CON PROCESSORE RISC-V SEE BIB}
+In questa tesi si sono fatti alcuni test su RISC-V. 
+
 %\addcontentsline{toc}{chapter}{Bibliografia}
+
 
 \printbibliography
 
