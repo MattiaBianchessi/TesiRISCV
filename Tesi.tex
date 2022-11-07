@@ -136,11 +136,11 @@ sorting=ynt,
 \end{center}
 \vspace{12mm}
 \begin{center}
-{\huge{\bf TITOLO}}\\
+
 \vspace{4mm}
-{\huge{\bf TITOLO}}\\
+{\huge{\bf RISC-V stress testing}}\\
 \vspace{4mm}
-{\huge{\bf TITOLO}}\\
+
 \end{center}
 \vspace{12mm}
 \begin{flushleft}
@@ -158,7 +158,7 @@ sorting=ynt,
 \end{flushright}
 \vspace{4mm}
 \begin{center}
-{\large{\bf Anno Accademico xxxxxxxx}}
+{\large{\bf Anno Accademico 2022-2023}}
 \end{center}
 \end{titlepage}
 
@@ -190,7 +190,6 @@ La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi 
 % o sections (dipende dal documentclass)
 
 \chapter{RISC-V}
-\todo{Rileggi/Correggi capitolo 1: RISC-V \ldots} 
 
 % OUTLINE CH 1 
 % ->>>>Un approccio meno giornalistico 
@@ -310,8 +309,6 @@ N & 1.1 & N\\
 La tabella  \ref{tab:nomenclaturaISA}, presa da SPEC-2.2 \cite{ISA},  presenta i set base e le estensioni standard con le rispettive versioni. Ogni base o estensione presenta la casella ''Definitiva'' che specifica se il set o l 'estensione è definitiva (S) o non lo è (N).
 
 
-
-
 \section{Istruzioni base}
 Di base l'ISA presenta un piccolo insieme di istruzioni  Le istruzioni base sono solamente 47 e vengono codificate in 6 formati (R/I/S/U/B/J).  
 
@@ -321,7 +318,7 @@ Di base l'ISA presenta un piccolo insieme di istruzioni  Le istruzioni base sono
 	\label{Fig:Formati_istruzioni_RV32I}
 	\cite{ISA}
 \end{figure}
-% from 
+
 
 
 In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il registro destinazione (\textit{rd}) vengono mantenuti nelle stesso posizioni per velocizzare la codifica.
@@ -331,7 +328,6 @@ I formati B e J possono essere visti come delle variazioni dei formati S e U nel
 	\item \textbf{Accesso alla memoria}Le istruzioni di accesso alla memoria premetto il trasferimento di datti dalla memoria e alla memoria. Sono presenti 8 istruzioni in totale, 5 di load codificate nel formato I e 3 di store codificate nel formato S.
 	\item \textbf{Controllo del flusso}Le istruzioni di controllo permettono di alterare il normale flusso sequenziale del programma. Sono presenti 6 istruzioni di questo tipo che permettono il trasferimento codificate nel formato B. Le istruzioni prevedono il confronto degli operandi in \textit{rs1} e \textit{rs2} se la condizione  è verificate viene aggiunto il valore del campo imm al \textit{program counter} per raggiungere l'indirizzo di arrivo.
 	\item \textbf{Istruzioni di sistema}Con RV32I sono presenti 8 istruzioni di controllo del sistema. Possiamo dividerle in due gruppi. Il primo gruppo (ECALL, EBREAK) gestisce  le \textit{system call}. Il secondo gruppo sono utilizzate per leggere e scrivere i registri di stato.
-	%Entrare un po di piu nei dettagli ?
 \end{itemize}
 
 
@@ -363,8 +359,6 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 
 \chapter{Compilatori}
 
-\todo{Rileggi/Correggi capitolo 3: Compilatore\ldots}
-%definizione -> fasi
 \section{Descrizione}
 Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target.
 
@@ -374,23 +368,17 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
 \label{Fig:MeccanismoCompilazione}
-\end{figure}% figura disegnata io
-
+\end{figure} % figura disegnata io
 
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
 Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0}.
 
-Il primo compilatore ALGOL 58 fu completato verso la fine del 1958 per il Z22.  Nel 1960 fu sviluppato un compilatore in linguaggio Fortran, ALTAC, era disponibile sulla Philco 2000.  
-
-Il linguaggio per l'implementazione del compilatore è importante. Un compilatore può essere self-hosted
-se scritto nel linguaggio di programmazione che compila.  Un esempio è il sopracitato compilatore di Böhm. Oltre a questo possiamo citare il Navy Electronics Laboratory International ALGOL Compiler (NELIAC) o il Lisp.
-
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
-Con il termine \textbf{Cross.compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross-compilatore. Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. 
+Con il termine \textbf{Cross.compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross-compilatore.  Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. 
 
 
 \section{Compilatori moderni}
@@ -399,7 +387,7 @@ Il primo GCC (GNU Compiler Collection) fu creato nel 1987 oggi viene sviluppato 
 
 Il secondo nato nel 2005 sviluppato da Apple Inc.  Inizialmente fu sviluppato con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
-\textit{Domanda: Ma tu hai usato CLANG? } 
+\textit{Domanda: Ma tu hai usato CLANG?} 
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno  sempre più espressivi e astratti.  Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
@@ -431,7 +419,7 @@ La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwi
 \caption{Board vista dall' alto}
 
 \includegraphics[width = \textwidth]{D1H-BoardBlockView.png}
-\caption{Schema a blocchi della scheda di sviluppo}
+\caption{Schema a blocchi della scheda di sviluppo}\cite{BoardInfo}
 \end{figure}
 
 \vspace{2cm}
@@ -479,34 +467,27 @@ La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fo
 
 \section{Presentazione programmi}
 I programmi utilizzati sono scritti in C e sono contenuti su github su una \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.
- Ogni directory contiene i dati di esecuzione di ciascun programma eseguito sulla board in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi confrontarli.
+ Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi confrontarli.
 \subsection{Operazioni Aritmetiche}
-Operazioni: la directory contiene un programma che esegue le operazioni aritmetiche di base 
-\begin{itemize}
-	\item addizione
-	\item sottrazione
-	\item moltiplicazione
-	\item divisione
-	\item modulo
-\end{itemize} 
+Il primo programma utilizzato esegue le operazioni aritmetiche di base addizione, sottrazione, moltiplicazione, divisione e modulo.
 Il programma genera due matrici quadrate di numeri interi su cui vengono eseguite le operazioni elemento per elemento. Le dimensioni delle matrici sono 1000 x 1000, 2500 x 2500, 5000 x 5000, 8000 x 8000, 10000 x 10000, 15000 x 15000.
 
-La prima matrice generata ha valori tra 1 e 200, la seconda ha valori tra 1 e 100.
+La prima matrice generata ha valori tra uno e duecento, la seconda ha valori tra uno e cento.
 
-Per ogni matrice vengono eseguite 5 prove da cui viene calcolato il tempo medio di esecuzione
+Per ogni matrice vengono eseguite cinque prove da cui viene calcolato il tempo medio di esecuzione.
 
 \subsection{Prime Number}
-Il programma generai primi 5000 numeri primi. I programmi vengono compilati ed eseguiti con differenti livelli di ottimizzazione del compilatore e viene calcolato il tempo di esecuzione. 
-Il programma 'prime.c' controlla da 2 in poi se n-esimo numero è divisibile se non è divisibile allora lo memorizzo altrimenti passo al prossimo numero.  
+Il programma generai primi cinquemila numeri primi. 
+Il programma ''prime.c'' controlla da due in poi se n-esimo numero è divisibile se non è divisibile allora lo memorizzo altrimenti passo al prossimo numero.  
 
 \subsection{Moltiplicazione o shift}
-Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra 0 e maxInt e un array di potenze di 2 comprese tra 2 e 1024. Entrambi gli array hanno 1000 elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di 1000 operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift).
+Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift).
 
 \subsection{Montecarlo Pi}
-Algoritmo di approssimazione del pigreco tramite il metodo di montecarlo. Nell esecuzione vengono utilizzati da 10 a ($ 10^{10} $) punti per l'approssimazione. Ogni iterazione viene eseguita 5 volte e per ogni iterazione viene memorizzato il valore calcolato con il proprio tempo di esecuzione. Il programma si basa sulla funzione rand.
+Algoritmo di approssimazione del pigreco tramite il metodo di Montecarlo. Nell' esecuzione vengono utilizzati da 10 a ($ 10^{10} $) punti per l'approssimazione. Ogni iterazione viene eseguita cinque volte e per ogni iterazione viene memorizzato il valore calcolato con il proprio tempo di esecuzione. Il programma si basa sulla funzione rand.
 
 \subsection{Sorting}
-Gli algoritmi di sorting utilizzati sono:
+In questa directory sono presenti alcuni alcuni algoritmi di sorting. Gli algoritmi di sorting utilizzati sono:
 \begin{itemize}
 	\item BubbleSort
 	\item InsertionSort
@@ -514,11 +495,10 @@ Gli algoritmi di sorting utilizzati sono:
 	\item HeapSort
 \end{itemize}
 
-Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni set vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell array da ordinare, come ad esempio utilizzando il BubbleSort vengono oridinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
-
+Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni dimensione vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell' array da ordinare, come ad esempio utilizzando il BubbleSort vengono ordinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
 
 \subsection{BackTracking}
-In questa direcotry sono contenuti due programmi:
+In questa directory sono contenuti due programmi che utilizzano metodi di backtracking:
 \begin{itemize}
 	\item Un solutore di sudoku
 	\item Un solutore di labirinti
@@ -540,11 +520,11 @@ Inoltre viene fornita la possibilità di utilizzare un proprio labirinto, il lab
 \chapter{Comparativa}
 
 \section*{MacBook Air}\label{Macbook Air}
-Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha un processore 2,2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz.
+Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha un processore 2,2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini Pc fanno riferimento a questa architettura.
 
 \section{Operazioni}
-	Con il programma operazioni viene visualizzato il tempo di esecuzione di alcune operazioni matematiche di base. Come mostrato nelle porzioni di codice Code \ref{Code:Sum},\ref{Code:Sub}, \ref{Code:Mul}, \ref{Code:Div}, \ref{Code:Mod} mostrano le funzioni che si occupano delle operazioni. Ogni funzione, semplicemente, cicla ogni elemento dell' array a e dell array b, ne esegue l'operazione e memorizza il risultato in un array c. L'array a ha valori interi compresi tra 1 e 200, l'array b ha valori interi compresi tra 1 e 100,  le matrici utilizzate sono matrici quadrate e le dimensioni utilizzate sono 1000, 2500, 5000, 8000, 10000, 15000. Per ogni operazione vengono eseguite 5 prove da cui viene calcolato il tempo medio di esecuzione. 
-	Per riferimento il programma è stato utilizzato anche su un MacBook Air \ref{MacBook Air}. 
+	Con il programma operazioni viene visualizzato il tempo di esecuzione di alcune operazioni matematiche di base. Come mostrato nelle porzioni di codice Code \ref{Code:Sum},\ref{Code:Sub}, \ref{Code:Mul}, \ref{Code:Div}, \ref{Code:Mod} mostrano le funzioni che si occupano delle operazioni. Ogni funzione, semplicemente, esegue un ciclo su ogni elemento di \textit{a} e di \textit{b}, ne esegue l'operazione e memorizza il risultato in \textit{c}.  La matrice \textit{a} ha valori interi compresi tra uno e duecento,  la matrice \textit{b} ha valori interi compresi tra uno e cento. Le matrici utilizzate sono matrici quadrate e le dimensioni utilizzate sono 1000, 2500, 5000, 8000, 10000, 15000. Per ogni operazione vengono eseguite cinque prove da cui viene calcolato il tempo medio di esecuzione. 
+	Per riferimento il programma è stato utilizzato anche sul Pc \ref{MacBook Air}. 
 	
 	\lstinputlisting[language=c,  style = Cstyle, caption = Addizione,  label ={Code:Sum} ]{PorzioniCodice/Operazioni/sum.c}
 	\lstinputlisting[language=c,  style = Cstyle, caption = Sottrazione, label ={Code:Sub}]{PorzioniCodice/Operazioni/sub.c}
@@ -589,12 +569,13 @@ Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha
 	\centering
 		\includegraphics[scale= 0.4]{PorzioniCodice/Operazioni/Grafico.png}
 	\end{figure}
-	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il MacBook il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  %tolto: parla del nulla
-	Il tempo di esecuzione totale del programma è di 23.653595 per Macbook mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC, risultato abbastanza prevedibile. Confrontando le architetture il processore del MacBook è di 2.2 GHz con memoria da 8Gb da 1600MHz mentre il processore RISC è di 1 GHz con memoria da 2Gb a 1333 MHz.
 	
-
+	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il Pc il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  
+	Il tempo di esecuzione totale del programma è di 23.653595 per il Pc mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC. %risultato abbastanza prevedibile. 
+	
+	
 \section{PrimeNumber}
-Il programma utilizza una scansione lineare per trovare i primi 5000 numeri primi. In seguito viene mostrato il codice della funzione principale.  La funzione controlla dal numero 2 in avanti se il numero è primo, se lo è viene inserito nell array altrimenti no e il ciclo viene eseguito fino a trovare 5000 numeri primi.  
+Il programma utilizza una scansione lineare per trovare i primi cinquemila numeri primi. In seguito viene mostrato il codice della funzione principale.  La funzione controlla dal numero due in avanti se il numero è primo, se lo è viene inserito nell' array altrimenti no e il ciclo viene eseguito fino a trovare cinquemila numeri primi.  
 
 \lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:prime} ]{PorzioniCodice/Prime/prime.c}
 
@@ -610,19 +591,18 @@ I file sono stati compilato con diverse livelli di ottimizzazione.
 \caption{Tempi di esecuzione numeri primi}
 \label{Tab:TempoPrime}
 \end{table}
-Come precedentemente notato è l'ordine di grandezza di differenza dei due processori. Andando a guardare nei sorgenti assembly notiamo delle differenze. La prima abbastanza ovvia è la dimensione del file che nel caso dell ottimizzazione 0 è superiore (172 linee 4KB) rispetto all livello 2 (130 linee 4KB).Il secondo è l'utilizzao dell'istruzione nop nell livello 0.
-Il codice \ref{Code:primeO0} fa riferimento alla porzione di codice dove vengono utilizzate le istruzioni nop.
+Come precedentemente notato è l'ordine di grandezza di differenza dei due processori. Andando a guardare nei sorgenti assembly notiamo delle differenze. La prima abbastanza ovvia è la dimensione del file che nel caso del' ottimizzazione 0 è superiore (172 linee 4KB) rispetto all livello 2 (130 linee 4KB).Il secondo è l'utilizzato dell'istruzione \textit{nop} nel livello 0.
+Il codice \ref{Code:primeO0} fa riferimento alla porzione di codice dove vengono utilizzate le istruzioni \textit{nop}.
 
 \lstinputlisting[language = Risc-v,  caption =Sorgente prime ottimizzato con -O0,  label ={Code:primeO0},  firstline=48,lastline=55 ]{PorzioniCodice/Prime/prime0.s}
 
-La pseudo-istruzione nop(No operation) ha come implementazione addi x0, x0, 0 è intiutivo capre che somma zero (costante) al registro contenente zero (x0) e lo memorizza nel registro x0. Questo è un caso eccezionale in cui si ha la possibilità di scrivere il registro x0, seppur con poco significato algebricamente, ogni altro caso in cui si vuole modificare il registro x0 solleverebbe errori. La motivazione della presenza di queste operazioni è più un fatto storico.
+La pseudo-istruzione \textit{nop}(No operation) ha come implementazione addi x0, x0, 0 che somma zero (costante) al registro contenente zero (x0) e lo memorizza nel registro x0.  Questo è un caso eccezionale in cui si ha la possibilità di scrivere il registro x0, seppur con poco significato algebricamente, ogni altro caso in cui si vuole modificare il registro x0 solleverebbe errori. La motivazione della presenza di queste operazioni è dovuto alla struttura hardware dotata di interlock. % un fatto piu storico
 La maggior parte delle implementazioni hardware ha degli interlock. Se un'istruzione necessita di dati che non sono ancora disponibili, la pipeline si interrompe finché i dati non sono disponibili. Oppure, se si tratta di una pipeline di esecuzione fuori ordine, un'istruzione si blocca finché i dati non sono disponibili e altre istruzioni possono continuare l'esecuzione.
-I nop emessi dal compilatore con -O0  non vengono emessi a -O1 o superiore. Un ulteriore modo di utilizzo dell istruzione nop è quello di confronto diretto tra i sorgenti compilati con livelli di ottimizzazione differente. Il compilatore emette delle operazioni nop  in modo da avere un posto dove allegare le informazioni sul numero di riga con il comando -g durante la compilazione. Se una destinazione non dispone di interblocchi hardware, è compito del backend di destinazione aggiungere eventuali nop che potrebbero essere necessari per il corretto funzionamento sulla destinazione. Al momento non ci sono target RISC-V supportati da gcc che lo richieda.
-
+I nop emessi dal compilatore con -O0  non vengono emessi a -O1 o superiore. 
 
 
 \section{MultOrShift}
-Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra 0 e maxInt e un array di potenze di 2 comprese tra 2 e 1024. Entrambi gli array hanno 1000 elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di 1000 operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift). Di seguito alcune porzioni di codice:
+Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift). Di seguito alcune porzioni di codice:
 
 \lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:Init} ]{PorzioniCodice/MultShift/init.c}
 \lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:Mult} ]{PorzioniCodice/MultShift/Mult.c}
@@ -654,26 +634,26 @@ Osserviamo i compilatori a confronto.  I Compilatori confrontati sono \textit{gc
 
 \lstinputlisting[language=c,  style = Cstyle,  caption = Addizione, label = {Code:AddComp}]{PorzioniCodice/ConfrontoCompilatori/C/get_num.c}
 
-La funzione è una semplice funzione scritta in C che dato un numero di tipo intero restituisce il numero sommato a 23. 
+La funzione è una semplice funzione scritta in C che dato un numero di tipo intero restituisce il numero sommato a ventitré. 
 
 \vspace{0.3 cm}
 \textbf{RISC-V}
 
 \vspace{0.3 cm}
-Il sorgente compilato con il compilatore RISC-V \ref{Code:AddRISCV} da riga 2 fino a riga 6 predispone la chiamata della procedura posizionando sullo stack il necessario, da riga 7 inizia la funzione. Su quella riga viene recuperato il valore di num che alla riga 8, tramite l'operazione di add immediate, viene sommato a num. Il risultato dell operazione addiw è la somma del valore di num sommato alla costante 23, il risultato è esteso su 64 bit, vengono ignorati gli errori di overflow. Successivamente tramite la pseudo istruzione sext.w che prende i 32 bit inferiori e li memorizza nel registro rd.  Questa istruzione corrisponde a addiw rd, rs,1 0. Il risultato viene spostato nel registro a0 che, nei processori RISC-V, viene utilizzato come restituzione di risultato. Le righe successive ripristinano lo stack e restituice il controllo al chiamante.
+Il sorgente compilato con il compilatore RISC-V \ref{Code:AddRISCV} da riga due fino a riga sei predispone la chiamata della procedura posizionando sullo stack il necessario, da riga sette inizia la funzione. Su quella riga viene recuperato il valore di \textit{num} che alla riga otto, tramite l'operazione di add immediate, viene sommato a num. Il risultato dell operazione addiw è la somma del valore di num sommato alla costante ventitré, il risultato è esteso su sessantaquattro bit, vengono ignorati gli errori di overflow. Successivamente tramite la pseudo istruzione sext.w che prende i 32 bit inferiori e li memorizza nel registro rd.  Questa istruzione corrisponde a addiw rd, rs,1 0. Il risultato viene spostato nel registro a0 che, nei processori RISC-V, viene utilizzato come restituzione di risultato. Le righe successive ripristinano lo stack e restituisce il controllo al chiamante.
 
 \vspace{0.3 cm}
 \textbf{ARM}
 
 \vspace{0.3 cm}
 
-l sorgente  \ref{Code:Addx86} , compilato con gcc ARM, mostra che la preparazione della procedure si esegue da riga 2 a riga 5, le con le due righe successive si esegue la funzione. La riga 6 recupera il valore di num la riga successiva calcola il valore del risultato e, infine, alla riga 8 si sposta il risultato nel registro di restituzione
+l sorgente  \ref{Code:Addx86} , compilato con gcc ARM, mostra che la preparazione della procedure si esegue da riga due a riga cinque, le con le due righe successive si esegue la funzione. La riga sei recupera il valore di num la riga successiva calcola il valore del risultato e, infine, alla riga otto si sposta il risultato nel registro di restituzione
 
 
 \vspace{0.3 cm}
 \textbf{x86}
 
-l sorgente  \ref{Code:AddARM} è compilato con gcc di x86.  Da riga 2 fino a riga 4 viene preparato lo stack, a riga 5 viene posizionato num nel registro eax che a riga 6 viene sommato a 23 che viene memorizzato nel registro eax. Infine viene ridato il controllo al chiamante.
+l sorgente  \ref{Code:AddARM} è compilato con gcc di x86.  Da riga due fino a riga quattro viene preparato lo stack, a riga cinque viene posizionato num nel registro eax che a riga sei viene sommato a ventitré che viene memorizzato nel registro eax. Infine viene ridato il controllo al chiamante.
 
 \vspace{0.3 cm}
 
@@ -705,24 +685,24 @@ l sorgente  \ref{Code:AddARM} è compilato con gcc di x86.  Da riga 2 fino a rig
 \end{figure}
 
 \subsection{Addizione}
-Nel caso generale viene calcolata la somma di 3 numeri.
+Nel caso generale viene calcolata la somma di tre numeri.
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Addizione generale}, label = {Code:Add2Comp}]{PorzioniCodice/ConfrontoCompilatori/C/sumGen.c}
 
 
 \vspace{0.3 cm}
 \textbf{RISC-V}
 
-Nel caso del compilatore RISC-V la somma avviene tra 13 e 19 dove gli operandi vengono caricati nei registri a4 e a5,  successivamente calcolato il risultato e memorizzato in a4 che poi verrà sommato con l'ultimo operando, caricato a riga 17.
+Nel caso del compilatore RISC-V la somma avviene tra tredici e diciannove dove gli operandi vengono caricati nei registri a4 e a5,  successivamente calcolato il risultato e memorizzato in a4 che poi verrà sommato con l'ultimo operando, caricato a riga diciassette.
 
 \vspace{0.3 cm}
 \textbf{ARM}
 
-Nel caso ARM avviene lo stesso meccanismo. Tra le righe 8 e 12 avviene il caricamento dei primi due operandi la somma parziale e infine la somma totale.
+Nel caso ARM avviene lo stesso meccanismo. Tra le righe otto e dodici avviene il caricamento dei primi due operandi la somma parziale e infine la somma totale.
 
 \vspace{0.3 cm}
 \textbf{x86}
 
-Infine per x86 il calcolo avviene tra le righe 7 e 11 nello stesso modo con cui viene eseguito in ARM.
+Infine per x86 il calcolo avviene tra le righe sette e undici nello stesso modo con cui viene eseguito in ARM.
 
 \begin{figure}[h]
      
@@ -760,11 +740,11 @@ Infine per x86 il calcolo avviene tra le righe 7 e 11 nello stesso modo con cui 
 
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Moltiplicazione per potenza di 2}, label = {Code:Mul2Comp}]{PorzioniCodice/ConfrontoCompilatori/C/mult2.c}
 
-La funzione dato un numero di tipo intero restituisce il numero moltiplicato per 2.  Per i sorgenti le parti di preparazione sono simili per le rispettive preparazioni precedenti.
+La funzione dato un numero di tipo intero restituisce il numero moltiplicato per due.  Per i sorgenti le parti di preparazione sono simili per le rispettive preparazioni precedenti.
 
 
 \vspace{0.3 cm}
-Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplicazione per 2. Questa avviene per RISC-V e per ARM tramite uno shift logical left di 1 bit (SLLIW) mentre per x86 avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di 2  le operazioni avvengono tutte tramite shift left di un opportuno valore.  Con la figura \ref{Fig:mult8} viene mostrato il calcolo di una moltiplicazione per 8. In tutti i casi il calcolo avviene attraverso Shift.
+Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplicazione per due. Questa avviene per RISC-V e per ARM tramite uno shift logical left di un bit (SLLIW) mentre per x86 avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di due  le operazioni avvengono tutte tramite shift left di un opportuno valore.  Con la figura \ref{Fig:mult8} viene mostrato il calcolo di una moltiplicazione per otto. In tutti i casi il calcolo avviene attraverso Shift.
 
 % \todo{https://www.youtube.com/watch?v=glJXTWl9FB4}
 
@@ -821,12 +801,12 @@ Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplica
         \caption{Moltiplicazione per 8}
         \label{Fig:mult8}
 \end{figure}
-\todo{Battitura: nome fuzione}
+
 \vspace{0.3 cm}
 
 \textbf{Moltiplicazione per una costante}
 
-Vengono presentati due codici molto simili, il primo moltiplica il numero per 31 che rappresenta più in generale un numero che dista da una potenza di 2 di 1. Il secondo è un caso più generale dove avviene la moltiplicazione di un numero non potenza di due e che dista da una potenza almeno di 2, nel nostro caso il numero è 30.
+Vengono presentati due codici molto simili, il primo moltiplica il numero per trentuno che rappresenta più in generale un numero che dista da una potenza di due di uno. Il secondo è un caso più generale dove avviene la moltiplicazione di un numero non potenza di due e che dista da una potenza almeno di due, nel nostro caso il numero è trenta.
 
 \vspace{0.2 cm }
 
@@ -847,9 +827,9 @@ Vengono presentati due codici molto simili, il primo moltiplica il numero per 31
 
 \vspace{0.3 cm}
 
-Nel caso della moltiplicazione per 31 l'approccio dei 3 sorgenti è identico. Viene calcolata la moltiplicazione per 32 attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per 31. Se il valore costante fosse 33 , il numero successivo alla potenza di 2, l' operazione di sottrazione viene sostituita con una di addizione. Nel caso più generale invece abbiamo un approccio differente.
+Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré , il numero successivo alla potenza di due, l' operazione di sottrazione viene sostituita con una di addizione. Nel caso più generale invece abbiamo un approccio differente.
 
-Partendo dall x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga 6.  Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga 8) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga 6 e 7) vengono riempiti con gli operandi. Infine l' implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per 30 avviene prima uno shift di 4 ( moltiplicazione per 16) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di 1 (moltiplicazione per 2).  Quindi: 
+Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei.  Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l' implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta avviene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di uno (moltiplicazione per due).  Quindi: 
 \begin{center}
 	\vspace{0.2cm}
 $((num * 2^4) - num ) * 2^1 = $ 
@@ -918,31 +898,42 @@ In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazion
 \vspace{2cm}
 
 \subsection{Divisione}
-
 Per quanto riguarda la divisione viene utilizzato la stessa metodologia della moltiplicazione.
 
 
 \section{MonteCarloPi}
 % valutazione generatore numeri casuali 
-Al giorno d'oggi è comune utilizzare la generazione di numeri casuali in tecniche o simulazioni, ad esempio numeri di conto bancario e crittografia. È una tecnica necessaria e di base nella programmazione di computer. Non è possibile avere un generatore scelto tra tanti senza valutarne la casualità. Ad esempio un generatore che genera dei valori tra 0 e 100 ma con probabilità maggiore su uno specifico valore, è normale pensare che se si utilizza piu probabilmente verra generato quel numero di tutti gli altri. Un altro esempio se utilizzassimo un generatore che ha  una probabilità uniforme nel generare numeri  generiamo i primi 10 valori e questi sono 1,2,3,4,5,6,7,8,9,10 notiamo subito una sequenza riconoscibile e la casualità del prossimo numero è poco randomica.
-Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità del n+1 esimo numero dopo n numeri.
+Al giorno d'oggi è comune utilizzare la generazione di numeri casuali in tecniche o simulazioni, ad esempio numeri di conto bancario e crittografia. È una tecnica necessaria e di base nella programmazione di computer. Non è possibile avere un generatore scelto tra tanti senza valutarne la casualità. Ad esempio un generatore che genera dei valori tra zero e cento ma con probabilità maggiore su uno specifico valore, è normale pensare che se si utilizza più probabilmente verrà generato quel numero di tutti gli altri. Un altro esempio se utilizzassimo un generatore che ha  una probabilità uniforme nel generare numeri  generiamo i primi dieci valori e questi sono i valori da uno a dieci notiamo subito una sequenza riconoscibile e la casualità del prossimo numero è poco casuale.
+Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità.
 
 \subsection{Generatore casuale}
-Per il programma è stato utilizzata la funzione rand() del linguaggio c. Per la valutazione dei valori sono state generati i valori da 0 a 99, estremi inclusi, per 5 volte. I campioni non presentano predicibilità e seguono una distribuzione normale. Possiamo concludere che il generatore è un generatore accettabile.
+Per il programma è stato utilizzata la funzione rand() del linguaggio c. Per la valutazione dei valori sono state generati i valori da zero a novantanove, estremi inclusi, per cinque volte. I campioni non presentano predicibilità e seguono una distribuzione normale. Possiamo concludere che il generatore è un generatore accettabile.
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{Img/RngGrafico.png}
+\end{figure}
 
 % valori calcolati e tempo di exe
 Un utilizzo del generatore di numeri casuali è un algoritmo di Monte Carlo. Il metodo di Monte Carlo è un'ampia classe di metodi computazionali basati sul campionamento casuale per ottenere risultati numerici.  In particolare si è utilizzato il metodo applicato al calcolo del pigreco.
-In pratica il metodo funziona così: si generano numeri casuali compresi tra 0 e 1 che rappresentano la coordinata x e y del nostro punto. Applicando il teorema di Pitagora se l’ipotenusa supera 1 significa che il nostro tiro è finito nell’area del quadrato, se invece è minore di 1 sta a significare che il nostro tiro è finito all’interno dell’area del cerchio (e ovviamente del quadrato). 
+Il metodo utilizzato funziona nel seguente modo:
+\begin{itemize}
+	\item[1] Genera due numeri casuali tra 0 e 1 che rappresentano le coordinate di un punto.
+	\item[2] Applica il teorema di Pitagora, se supera uno allora il punto non appartiene alla circonferenza, altrimenti appartiene.
+	\item[3] Ripeti i punti 1,2.
+	\item[4] Calcola il valore del pigreco.
+\end{itemize}
 
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.3]{Img/qCirc.png}
+\caption{Esempio di coordinate generate casualmente}
 \end{figure}
-Una volta generati i punti e valutati se ricadono all interno del primo quadrante del cerchio il calcolo del valore del pigreco è facile: 
 
-\vspace{1cm}
+\begin{center}
 $ \pi = 4 * \frac{Punti interni alla circonferenza}{Numero di ounti generati} $ 
+\end{center}
+
 
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Funzione per il calcolo del pigreco con il metodo di Monte Carlo}, label = {Code:MonteCarloPi}]{PorzioniCodice/MonteCarloPi/MCPi.c}	
 
@@ -987,7 +978,7 @@ Inseguito vengono riportate le tabelle che rappresentano il tempo di esecuzione 
 \label{Tab:ValueMCPi}
 \end{table}
 
-Le tabelle \ref{Tab:TimeExceMCPi} e \ref{Tab:ValueMCPi} mostrano i risultati in termini di valori calcolati e il tempo di esecuzione. Le colonne 1,2,3,4,5 indicano il valore dell i-esima prova mentre ogni riga identifica il numero di punti generati.
+Le tabelle \ref{Tab:TimeExceMCPi} e \ref{Tab:ValueMCPi} mostrano i risultati in termini di valori calcolati e il tempo di esecuzione.  Le colonne indicano il valore dell i-esima prova mentre ogni riga identifica il numero di punti generati.
 
 \section{Sorting}
 Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dati e sono ampiamente utilizzati in molti aspetti, ad esempio in crittografia e nella ricerca di informazioni. Esistono molti tipi di algoritmi di ordinamento e ognuno ha i suoi vantaggi e limiti. In informatica, l'algoritmo di ordinamento è solitamente classificato come segue.
@@ -1207,7 +1198,7 @@ Un altro confronto lo possiamo fare con raspberry pi \footnote{Il modello utiliz
 \end{figure}
 
 Il Raspberry Pi utilizzato è Raspberry Pi model B. La board datata 2013 è stata sviluppata come board scolastica e successivamente applicata a molti contesti come nel mondo embedded.
-Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz,due porte USB (Universal Serial Bus) e un'Ethernet da 100 MB porta. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware.  La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry.
+Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz,due porte USB (Universal Serial Bus) e un'Ethernet da 100 MB porta. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware.  La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry \cite{Rasp}.
 
 \begin{table}[h]
 		\centering
@@ -1289,10 +1280,12 @@ maze2 &0.009123 & 0.000371  \\ \hline
 %--------
 
 \chapter{Conclusione}
-In questa tesi si sono fatti alcuni test su RISC-V. 
+In questa tesi si sono fatti alcuni test su RISC-V.  Si è controllato aspetti comuni come le operazioni aritmetiche e alcuni algoritmi di ordinamento.  Si è guardato il codice assembly generato dal compilatore e osservato le implementazioni delle varie operazioni comparandolo con altri codici assembly. Oltre alla comparazione con altri codici assembly si è comparato con diversi livelli di ottimizzazione.  Per ogni operazione è stato calcolato il tempo di esecuzione.
+Infine sono stati utilizzati degli algoritmi di ordinamento i cui risultati sono stati confrontati con un Raspberry.
+
+Questa tesi analizza solo alcuni aspetti di RISC-V ed è un punto di partenza per sviluppare lavori futuri.
 
 %\addcontentsline{toc}{chapter}{Bibliografia}
-
 
 \printbibliography
 
