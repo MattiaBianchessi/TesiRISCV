@@ -21,7 +21,7 @@
 % \usepackage{refcheck}
 
 \usepackage{pgfplots} 
-%\pgfplotsset{compat=1.18} 
+\pgfplotsset{compat=1.18} 
 
 
 \lstset{
@@ -167,16 +167,16 @@ sorting=ynt,
 
 %%%%%%%%
 \chapter*{Introduzione}
-\todo{RIleggi}
+
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che può eseguire. RISC-V , un \textit{istruction set} basato su un approccio \textit{ reduced instruction set computer}, sta facendo parlare di sè.   
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}, sta facendo parlare di sè.   
 
 %\textbf{OBIETTIVI}
 L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
 
 %\textbf{METODI E STRUMENTI}
-Per la valutazione sono stati scrittura dei codici in linguaggio c compilati con la toolchain di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori.
+Per la valutazione sono stati scrittura dei codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori.
 In alcuni casi viene anche analizzato il sorgente compilato.
 
 %\textbf{Struttura }
@@ -409,7 +409,6 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 %%%--------------------
 
 \chapter{BenchMarking}
-\todo{Rileggi/Correggi capitolo 4: Benchmarking}
 \section{Descrizione board}
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
@@ -423,9 +422,9 @@ La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwi
 \end{figure}
 
 \vspace{2cm}
-\begin{table}[h]
+\begin{table}[!h]
 \centering
-\begin{tabular}{|r|c|}
+\begin{tabular}{| r | c |}
 \hline
 CPU & Allwinner D1-H \\
 \hline
@@ -455,7 +454,7 @@ PIN & array di pin 40\\
 \hline
 Alimentazione & USB-C  5V-2A\\
 \hline
-Dimensioni & lunghezza 85 mm * larghezza 56 mm * spessore 1,7 mm\\
+Dimensioni & lunghezza 85 mm, larghezza 56 mm, spessore 1,7 mm\\
 \hline
 
 \end{tabular}
@@ -466,8 +465,8 @@ Dimensioni & lunghezza 85 mm * larghezza 56 mm * spessore 1,7 mm\\
 La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.
 
 \section{Presentazione programmi}
-I programmi utilizzati sono scritti in C e sono contenuti su github su una \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.
- Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi confrontarli.
+I programmi utilizzati sono scritti in C e sono contenuti su github in una \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.
+ Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi, confrontarli.
 \subsection{Operazioni Aritmetiche}
 Il primo programma utilizzato esegue le operazioni aritmetiche di base addizione, sottrazione, moltiplicazione, divisione e modulo.
 Il programma genera due matrici quadrate di numeri interi su cui vengono eseguite le operazioni elemento per elemento. Le dimensioni delle matrici sono 1000 x 1000, 2500 x 2500, 5000 x 5000, 8000 x 8000, 10000 x 10000, 15000 x 15000.
@@ -506,11 +505,17 @@ In questa directory sono contenuti due programmi che utilizzano metodi di backtr
 
 In entrambi i casi vengono utilizzate tecniche di backtracking.  Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
 
+\vspace{0.5cm}
+\begin{large}
 \textbf{Sudoku}
+\end{large}
 
 Il solutore di sudoku risolve il puzzle matematico.  Sono presenti otto sudoku nel file sudoku.h di varia difficoltà, 2 di essi non sono fattibili, uno per costruzione(sbagliato in partenza) e l 'altro è impossibile risolverlo per la configurazione.
 
+\vspace{0.5cm}
+\begin{large}
 \textbf{MazeSolver}
+\end{large}
 
 Il solutore mazeSolver.c, una volta in esecuzione, chiede il path del labirinto da risolvere e successivamente è possibile salvare la soluzione, se trovata, in un nuovo file.  Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
 In directory è presente un ulteriore file mazeGen.py che è stato utilizzato come generatore di labirinti. 
@@ -661,23 +666,23 @@ l sorgente  \ref{Code:AddARM} è compilato con gcc di x86.  Da riga due fino a r
      
      \begin{subfigure}{0.3\textwidth}
   
-        \lstinputlisting[language = Risc-v, caption = {RISC-V}]{PorzioniCodice/ConfrontoCompilatori/Assembler/RISC-V/get_num.txt}
-\label{Code:AddRISCV}
+        \lstinputlisting[language = Risc-v, caption = {RISC-V}, label = {Code:AddRISCV} ]{PorzioniCodice/ConfrontoCompilatori/Assembler/RISC-V/get_num.txt}
+
 
      \end{subfigure}
      \hfill
      \begin{subfigure}{0.3\textwidth}
          
-          \lstinputlisting[language = Risc-v, caption = {Arm}]{PorzioniCodice/ConfrontoCompilatori/Assembler/ARM/get_num.txt}
+          \lstinputlisting[language = Risc-v, caption = {Arm}, label = {Code:AddARM}]{PorzioniCodice/ConfrontoCompilatori/Assembler/ARM/get_num.txt}
 
-\label{Code:AddARM}
+
      \end{subfigure}
      \hfill
      \begin{subfigure}{0.3\textwidth}
          
-          \lstinputlisting[language = Risc-v, caption = {x86}]{PorzioniCodice/ConfrontoCompilatori/Assembler/x86/get_num.txt}
+          \lstinputlisting[language = Risc-v, caption = {x86}, 	label = {Code:Addx86}]{PorzioniCodice/ConfrontoCompilatori/Assembler/x86/get_num.txt}
 
-	\label{Code:Addx86}
+
      \end{subfigure}
     
         \caption{Funzione di somma}
@@ -1188,13 +1193,13 @@ In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa i
 	\end{table}
 
 La tabella \ref{Fig:PcSort} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti sul PC. 
-Un altro confronto lo possiamo fare con raspberry pi \footnote{Il modello utilizzato è il modello Raspberry model B mostrato in figura \ref{Fig:RBmodelB}}.
+Un altro confronto lo possiamo fare con Raspberry pi \footnote{Il modello utilizzato è il modello Raspberry model B mostrato in figura \ref{fig:RaspberryB} }.
 
 \begin{figure}[h]
 \centering
-	\includegraphics[scale=0.5]{RBTop.jpeg}
-	\label{Fig:RBmodelB}
+	\includegraphics[scale=0.5 ]{RBTop.jpeg}
 	\caption{Vista superiore Raspberry model B}
+	\label{fig:RaspberryB}
 \end{figure}
 
 Il Raspberry Pi utilizzato è Raspberry Pi model B. La board datata 2013 è stata sviluppata come board scolastica e successivamente applicata a molti contesti come nel mondo embedded.
@@ -1283,7 +1288,7 @@ maze2 &0.009123 & 0.000371  \\ \hline
 In questa tesi si sono fatti alcuni test su RISC-V.  Si è controllato aspetti comuni come le operazioni aritmetiche e alcuni algoritmi di ordinamento.  Si è guardato il codice assembly generato dal compilatore e osservato le implementazioni delle varie operazioni comparandolo con altri codici assembly. Oltre alla comparazione con altri codici assembly si è comparato con diversi livelli di ottimizzazione.  Per ogni operazione è stato calcolato il tempo di esecuzione.
 Infine sono stati utilizzati degli algoritmi di ordinamento i cui risultati sono stati confrontati con un Raspberry.
 
-Questa tesi analizza solo alcuni aspetti di RISC-V ed è un punto di partenza per sviluppare lavori futuri.
+Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
 %\addcontentsline{toc}{chapter}{Bibliografia}
 
