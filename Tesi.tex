@@ -119,7 +119,7 @@ sorting=ynt,
 %citestyle=authoryear 
 ]{biblatex}
 
-\addbibresource{Biblio.bib}
+\addbibresource{Bibliografia.bib}
 %---
 
 \usepackage[textwidth=2cm, textsize=scriptsize,colorinlistoftodos]{todonotes}
@@ -182,13 +182,13 @@ In alcuni casi viene anche analizzato il sorgente compilato.
 %\textbf{Struttura }
 La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. I capitolo 4 e 5 vengono presentati alcuni programmi utilizzati per la valutazione e analizzati i risultati ottenuti.
 
+
 \tableofcontents
 \listoffigures
 \listoftables
 \lstlistoflistings
 
 % o sections (dipende dal documentclass)
-
 \chapter{RISC-V}
 
 % OUTLINE CH 1 
@@ -219,7 +219,7 @@ Durante la fase di progettazione i progettisti hanno voluto mettere nero su bian
 \section{Panoramica}
 L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dall endianness del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
-Le celle della memoria principale sono di lunghezza variabile a seconda dell ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare.
+Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare.
 
 %Modalita indirizzamento
 Avendo tutte le istruzioni di lunghezza fissa non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell istruzione. La soluzione è l'utilizzo della modalità di indirizzamento
@@ -231,11 +231,12 @@ contenuto di un registro e una costante.
 \item \textbf{indirizzamento relativo al PC} l'operando dipende dal \textit{Program Counter} che viene sommato a una costante.
 \end{itemize}
 
-Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fis- sa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento:
+Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento:
 
 %Eccezioni, trap, iterrupt
 Si parla di eccezione quando una condizione non comune avviene a \textit{run time} associata a un istruzione.
 Si parla di \textit{trap} quando verifica un trasferimento di controllo, da parte del \textit{trap handler}, da un  \textit{thread} ad un altro. Si parla di \textit{interrupt} quando la situazione imprevista è qualcosa di esterno.
+
 
 %%
 % Capitolo 2
@@ -353,6 +354,9 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 
 \todo{Ho trovato i primi 2 capitoli molto più leggibili. Hai fatto bene a smaltire}
 
+
+
+
 %%
 %Capitolo 3: Compilatori
 % cos è -> Storia -> Riguardo RISC-V  -> due parole su gcc e clang
@@ -406,6 +410,7 @@ La toolchain GCC di RISC-V supporta linguaggi come C, C++, Objective-C,e Go. La 
 \subsubsection{CLANG toolchain}
 La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è alla versione 15.0.2. A differenza della \textit{toolchain gcc} è mantenuta solamente da Alex Bradbury.
 
+
 %%%--------------------
 
 \chapter{BenchMarking}
@@ -413,7 +418,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \includegraphics[width = \textwidth]{D1H-BoardTopView.png}
 \caption{Board vista dall' alto}
 
@@ -422,7 +427,8 @@ La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwi
 \end{figure}
 
 \vspace{2cm}
-\begin{table}[!h]
+
+\begin{table}[!ht]
 \centering
 \begin{tabular}{| r | c |}
 \hline
@@ -522,14 +528,16 @@ In directory è presente un ulteriore file mazeGen.py che è stato utilizzato co
 Inoltre viene fornita la possibilità di utilizzare un proprio labirinto, il labirinto personale dovrà avere l'estensione .txt specificare il numero di linee e il numero di colonne del labirinto sulle prime due righe. Successivamente  il labirinto. Le componenti del labirinto sono i muri , indicati con \#, un inizio , indicato con 'I' e una fine con 'O'. Le zone dello attraversabili sono idenficate dallo spazio ' '.
 
 
+
 \chapter{Comparativa}
 
-\section*{MacBook Air}\label{Macbook Air}
+\section*{MacBook Air}
+\label{sec:MacBook}
 Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha un processore 2,2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini Pc fanno riferimento a questa architettura.
 
 \section{Operazioni}
 	Con il programma operazioni viene visualizzato il tempo di esecuzione di alcune operazioni matematiche di base. Come mostrato nelle porzioni di codice Code \ref{Code:Sum},\ref{Code:Sub}, \ref{Code:Mul}, \ref{Code:Div}, \ref{Code:Mod} mostrano le funzioni che si occupano delle operazioni. Ogni funzione, semplicemente, esegue un ciclo su ogni elemento di \textit{a} e di \textit{b}, ne esegue l'operazione e memorizza il risultato in \textit{c}.  La matrice \textit{a} ha valori interi compresi tra uno e duecento,  la matrice \textit{b} ha valori interi compresi tra uno e cento. Le matrici utilizzate sono matrici quadrate e le dimensioni utilizzate sono 1000, 2500, 5000, 8000, 10000, 15000. Per ogni operazione vengono eseguite cinque prove da cui viene calcolato il tempo medio di esecuzione. 
-	Per riferimento il programma è stato utilizzato anche sul Pc \ref{MacBook Air}. 
+	Per riferimento il programma è stato utilizzato anche sul Pc \ref{sec:MacBook}. 
 	
 	\lstinputlisting[language=c,  style = Cstyle, caption = Addizione,  label ={Code:Sum} ]{PorzioniCodice/Operazioni/sum.c}
 	\lstinputlisting[language=c,  style = Cstyle, caption = Sottrazione, label ={Code:Sub}]{PorzioniCodice/Operazioni/sub.c}
@@ -538,7 +546,7 @@ Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha
 	\lstinputlisting[language=c,  style = Cstyle, caption = Modulo, label ={Code:Mod}]{PorzioniCodice/Operazioni/mod.c}
 	
 	Di seguito vengono riportati i tempi di esecuzione medi per operazione e per dimensione
-	\begin{table}[h!]
+	\begin{table}[!ht]
 	
 	\centering
 	\begin{tabular}{| l | c | c | c | c | c | c |}
@@ -555,7 +563,7 @@ Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha
 	\caption{Tempi di esecuzione MacBook-Air}
 	\end{table}
 	
-	\begin{table}[h!]
+	\begin{table}[!ht]
 		\centering
 		\begin{tabular}{{| l | c | c | c | c | c | c |}}
 			\hline
@@ -585,7 +593,7 @@ Il programma utilizza una scansione lineare per trovare i primi cinquemila numer
 \lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:prime} ]{PorzioniCodice/Prime/prime.c}
 
 I file sono stati compilato con diverse livelli di ottimizzazione.
-\begin{table}[h]
+\begin{table}[ht]
 \begin{tabular}{|l|c|r|}
 \hline
     & PC       & RISC-V    \\ \hline
@@ -616,7 +624,7 @@ Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
 Il codice \ref{Code:Init} imposta i due array.  I codici \ref{Code:Mult} e \ref{Code:Shift} mostrano l'operazione eseguita.
 La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati in millisecondi delle varie operazioni.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{lcccc}
 \cline{2-5}
@@ -625,8 +633,8 @@ La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati i
 \multicolumn{1}{|l|}{Shift}   & \multicolumn{1}{c|}{0.0034} & \multicolumn{1}{c|}{0.0034} & \multicolumn{1}{c|}{0.0404} & \multicolumn{1}{c|}{0.0826} \\ \hline
                               & \multicolumn{1}{l}{}        & \multicolumn{1}{l}{}        & \multicolumn{1}{l}{}        & \multicolumn{1}{l}{}       
 \end{tabular}
-	\label{Tab:tempi_esecuzioneMS}
 	\caption{Tempi di esecuzione operazioni calcolati in ms}
+	\label{Tab:tempi_esecuzioneMS}
 \end{table}
 	
 	
@@ -662,7 +670,7 @@ l sorgente  \ref{Code:AddARM} è compilato con gcc di x86.  Da riga due fino a r
 
 \vspace{0.3 cm}
 
-\begin{figure}[h!]
+\begin{figure}[ht]
      
      \begin{subfigure}{0.3\textwidth}
   
@@ -709,7 +717,7 @@ Nel caso ARM avviene lo stesso meccanismo. Tra le righe otto e dodici avviene il
 
 Infine per x86 il calcolo avviene tra le righe sette e undici nello stesso modo con cui viene eseguito in ARM.
 
-\begin{figure}[h]
+\begin{figure}[ht]
      
      \begin{subfigure}[b]{0.3\textwidth}
   
@@ -751,7 +759,6 @@ La funzione dato un numero di tipo intero restituisce il numero moltiplicato per
 \vspace{0.3 cm}
 Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplicazione per due. Questa avviene per RISC-V e per ARM tramite uno shift logical left di un bit (SLLIW) mentre per x86 avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di due  le operazioni avvengono tutte tramite shift left di un opportuno valore.  Con la figura \ref{Fig:mult8} viene mostrato il calcolo di una moltiplicazione per otto. In tutti i casi il calcolo avviene attraverso Shift.
 
-% \todo{https://www.youtube.com/watch?v=glJXTWl9FB4}
 
 \vspace{0.3 cm}
 
@@ -815,7 +822,7 @@ Vengono presentati due codici molto simili, il primo moltiplica il numero per tr
 
 \vspace{0.2 cm }
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\begin{subfigure}[b]{0.4\textwidth}
          
           \lstinputlisting[language=C,  style = Cstyle, label = {Code:Mul31Comp}, caption = {moltiplicazione per 31}]{PorzioniCodice/ConfrontoCompilatori/C/mult31.c}	
@@ -848,7 +855,7 @@ $ = 15 * num * 2 =  num *30 $
 \vspace{0.2 cm}
 In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazioni per ottenere il valore della costante.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 
      \begin{subfigure}[b]{0.3\textwidth}
   
@@ -929,7 +936,7 @@ Il metodo utilizzato funziona nel seguente modo:
 \end{itemize}
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.3]{Img/qCirc.png}
 \caption{Esempio di coordinate generate casualmente}
@@ -944,7 +951,7 @@ $ \pi = 4 * \frac{Punti interni alla circonferenza}{Numero di ounti generati} $
 
 Inseguito vengono riportate le tabelle che rappresentano il tempo di esecuzione e il valore calcolato.
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{tabular}{| l | c | c | c | c | c | c | c  | c |}
 \hline
              & 1          & 2          & 3          & 4          & 5          & T.EXE Totale & MEDIA      & DEV.STD  \\ \hline
@@ -964,7 +971,7 @@ Inseguito vengono riportate le tabelle che rappresentano il tempo di esecuzione 
 \end{table}
 
 
-\begin{table}[h]
+\begin{table}[ht]
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
 \hline
                & 1        & 2        & 3        & 4        & 5        & MEDIA    & DEV.STD  \\ \hline
@@ -1006,7 +1013,7 @@ L'algoritmo funziona nel modo seguente:
 	\item Ripeti tutti i 3 passaggi precedenti finché non sono necessari elementi da scambiare.
 \end{itemize}
 L'efficienza dell algoritmo è basata sull' ordinamento dell array da ordinare. Nel caso migliore l'array è gia ordinato e , passandolo all algoritmo, esegue solo il punto 1 dall inizio alla fine. In contrario il caso peggiore è quando l'array si trova nell ordine non crescente.
-\begin{table}[h]
+\begin{table}[ht]
 	\centering
 	\begin{tabular}{lc}
               & Complessità \\
@@ -1020,7 +1027,7 @@ Caso migliore &           $ \mathcal{O}(n)$   \\
 Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo e i tempi di esecuzione(Tab \ref{Tab:Tempi esecuzione Bubblesort}) secondo la dimensione dell array e la situazione iniziale dell array:
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Algoritmo bubble sort scritto in c}, label = {Code:BubbleSort}]{PorzioniCodice/Sorting/Bubble.c}	
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{| l | l | l | l |}
 \hline
@@ -1040,7 +1047,7 @@ Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo
 \newpage
 \subsection{Insertion sort}
 L'arlogitmo consiste nel considerare un elemento alla volta, inserendo ciascuno nella posizione corretta tra gli elementi che sono stati ordinati. 
-\begin{table}[h]
+\begin{table}[ht]
 	\centering
 	\begin{tabular}{lc}
               & Complessità \\
@@ -1057,7 +1064,7 @@ Caso medio &  $ \mathcal{O}(n!)$\\
 
 Come nel caso del bubble sort è riportato anche il tempo di esecuzione nel caso peggiore e migliore.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{| l | l | l | l |}
 \hline
@@ -1088,7 +1095,7 @@ Il tempo di esecuzione nel caso peggiore di $\mathcal{O}(n!) $, il tempo di esec
 
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Algoritmo quick sort scritto in c}, label = {Code:QuickSort}]{PorzioniCodice/Sorting/Quick.c}	
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{| l | l  |}
 \hline
@@ -1111,7 +1118,7 @@ L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata
 
 \lstinputlisting[language=C,  style = Cstyle,  caption = {Algoritmo heap sort scritto in c}, label = {Code:HeapSort}]{PorzioniCodice/Sorting/Heap.c}	
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{| l | l  |}
 \hline
@@ -1131,7 +1138,7 @@ L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata
 
 Come mostrato dai grafici \ref{Fig:AllSort} i risultati mostrano che il peggior algoritmo è il bubblesort mentre il migliore è quicksort.  Risultato poco notevole, nella sezione successiva un confronto più significativo.
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
      \centering
      \begin{subfigure}[t]{0.45\textwidth}
          \centering
@@ -1155,7 +1162,7 @@ Come mostrato dai grafici \ref{Fig:AllSort} i risultati mostrano che il peggior 
 \subsection{Confronto Sorting}
 In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa iniziamo con confrontare i risultati con l'esecuzione su MacBook.
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
      \centering
      \begin{subfigure}[t]{0.49\textwidth}
          \centering
@@ -1174,7 +1181,7 @@ In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa i
 \end{figure}
 	
 	
-	\begin{table}[h]
+	\begin{table}[ht]
 		\centering
 		\begin{tabular}		{| l | c | c | c | c |}
 		\hline
@@ -1195,7 +1202,7 @@ In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa i
 La tabella \ref{Fig:PcSort} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti sul PC. 
 Un altro confronto lo possiamo fare con Raspberry pi \footnote{Il modello utilizzato è il modello Raspberry model B mostrato in figura \ref{fig:RaspberryB} }.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 	\includegraphics[scale=0.5 ]{RBTop.jpeg}
 	\caption{Vista superiore Raspberry model B}
@@ -1205,7 +1212,7 @@ Un altro confronto lo possiamo fare con Raspberry pi \footnote{Il modello utiliz
 Il Raspberry Pi utilizzato è Raspberry Pi model B. La board datata 2013 è stata sviluppata come board scolastica e successivamente applicata a molti contesti come nel mondo embedded.
 Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz,due porte USB (Universal Serial Bus) e un'Ethernet da 100 MB porta. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware.  La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry \cite{Rasp}.
 
-\begin{table}[h]
+\begin{table}[ht]
 		\centering
 		\begin{tabular}		{| l | c | c | c | c |}
 		\hline
@@ -1223,7 +1230,7 @@ Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e un
 		\label{Tab:RaspSorting}
 			\end{table}
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
      \centering
      \begin{subfigure}[t]{0.49\textwidth}
          \centering
@@ -1282,6 +1289,8 @@ maze2 &0.009123 & 0.000371  \\ \hline
 	\label{Tab:MazeSolver}
 	\end{table}
 
+
+
 %--------
 
 \chapter{Conclusione}
@@ -1289,6 +1298,9 @@ In questa tesi si sono fatti alcuni test su RISC-V.  Si è controllato aspetti c
 Infine sono stati utilizzati degli algoritmi di ordinamento i cui risultati sono stati confrontati con un Raspberry.
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
+
+
+
 
 %\addcontentsline{toc}{chapter}{Bibliografia}
 
