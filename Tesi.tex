@@ -170,9 +170,8 @@ sorting=ynt,
 
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}, sta facendo parlare di sè.   
-
-\todo{atrent: bibliografia!}
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
+\cite{RISCVHistory}.
 
 %\textbf{OBIETTIVI}
 L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
@@ -182,7 +181,7 @@ Per la valutazione sono stati scrittura dei codici in linguaggio C compilati con
 In alcuni casi viene anche analizzato il sorgente compilato.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. I capitolo\todo{atrent: check italiano!} 4 e 5 vengono presentati alcuni programmi utilizzati per la valutazione e analizzati i risultati ottenuti.
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. Nei capitoli 4 e 5 vengono presentati alcuni programmi che vengono utilizzati per la valutazione del processore RISC-V.
 
 
 \tableofcontents
@@ -197,9 +196,7 @@ La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi 
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto , (1.1- obbiettivi )
 %	2- storia  \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel} e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V.
-
-\todo{atrent: bibliografia!}
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel} e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
@@ -222,9 +219,7 @@ Durante la fase di progettazione i progettisti hanno voluto mettere nero su bian
 \section{Panoramica}
 L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dall endianness del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
-Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare.
-
-\todo{atrent: bibliografia!}
+Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare \cite{ISA}.
 
 
 %Modalita indirizzamento
@@ -249,7 +244,7 @@ Si parla di \textit{trap} quando verifica un trasferimento di controllo, da part
 % BASE -> ESTENSIONI
 % 
 \chapter{ISA RISC-V}
-Prima di discutere dei risultati ottenuti presentiamo ISA.\todo{atrent: italiano}
+Prima di discutere dei risultati ottenuti presentiamo L'\textit{Instruction Set Architecture} o \textbf{ISA}.
 %BASE ED ESTENSIONE
 \section{Base}
 RISC-V prevede un nucleo di istruzioni di base mediante le quali si può supportare dei sistemi funzionanti. Esistono diversi nuclei base denominati a seconda di quanti bit utilizza il sistema.  Esistono 4 basi:
@@ -358,9 +353,6 @@ Rispettivamente il valore di XLEN per RV64I e per RV128I è 128.
 
 Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le linee guida per fare delle proprie estensioni.
 
-\todo{alexj: Ho trovato i primi 2 capitoli molto più leggibili. Hai fatto bene a smaltire}
-
-
 
 
 %%
@@ -370,9 +362,8 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 \chapter{Compilatori}
 
 \section{Descrizione}
-Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target.
+Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
 
-\todo{atrent: bibliografia! ad es. gcc e LLVM}
 
 \begin{figure}
 \centering
@@ -384,11 +375,10 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0}.
-
-\todo{atrent: bibliografia! sull'opensource e sw libero}
-
-
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0}
+\cite{openSource1}
+\cite{openOrg}
+\cite{stallman2003software}.
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -400,8 +390,6 @@ Nel ecosistema dei compilatori moderni i due dei piu famosi sono: GCC e CLANG.
 Il primo GCC (GNU Compiler Collection) fu creato nel 1987 oggi viene sviluppato da programmatori di tutto il mondo. Inizialmente nato per il linguaggio C oggi oggi supporta altri linguaggi come Java, C++, Objective C \cite{GCCstory}.
 
 Il secondo nato nel 2005 sviluppato da Apple Inc.  Inizialmente fu sviluppato con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
-
-\textit{Domanda: Ma tu hai usato CLANG?} \todo{atrent: non ho capito questa frase, forse era un todo?}
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno  sempre più espressivi e astratti.  Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
@@ -485,7 +473,7 @@ Dimensioni & lunghezza 85 mm, larghezza 56 mm, spessore 1,7 mm\\
 La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.
 
 \section{Presentazione programmi}
-I programmi utilizzati sono scritti in C e sono contenuti su github in una \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.\todo{atrent: mio dubbio, repo è maschile o femminile? per me maschile, cfr. \url{https://accademiadellacrusca.it/it/consulenza/quale-possibile-traducente-per-repository/2859}}
+I programmi utilizzati sono scritti in C e sono contenuti su github in un \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.
 Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi, confrontarli.
 
 \todo{atrent: da qualche parte spieghi la scelta degli snippet di test? cioè perché proprio quelli, tipicamente dovresti basarti su letteratura per decidere cosa testare. Esistono suite di benchmark standardizzate? Penso proprio di sì, dovresti citarle e confrontarti con esse. Anni fa ricordo che BYTE pubblicava i benchmark dei processori usando delle suite di test standard. cfr. anche \url{https://cpu.userbenchmark.com} o anche \url{https://www.cpu-monkey.com}}
@@ -526,7 +514,7 @@ In questa directory sono contenuti due programmi che utilizzano metodi di backtr
 	\item Un solutore di labirinti
 \end{itemize}
 
-In entrambi i casi vengono utilizzate tecniche di backtracking\todo{atrent: vale in generale, i termini inglesi non assorbiti dall'italiano andrebbero in corsivo}.  Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
+In entrambi i casi vengono utilizzate tecniche di \textit{backtracking}. Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
 
 \vspace{0.5cm}
 \begin{large}
@@ -609,7 +597,8 @@ Il programma utilizza una scansione lineare per trovare i primi cinquemila numer
 
 \lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:prime} ]{PorzioniCodice/Prime/prime.c}
 
-I file sono stati compilato con diverse livelli di ottimizzazione.
+I file sono stati compilato con diverse livelli di ottimizzazione. Lo scopo di questa scelta è quella di osservare il livello di maturità del compilatore.
+
 \begin{table}[ht]
 \begin{tabular}{|l|c|r|}
 \hline
@@ -656,7 +645,7 @@ La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati i
 	
 	
 \section{Analisi codice assembly}
-Osserviamo i compilatori a confronto.  I Compilatori confrontati sono \textit{gcc RISC-V},  \textit{gcc ARM} e \textit{gcc x86\_64}.  I compilatori RISC-V e ARM vengono confrontati per il loro focus sul ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0).
+Per capire meglio i risultati osserviamo e compariamo i codici generati dai compilatori.  I Compilatori confrontati sono \textit{gcc RISC-V},  \textit{gcc ARM} e \textit{gcc x86\_64}.  I compilatori RISC-V e ARM vengono confrontati per il loro focus sul ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0) \cite{ConfrontoISABook}.
 
 
 \section{Operazioni}
@@ -933,7 +922,7 @@ Per quanto riguarda la divisione viene utilizzato la stessa metodologia della mo
 \section{MonteCarloPi}
 % valutazione generatore numeri casuali 
 Al giorno d'oggi è comune utilizzare la generazione di numeri casuali in tecniche o simulazioni, ad esempio numeri di conto bancario e crittografia. È una tecnica necessaria e di base nella programmazione di computer. Non è possibile avere un generatore scelto tra tanti senza valutarne la casualità. Ad esempio un generatore che genera dei valori tra zero e cento ma con probabilità maggiore su uno specifico valore, è normale pensare che se si utilizza più probabilmente verrà generato quel numero di tutti gli altri. Un altro esempio se utilizzassimo un generatore che ha  una probabilità uniforme nel generare numeri  generiamo i primi dieci valori e questi sono i valori da uno a dieci notiamo subito una sequenza riconoscibile e la casualità del prossimo numero è poco casuale.
-Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità.
+Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità \cite{rngValido}.
 
 \subsection{Generatore casuale}
 Per il programma è stato utilizzata la funzione rand() del linguaggio c. Per la valutazione dei valori sono state generati i valori da zero a novantanove, estremi inclusi, per cinque volte. I campioni non presentano predicibilità e seguono una distribuzione normale. Possiamo concludere che il generatore è un generatore accettabile.
@@ -968,20 +957,44 @@ $ \pi = 4 * \frac{Punti interni alla circonferenza}{Numero di ounti generati} $
 
 Inseguito vengono riportate le tabelle che rappresentano il tempo di esecuzione e il valore calcolato.
 
+
 \begin{table}[ht]
-\begin{tabular}{| l | c | c | c | c | c | c | c  | c |}
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
 \hline
-             & 1          & 2          & 3          & 4          & 5          & T.EXE Totale & MEDIA      & DEV.STD  \\ \hline
-10\textasciicircum{}1  & 0,000008   & 0,000008   & 0,000006   & 0,000005   & 0,000006   & 0,000033     & 0,000007   & 0,000001 \\ \hline
-10\textasciicircum{}2  & 0,000019   & 0,000019   & 0,000018   & 0,000018   & 0,000018   & 0,000092     & 0,000018   & 0,000001 \\ \hline
-10\textasciicircum{}3  & 0,000141   & 0,000140   & 0,000141   & 0,000140   & 0,000140   & 0,000702     & 0,000140   & 0,000001 \\ \hline
-10\textasciicircum{}4  & 0,001467   & 0,001501   & 0,001524   & 0,001362   & 0,001382   & 0,007236     & 0,001447   & 0,000072 \\ \hline
-10\textasciicircum{}5  & 0,014029   & 0,014082   & 0,013851   & 0,013994   & 0,013971   & 0,069927     & 0,013985   & 0,000086 \\ \hline
-10\textasciicircum{}6  & 0,138878   & 0,138625   & 0,138920   & 0,138916   & 0,138660   & 0,693999     & 0,138800   & 0,000145 \\ \hline
-10\textasciicircum{}7  & 1,393739   & 1,387346   & 1,387775   & 1,387397   & 1,390657   & 6,946914     & 1,389383   & 0,002796 \\ \hline
-10\textasciicircum{}8  & 13,881088  & 13,880401  & 13,882388  & 13,880326  & 13,880459  & 69,404662    & 13,880932  & 0,000869 \\ \hline
-10\textasciicircum{}9  & 138,820115 & 138,830064 & 138,831942 & 138,863054 & 138,809745 & 694,154920   & 138,830984 & 0,019997 \\ \hline
-10\textasciicircum{}10 & 195,756279 & 195,752334 & 195,733842 & 195,746235 & 195,755829 & 978,744519   & 195,748904 & 0,009329 \\ \hline
+                       & 1          & 2          & 3          & 4          & 5          \\ \hline
+10\textasciicircum{}1  & 0,000008   & 0,000008   & 0,000006   & 0,000005   & 0,000006   \\ \hline
+10\textasciicircum{}2  & 0,000019   & 0,000019   & 0,000018   & 0,000018   & 0,000018   \\ \hline
+10\textasciicircum{}3  & 0,000141   & 0,000140   & 0,000141   & 0,000140   & 0,000140   \\ \hline
+10\textasciicircum{}4  & 0,001467   & 0,001501   & 0,001524   & 0,001362   & 0,001382   \\ \hline
+10\textasciicircum{}5  & 0,014029   & 0,014082   & 0,013851   & 0,013994   & 0,013971   \\ \hline
+10\textasciicircum{}6  & 0,138878   & 0,138625   & 0,138920   & 0,138916   & 0,138660   \\ \hline
+10\textasciicircum{}7  & 1,393739   & 1,387346   & 1,387775   & 1,387397   & 1,390657   \\ \hline
+10\textasciicircum{}8  & 13,881088  & 13,880401  & 13,882388  & 13,880326  & 13,880459  \\ \hline
+10\textasciicircum{}9  & 138,820115 & 138,830064 & 138,831942 & 138,863054 & 138,809745 \\ \hline
+10\textasciicircum{}10 & 195,756279 & 195,752334 & 195,733842 & 195,746235 & 195,755829 \\ \hline
+\end{tabular}
+\caption{Tempi di esecuzione dell' algoritmo per gruppo}
+\label{Tab:TimeExceMCPiGroup}
+\end{table}
+
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{| l | c | c  | c |}
+\hline
+             & Tempo esecuzione Totale & Media      & Dev. std  \\ \hline
+10\textasciicircum{}1  & 0,000033     & 0,000007   & 0,000001 \\ \hline
+10\textasciicircum{}2  & 0,000092     & 0,000018   & 0,000001 \\ \hline
+10\textasciicircum{}3  & 0,000702     & 0,000140   & 0,000001 \\ \hline
+10\textasciicircum{}4  & 0,007236     & 0,001447   & 0,000072 \\ \hline
+10\textasciicircum{}5  & 0,069927     & 0,013985   & 0,000086 \\ \hline
+10\textasciicircum{}6  & 0,693999     & 0,138800   & 0,000145 \\ \hline
+10\textasciicircum{}7  & 6,946914     & 1,389383   & 0,002796 \\ \hline
+10\textasciicircum{}8  & 69,404662    & 13,880932  & 0,000869 \\ \hline
+10\textasciicircum{}9  & 694,154920   & 138,830984 & 0,019997 \\ \hline
+10\textasciicircum{}10 & 978,744519   & 195,748904 & 0,009329 \\ \hline
 \end{tabular}
 \caption{Tempi di esecuzione dell algoritmo}
 \label{Tab:TimeExceMCPi}
