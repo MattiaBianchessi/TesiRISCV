@@ -172,6 +172,8 @@ sorting=ynt,
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
 Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}, sta facendo parlare di sè.   
 
+\todo{atrent: bibliografia!}
+
 %\textbf{OBIETTIVI}
 L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
 
@@ -180,7 +182,7 @@ Per la valutazione sono stati scrittura dei codici in linguaggio C compilati con
 In alcuni casi viene anche analizzato il sorgente compilato.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. I capitolo 4 e 5 vengono presentati alcuni programmi utilizzati per la valutazione e analizzati i risultati ottenuti.
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. I capitolo\todo{atrent: check italiano!} 4 e 5 vengono presentati alcuni programmi utilizzati per la valutazione e analizzati i risultati ottenuti.
 
 
 \tableofcontents
@@ -197,6 +199,7 @@ La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi 
 %	2- storia  \\
 RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel} e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V.
 
+\todo{atrent: bibliografia!}
 
 
 \section{Gli obbiettivi di RISC-V}
@@ -221,6 +224,9 @@ L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA su
 
 Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare.
 
+\todo{atrent: bibliografia!}
+
+
 %Modalita indirizzamento
 Avendo tutte le istruzioni di lunghezza fissa non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell istruzione. La soluzione è l'utilizzo della modalità di indirizzamento
 \begin{itemize}
@@ -243,7 +249,7 @@ Si parla di \textit{trap} quando verifica un trasferimento di controllo, da part
 % BASE -> ESTENSIONI
 % 
 \chapter{ISA RISC-V}
-Prima di discutere dei risultati ottenuti presentiamo ISA. 
+Prima di discutere dei risultati ottenuti presentiamo ISA.\todo{atrent: italiano}
 %BASE ED ESTENSIONE
 \section{Base}
 RISC-V prevede un nucleo di istruzioni di base mediante le quali si può supportare dei sistemi funzionanti. Esistono diversi nuclei base denominati a seconda di quanti bit utilizza il sistema.  Esistono 4 basi:
@@ -352,7 +358,7 @@ Rispettivamente il valore di XLEN per RV64I e per RV128I è 128.
 
 Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le linee guida per fare delle proprie estensioni.
 
-\todo{Ho trovato i primi 2 capitoli molto più leggibili. Hai fatto bene a smaltire}
+\todo{alexj: Ho trovato i primi 2 capitoli molto più leggibili. Hai fatto bene a smaltire}
 
 
 
@@ -366,6 +372,7 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 \section{Descrizione}
 Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target.
 
+\todo{atrent: bibliografia! ad es. gcc e LLVM}
 
 \begin{figure}
 \centering
@@ -379,6 +386,9 @@ Qualsiasi programma scritto in un linguaggio di programmazione di alto livello d
 \section{Storia}
 Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0}.
 
+\todo{atrent: bibliografia! sull'opensource e sw libero}
+
+
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -391,7 +401,7 @@ Il primo GCC (GNU Compiler Collection) fu creato nel 1987 oggi viene sviluppato 
 
 Il secondo nato nel 2005 sviluppato da Apple Inc.  Inizialmente fu sviluppato con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
-\textit{Domanda: Ma tu hai usato CLANG?} 
+\textit{Domanda: Ma tu hai usato CLANG?} \todo{atrent: non ho capito questa frase, forse era un todo?}
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno  sempre più espressivi e astratti.  Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
@@ -417,6 +427,10 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 \section{Descrizione board}
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
+
+
+\todo{atrent: bibliografia su altri che abbiano fatto lavori simili di benchmarking! (qui o altrove, ma ci deve essere)}
+
 
 \begin{figure}[!ht]
 \includegraphics[width = \textwidth]{D1H-BoardTopView.png}
@@ -471,8 +485,11 @@ Dimensioni & lunghezza 85 mm, larghezza 56 mm, spessore 1,7 mm\\
 La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.
 
 \section{Presentazione programmi}
-I programmi utilizzati sono scritti in C e sono contenuti su github in una \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.
- Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi, confrontarli.
+I programmi utilizzati sono scritti in C e sono contenuti su github in una \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.\todo{atrent: mio dubbio, repo è maschile o femminile? per me maschile, cfr. \url{https://accademiadellacrusca.it/it/consulenza/quale-possibile-traducente-per-repository/2859}}
+Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi, confrontarli.
+
+\todo{atrent: da qualche parte spieghi la scelta degli snippet di test? cioè perché proprio quelli, tipicamente dovresti basarti su letteratura per decidere cosa testare. Esistono suite di benchmark standardizzate? Penso proprio di sì, dovresti citarle e confrontarti con esse. Anni fa ricordo che BYTE pubblicava i benchmark dei processori usando delle suite di test standard. cfr. anche \url{https://cpu.userbenchmark.com} o anche \url{https://www.cpu-monkey.com}}
+
 \subsection{Operazioni Aritmetiche}
 Il primo programma utilizzato esegue le operazioni aritmetiche di base addizione, sottrazione, moltiplicazione, divisione e modulo.
 Il programma genera due matrici quadrate di numeri interi su cui vengono eseguite le operazioni elemento per elemento. Le dimensioni delle matrici sono 1000 x 1000, 2500 x 2500, 5000 x 5000, 8000 x 8000, 10000 x 10000, 15000 x 15000.
@@ -489,7 +506,7 @@ Il programma ''prime.c'' controlla da due in poi se n-esimo numero è divisibile
 Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift).
 
 \subsection{Montecarlo Pi}
-Algoritmo di approssimazione del pigreco tramite il metodo di Montecarlo. Nell' esecuzione vengono utilizzati da 10 a ($ 10^{10} $) punti per l'approssimazione. Ogni iterazione viene eseguita cinque volte e per ogni iterazione viene memorizzato il valore calcolato con il proprio tempo di esecuzione. Il programma si basa sulla funzione rand.
+Algoritmo di approssimazione del pigreco tramite il metodo di Montecarlo. Nell'esecuzione vengono utilizzati da 10 a ($ 10^{10} $) punti per l'approssimazione. Ogni iterazione viene eseguita cinque volte e per ogni iterazione viene memorizzato il valore calcolato con il proprio tempo di esecuzione. Il programma si basa sulla funzione rand.
 
 \subsection{Sorting}
 In questa directory sono presenti alcuni alcuni algoritmi di sorting. Gli algoritmi di sorting utilizzati sono:
@@ -509,7 +526,7 @@ In questa directory sono contenuti due programmi che utilizzano metodi di backtr
 	\item Un solutore di labirinti
 \end{itemize}
 
-In entrambi i casi vengono utilizzate tecniche di backtracking.  Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
+In entrambi i casi vengono utilizzate tecniche di backtracking\todo{atrent: vale in generale, i termini inglesi non assorbiti dall'italiano andrebbero in corsivo}.  Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
 
 \vspace{0.5cm}
 \begin{large}
@@ -1299,6 +1316,8 @@ Infine sono stati utilizzati degli algoritmi di ordinamento i cui risultati sono
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
+
+\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
 
 
 
