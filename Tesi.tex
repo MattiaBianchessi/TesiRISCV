@@ -416,9 +416,18 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
 
+% Find Ref
+%Operazioni -> 
+%PrimeNumber -> valuta maturita compilatore
+% MultShift ->  confronto asm 
+
+
 
 \todo{atrent: bibliografia su altri che abbiano fatto lavori simili di benchmarking! (qui o altrove, ma ci deve essere)}
 
+% MontecarloPi -> metodi Monte Carlo per applicazioni : Machine learning -> \cite{...}
+%Sorting -> confronto con un tempi su raspberry --> \cite{Rasp}
+% BackTracking ->  per sudoku \cite{sudoSolver}
 
 \begin{figure}[!ht]
 \includegraphics[width = \textwidth]{D1H-BoardTopView.png}
@@ -919,6 +928,7 @@ In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazion
 Per quanto riguarda la divisione viene utilizzato la stessa metodologia della moltiplicazione.
 
 
+
 \section{MonteCarloPi}
 % valutazione generatore numeri casuali 
 Al giorno d'oggi è comune utilizzare la generazione di numeri casuali in tecniche o simulazioni, ad esempio numeri di conto bancario e crittografia. È una tecnica necessaria e di base nella programmazione di computer. Non è possibile avere un generatore scelto tra tanti senza valutarne la casualità. Ad esempio un generatore che genera dei valori tra zero e cento ma con probabilità maggiore su uno specifico valore, è normale pensare che se si utilizza più probabilmente verrà generato quel numero di tutti gli altri. Un altro esempio se utilizzassimo un generatore che ha  una probabilità uniforme nel generare numeri  generiamo i primi dieci valori e questi sono i valori da uno a dieci notiamo subito una sequenza riconoscibile e la casualità del prossimo numero è poco casuale.
@@ -1021,6 +1031,10 @@ Inseguito vengono riportate le tabelle che rappresentano il tempo di esecuzione 
 \end{table}
 
 Le tabelle \ref{Tab:TimeExceMCPi} e \ref{Tab:ValueMCPi} mostrano i risultati in termini di valori calcolati e il tempo di esecuzione.  Le colonne indicano il valore dell i-esima prova mentre ogni riga identifica il numero di punti generati.
+L'utilizzo di un metodo di Monte Carlo ha varie applicazioni dalla statistica all ingegneria\cite{MonteCarloStat} \cite{MonteCarloRadio}. Un approssimazione molto utilizzata del valore del $ \pi$ è 3,14 \cite{piGrecoCifre} questo valore è ottenuto generando $10^4$ punti(come valore medio) calcolato in 0,007236 secondi.  Invece con $10^6$ tutti i punti utilizzati hanno come valore 3,14.  Un altra approssimazione utilizzata è di 6 cifre ovvero 3,14159 ottenuto in 978 secondi (circa) come valore medio di cinque prove con $10^10$ punti generati. %Risultato notevole perché il metodo di Monte Carlo trova anche un applicazione nel machine learning \cite{MonteCarlo1} \cite{MonteCarlo2}. 
+
+
+
 
 \section{Sorting}
 Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dati e sono ampiamente utilizzati in molti aspetti, ad esempio in crittografia e nella ricerca di informazioni. Esistono molti tipi di algoritmi di ordinamento e ognuno ha i suoi vantaggi e limiti. In informatica, l'algoritmo di ordinamento è solitamente classificato come segue.
