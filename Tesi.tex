@@ -24,6 +24,8 @@
 %\pgfplotsset{compat=1.18} 
 
 
+\usepackage{verbatim}
+
 \lstset{
 	% 	language=bash
 	frame=single,
@@ -416,18 +418,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
 
-% Find Ref
-%Operazioni -> 
-%PrimeNumber -> valuta maturita compilatore
-% MultShift ->  confronto asm 
 
-
-
-\todo{atrent: bibliografia su altri che abbiano fatto lavori simili di benchmarking! (qui o altrove, ma ci deve essere)}
-
-% MontecarloPi -> metodi Monte Carlo per applicazioni : Machine learning -> \cite{...}
-%Sorting -> confronto con un tempi su raspberry --> \cite{Rasp}
-% BackTracking ->  per sudoku \cite{sudoSolver}
 
 \begin{figure}[!ht]
 \includegraphics[width = \textwidth]{D1H-BoardTopView.png}
@@ -481,32 +472,40 @@ Dimensioni & lunghezza 85 mm, larghezza 56 mm, spessore 1,7 mm\\
 \section{Ambiente di sviluppo}
 La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.
 
-\section{Presentazione programmi}
-I programmi utilizzati sono scritti in C e sono contenuti su github in un \href{https://github.com/MattiaBianchessi/Testing_RISC-V}{repository}.
-Ogni directory contiene i dati di esecuzione di ciascun programma eseguito in un file con estensione .csv e un notebook jupyter per visualizzare i dati e, in alcuni casi, confrontarli.
+
+\section{Programmi utilizzati}
 
 \todo{atrent: da qualche parte spieghi la scelta degli snippet di test? cioè perché proprio quelli, tipicamente dovresti basarti su letteratura per decidere cosa testare. Esistono suite di benchmark standardizzate? Penso proprio di sì, dovresti citarle e confrontarti con esse. Anni fa ricordo che BYTE pubblicava i benchmark dei processori usando delle suite di test standard. cfr. anche \url{https://cpu.userbenchmark.com} o anche \url{https://www.cpu-monkey.com}}
 
-\subsection{Operazioni Aritmetiche}
-Il primo programma utilizzato esegue le operazioni aritmetiche di base addizione, sottrazione, moltiplicazione, divisione e modulo.
-Il programma genera due matrici quadrate di numeri interi su cui vengono eseguite le operazioni elemento per elemento. Le dimensioni delle matrici sono 1000 x 1000, 2500 x 2500, 5000 x 5000, 8000 x 8000, 10000 x 10000, 15000 x 15000.
 
-La prima matrice generata ha valori tra uno e duecento, la seconda ha valori tra uno e cento.
+\section{CoreMark}
+Per citare il sito ufficiale: \textit{CoreMark is a simple, yet sophisticated benchmark that is designed specifically to test the functionality of a processor core. Running CoreMark produces a single-number score allowing users to make quick comparisons between processors}. 
+CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}..
 
-Per ogni matrice vengono eseguite cinque prove da cui viene calcolato il tempo medio di esecuzione.
+CoreMark è un benchmark sintetico, come Dhrystone. Come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU.\cite{analysis_EEMBC}
+I codice sorgente è disponibile nella repository Github{RepoCoreMark}.
+		
 
-\subsection{Prime Number}
-Il programma generai primi cinquemila numeri primi. 
-Il programma ''prime.c'' controlla da due in poi se n-esimo numero è divisibile se non è divisibile allora lo memorizzo altrimenti passo al prossimo numero.  
+\section{Linpack}
+Il Linpack Benchmark è una misura della velocità di esecuzione in virgola mobile di un computer. Viene determinato eseguendo un programma  che risolve un denso sistema di equazioni lineari.  Durante gli anni si sono sviluppate tre versioni di questo programma. 
+ \todo{descrizione linpack}
+	\todo{bib}
+	
 
-\subsection{Moltiplicazione o shift}
-Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift).
-
-\subsection{Montecarlo Pi}
-Algoritmo di approssimazione del pigreco tramite il metodo di Montecarlo. Nell'esecuzione vengono utilizzati da 10 a ($ 10^{10} $) punti per l'approssimazione. Ogni iterazione viene eseguita cinque volte e per ogni iterazione viene memorizzato il valore calcolato con il proprio tempo di esecuzione. Il programma si basa sulla funzione rand.
-
-\subsection{Sorting}
-In questa directory sono presenti alcuni alcuni algoritmi di sorting. Gli algoritmi di sorting utilizzati sono:
+	
+\section{MultOrShift}
+	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
+aritmetiche con lo shift. Il programma genera un array di interi di
+valori tra zero e maxInt e un array di potenze di due comprese tra due e
+milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione
+viene calcolato elemento per elemento il risultato e viene memorizzato il
+tempo di esecuzione. Il risultato del programma `e il tempo medio di esecuzione
+di mille operazioni per tipo (moltiplicazione normale, divisione normale,
+moltiplicazione tramite shift, divisione tramite shift). Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISCV e confrontarle con le stesse operazioni compilate per ARM.
+		
+		
+\section{Sorting}
+Vengono utilizzati degli algoritmi di sorting per confrontare il tempo di esecuzione sulla board con gli stessi algoritmi su Raspberry.Gli algoritmi di sorting utilizzati sono:
 \begin{itemize}
 	\item BubbleSort
 	\item InsertionSort
@@ -516,32 +515,6 @@ In questa directory sono presenti alcuni alcuni algoritmi di sorting. Gli algori
 
 Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni dimensione vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell' array da ordinare, come ad esempio utilizzando il BubbleSort vengono ordinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
 
-\subsection{BackTracking}
-In questa directory sono contenuti due programmi che utilizzano metodi di backtracking:
-\begin{itemize}
-	\item Un solutore di sudoku
-	\item Un solutore di labirinti
-\end{itemize}
-
-In entrambi i casi vengono utilizzate tecniche di \textit{backtracking}. Lo scopo è quello di valutare il tempo di esecuzione di programmi che fanno uso del backtracking su processore RISC.
-
-\vspace{0.5cm}
-\begin{large}
-\textbf{Sudoku}
-\end{large}
-
-Il solutore di sudoku risolve il puzzle matematico.  Sono presenti otto sudoku nel file sudoku.h di varia difficoltà, 2 di essi non sono fattibili, uno per costruzione(sbagliato in partenza) e l 'altro è impossibile risolverlo per la configurazione.
-
-\vspace{0.5cm}
-\begin{large}
-\textbf{MazeSolver}
-\end{large}
-
-Il solutore mazeSolver.c, una volta in esecuzione, chiede il path del labirinto da risolvere e successivamente è possibile salvare la soluzione, se trovata, in un nuovo file.  Sono presenti alcuni esempi nella sottodirectory maze di labirinti.
-In directory è presente un ulteriore file mazeGen.py che è stato utilizzato come generatore di labirinti. 
-Inoltre viene fornita la possibilità di utilizzare un proprio labirinto, il labirinto personale dovrà avere l'estensione .txt specificare il numero di linee e il numero di colonne del labirinto sulle prime due righe. Successivamente  il labirinto. Le componenti del labirinto sono i muri , indicati con \#, un inizio , indicato con 'I' e una fine con 'O'. Le zone dello attraversabili sono idenficate dallo spazio ' '.
-
-
 
 \chapter{Comparativa}
 
@@ -549,85 +522,10 @@ Inoltre viene fornita la possibilità di utilizzare un proprio labirinto, il lab
 \label{sec:MacBook}
 Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha un processore 2,2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini Pc fanno riferimento a questa architettura.
 
-\section{Operazioni}
-	Con il programma operazioni viene visualizzato il tempo di esecuzione di alcune operazioni matematiche di base. Come mostrato nelle porzioni di codice Code \ref{Code:Sum},\ref{Code:Sub}, \ref{Code:Mul}, \ref{Code:Div}, \ref{Code:Mod} mostrano le funzioni che si occupano delle operazioni. Ogni funzione, semplicemente, esegue un ciclo su ogni elemento di \textit{a} e di \textit{b}, ne esegue l'operazione e memorizza il risultato in \textit{c}.  La matrice \textit{a} ha valori interi compresi tra uno e duecento,  la matrice \textit{b} ha valori interi compresi tra uno e cento. Le matrici utilizzate sono matrici quadrate e le dimensioni utilizzate sono 1000, 2500, 5000, 8000, 10000, 15000. Per ogni operazione vengono eseguite cinque prove da cui viene calcolato il tempo medio di esecuzione. 
-	Per riferimento il programma è stato utilizzato anche sul Pc \ref{sec:MacBook}. 
-	
-	\lstinputlisting[language=c,  style = Cstyle, caption = Addizione,  label ={Code:Sum} ]{PorzioniCodice/Operazioni/sum.c}
-	\lstinputlisting[language=c,  style = Cstyle, caption = Sottrazione, label ={Code:Sub}]{PorzioniCodice/Operazioni/sub.c}
-	\lstinputlisting[language=c,  style = Cstyle, caption = Moltiplicazione, label ={Code:Mul}]{PorzioniCodice/Operazioni/mul.c}
-	\lstinputlisting[language=c,  style = Cstyle, caption = Divisione, label ={Code:Div}]{PorzioniCodice/Operazioni/div.c}
-	\lstinputlisting[language=c,  style = Cstyle, caption = Modulo, label ={Code:Mod}]{PorzioniCodice/Operazioni/mod.c}
-	
-	Di seguito vengono riportati i tempi di esecuzione medi per operazione e per dimensione
-	\begin{table}[!ht]
-	
-	\centering
-	\begin{tabular}{| l | c | c | c | c | c | c |}
-		\hline
-		Operazione & 1000 & 2500 & 5000 & 8000 & 10000 & 15000 \\ \hline
-		Somma & 0.002317 & 0.013848 & 0.055129 & 0.142010 & 0.227784 & 0.504650\\ \hline
-		Sottrazione & 0.002324 & 0.013921 & 0.054900 & 0.142941 & 0.227505 & 0.504767\\ \hline
-		Prodotto & 0.002344 & 0.014010 & 0.055036 & 0.143293 & 0.226141 & 0.504829\\ \hline
-		Divisione & 0.002352 & 0.013953 & 0.055298 & 0.142226 & 0.227948 & 0.505007\\ \hline
-		Modulo & 0.002298 & 0.013880 & 0.055009 & 0.142129 & 0.227835 & 0.505035\\ \hline
-
-	\end{tabular}
-	
-	\caption{Tempi di esecuzione MacBook-Air}
-	\end{table}
-	
-	\begin{table}[!ht]
-		\centering
-		\begin{tabular}{{| l | c | c | c | c | c | c |}}
-			\hline
-			Operazione & 1000 & 2500 & 5000 & 8000 & 10000 & 15000   \\ \hline	
-			Somma & 0.011256 & 0.069917 & 0.279804 & 0.714786 & 1.117411 & 2.512942  \\ \hline	
-			Sottrazione & 0.011237 & 0.069850 & 0.279895 & 0.714680 & 1.117352 & 2.512978  \\ \hline	
-			Prodotto & 0.011234 & 0.069899 & 0.279219 & 0.715381 & 1.117296 & 2.514183  \\ \hline	
-			Divisione & 0.011170 & 0.069781 & 0.279884 & 0.714673 & 1.116763 & 2.513539  \\ \hline	
-			Modulo & 0.011212 & 0.069845 & 0.279913 & 0.715371 & 1.117348 & 2.514198  \\ \hline	
-		\end{tabular}
-		
-	\caption{Tempi di esecuzione RISC-V}
-	\end{table}
-	Di seguito i grafici rappresentativi delle tabelle precedenti.
-	\begin{figure}
-	\centering
-		\includegraphics[scale= 0.4]{PorzioniCodice/Operazioni/Grafico.png}
-	\end{figure}
-	
-	Prendiamo in considerazione l'operazione di somma del processore RISC. Il tempo di esecuzione per la matrice 1000 x 1000 è di 0.011256 e per la matrice 2500 x 2500 è di  0.069917 il che è 6.2115 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  Per il Pc il tempo di esecuzione per la matrice 1000 x 1000 è di 0.002317 e per la matrice 2500 x 2500 è di  0.013848 il che è 5.97 (circa) il tempo di esecuzione e 6.25 la dimensione dei dati.  
-	Il tempo di esecuzione totale del programma è di 23.653595 per il Pc mentre 117.665045 per RISC. Quindi il MacBook è 4.97 \% piu veloce del processore RISC. %risultato abbastanza prevedibile. 
-	
-	
-\section{PrimeNumber}
-Il programma utilizza una scansione lineare per trovare i primi cinquemila numeri primi. In seguito viene mostrato il codice della funzione principale.  La funzione controlla dal numero due in avanti se il numero è primo, se lo è viene inserito nell' array altrimenti no e il ciclo viene eseguito fino a trovare cinquemila numeri primi.  
-
-\lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:prime} ]{PorzioniCodice/Prime/prime.c}
-
-I file sono stati compilato con diverse livelli di ottimizzazione. Lo scopo di questa scelta è quella di osservare il livello di maturità del compilatore.
-
-\begin{table}[ht]
-\begin{tabular}{|l|c|r|}
-\hline
-    & PC       & RISC-V    \\ \hline
--O2 & 0.041286 & 0.434372  \\ \hline
--O1 & 0.033024 & 0.346976  \\ \hline
--O0 & 0.032363 & 0.3122784 \\ \hline
-\end{tabular}
-\caption{Tempi di esecuzione numeri primi}
-\label{Tab:TempoPrime}
-\end{table}
-Come precedentemente notato è l'ordine di grandezza di differenza dei due processori. Andando a guardare nei sorgenti assembly notiamo delle differenze. La prima abbastanza ovvia è la dimensione del file che nel caso del' ottimizzazione 0 è superiore (172 linee 4KB) rispetto all livello 2 (130 linee 4KB).Il secondo è l'utilizzato dell'istruzione \textit{nop} nel livello 0.
-Il codice \ref{Code:primeO0} fa riferimento alla porzione di codice dove vengono utilizzate le istruzioni \textit{nop}.
-
-\lstinputlisting[language = Risc-v,  caption =Sorgente prime ottimizzato con -O0,  label ={Code:primeO0},  firstline=48,lastline=55 ]{PorzioniCodice/Prime/prime0.s}
-
-La pseudo-istruzione \textit{nop}(No operation) ha come implementazione addi x0, x0, 0 che somma zero (costante) al registro contenente zero (x0) e lo memorizza nel registro x0.  Questo è un caso eccezionale in cui si ha la possibilità di scrivere il registro x0, seppur con poco significato algebricamente, ogni altro caso in cui si vuole modificare il registro x0 solleverebbe errori. La motivazione della presenza di queste operazioni è dovuto alla struttura hardware dotata di interlock. % un fatto piu storico
-La maggior parte delle implementazioni hardware ha degli interlock. Se un'istruzione necessita di dati che non sono ancora disponibili, la pipeline si interrompe finché i dati non sono disponibili. Oppure, se si tratta di una pipeline di esecuzione fuori ordine, un'istruzione si blocca finché i dati non sono disponibili e altre istruzioni possono continuare l'esecuzione.
-I nop emessi dal compilatore con -O0  non vengono emessi a -O1 o superiore. 
-
+\section{CoreMark}
+\todo{grafico}
+\section{LinPack}
+\todo{}
 
 \section{MultOrShift}
 Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift). Di seguito alcune porzioni di codice:
@@ -929,111 +827,6 @@ Per quanto riguarda la divisione viene utilizzato la stessa metodologia della mo
 
 
 
-\section{MonteCarloPi}
-% valutazione generatore numeri casuali 
-Al giorno d'oggi è comune utilizzare la generazione di numeri casuali in tecniche o simulazioni, ad esempio numeri di conto bancario e crittografia. È una tecnica necessaria e di base nella programmazione di computer. Non è possibile avere un generatore scelto tra tanti senza valutarne la casualità. Ad esempio un generatore che genera dei valori tra zero e cento ma con probabilità maggiore su uno specifico valore, è normale pensare che se si utilizza più probabilmente verrà generato quel numero di tutti gli altri. Un altro esempio se utilizzassimo un generatore che ha  una probabilità uniforme nel generare numeri  generiamo i primi dieci valori e questi sono i valori da uno a dieci notiamo subito una sequenza riconoscibile e la casualità del prossimo numero è poco casuale.
-Quindi le proprietà che ci interessano per un generatore di numeri sono una distribuzione uniforme e la non predicibilità \cite{rngValido}.
-
-\subsection{Generatore casuale}
-Per il programma è stato utilizzata la funzione rand() del linguaggio c. Per la valutazione dei valori sono state generati i valori da zero a novantanove, estremi inclusi, per cinque volte. I campioni non presentano predicibilità e seguono una distribuzione normale. Possiamo concludere che il generatore è un generatore accettabile.
-\begin{figure}
-\centering
-\includegraphics[scale=0.8]{Img/RngGrafico.png}
-\end{figure}
-
-% valori calcolati e tempo di exe
-Un utilizzo del generatore di numeri casuali è un algoritmo di Monte Carlo. Il metodo di Monte Carlo è un'ampia classe di metodi computazionali basati sul campionamento casuale per ottenere risultati numerici.  In particolare si è utilizzato il metodo applicato al calcolo del pigreco.
-Il metodo utilizzato funziona nel seguente modo:
-\begin{itemize}
-	\item[1] Genera due numeri casuali tra 0 e 1 che rappresentano le coordinate di un punto.
-	\item[2] Applica il teorema di Pitagora, se supera uno allora il punto non appartiene alla circonferenza, altrimenti appartiene.
-	\item[3] Ripeti i punti 1,2.
-	\item[4] Calcola il valore del pigreco.
-\end{itemize}
-
-
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.3]{Img/qCirc.png}
-\caption{Esempio di coordinate generate casualmente}
-\end{figure}
-
-\begin{center}
-$ \pi = 4 * \frac{Punti interni alla circonferenza}{Numero di ounti generati} $ 
-\end{center}
-
-
-\lstinputlisting[language=C,  style = Cstyle,  caption = {Funzione per il calcolo del pigreco con il metodo di Monte Carlo}, label = {Code:MonteCarloPi}]{PorzioniCodice/MonteCarloPi/MCPi.c}	
-
-Inseguito vengono riportate le tabelle che rappresentano il tempo di esecuzione e il valore calcolato.
-
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{|l|c|c|c|c|c|}
-\hline
-                       & 1          & 2          & 3          & 4          & 5          \\ \hline
-10\textasciicircum{}1  & 0,000008   & 0,000008   & 0,000006   & 0,000005   & 0,000006   \\ \hline
-10\textasciicircum{}2  & 0,000019   & 0,000019   & 0,000018   & 0,000018   & 0,000018   \\ \hline
-10\textasciicircum{}3  & 0,000141   & 0,000140   & 0,000141   & 0,000140   & 0,000140   \\ \hline
-10\textasciicircum{}4  & 0,001467   & 0,001501   & 0,001524   & 0,001362   & 0,001382   \\ \hline
-10\textasciicircum{}5  & 0,014029   & 0,014082   & 0,013851   & 0,013994   & 0,013971   \\ \hline
-10\textasciicircum{}6  & 0,138878   & 0,138625   & 0,138920   & 0,138916   & 0,138660   \\ \hline
-10\textasciicircum{}7  & 1,393739   & 1,387346   & 1,387775   & 1,387397   & 1,390657   \\ \hline
-10\textasciicircum{}8  & 13,881088  & 13,880401  & 13,882388  & 13,880326  & 13,880459  \\ \hline
-10\textasciicircum{}9  & 138,820115 & 138,830064 & 138,831942 & 138,863054 & 138,809745 \\ \hline
-10\textasciicircum{}10 & 195,756279 & 195,752334 & 195,733842 & 195,746235 & 195,755829 \\ \hline
-\end{tabular}
-\caption{Tempi di esecuzione dell' algoritmo per gruppo}
-\label{Tab:TimeExceMCPiGroup}
-\end{table}
-
-
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{| l | c | c  | c |}
-\hline
-             & Tempo esecuzione Totale & Media      & Dev. std  \\ \hline
-10\textasciicircum{}1  & 0,000033     & 0,000007   & 0,000001 \\ \hline
-10\textasciicircum{}2  & 0,000092     & 0,000018   & 0,000001 \\ \hline
-10\textasciicircum{}3  & 0,000702     & 0,000140   & 0,000001 \\ \hline
-10\textasciicircum{}4  & 0,007236     & 0,001447   & 0,000072 \\ \hline
-10\textasciicircum{}5  & 0,069927     & 0,013985   & 0,000086 \\ \hline
-10\textasciicircum{}6  & 0,693999     & 0,138800   & 0,000145 \\ \hline
-10\textasciicircum{}7  & 6,946914     & 1,389383   & 0,002796 \\ \hline
-10\textasciicircum{}8  & 69,404662    & 13,880932  & 0,000869 \\ \hline
-10\textasciicircum{}9  & 694,154920   & 138,830984 & 0,019997 \\ \hline
-10\textasciicircum{}10 & 978,744519   & 195,748904 & 0,009329 \\ \hline
-\end{tabular}
-\caption{Tempi di esecuzione dell algoritmo}
-\label{Tab:TimeExceMCPi}
-\end{table}
-
-
-\begin{table}[ht]
-\begin{tabular}{|l|c|c|c|c|c|c|c|}
-\hline
-               & 1        & 2        & 3        & 4        & 5        & MEDIA    & DEV.STD  \\ \hline
-10\textasciicircum{}1  & 3,600000 & 3,200000 & 2,400000 & 3,200000 & 3,200000 & 3,120000 & 0,438178 \\ \hline
-10\textasciicircum{}2  & 2,840000 & 3,160000 & 3,040000 & 3,160000 & 3,000000 & 3,040000 & 0,132665 \\ \hline
-10\textasciicircum{}3  & 3,100000 & 3,136000 & 3,236000 & 3,168000 & 3,192000 & 3,166400 & 0,052046 \\ \hline
-10\textasciicircum{}4  & 3,160000 & 3,128000 & 3,157200 & 3,110400 & 3,156400 & 3,142400 & 0,022114 \\ \hline
-10\textasciicircum{}5  & 3,134120 & 3,138920 & 3,145400 & 3,143120 & 3,143200 & 3,140952 & 0,004482 \\ \hline
-10\textasciicircum{}6  & 3,140340 & 3,140840 & 3,145420 & 3,139996 & 3,143304 & 3,141980 & 0,002319 \\ \hline
-10\textasciicircum{}7  & 3,142072 & 3,141478 & 3,142091 & 3,141413 & 3,141392 & 3,141689 & 0,000360 \\ \hline
-10\textasciicircum{}8  & 3,141343 & 3,141380 & 3,141467 & 3,141383 & 3,141244 & 3,141363 & 0,000081 \\ \hline
-10\textasciicircum{}9  & 3,141499 & 3,141617 & 3,141583 & 3,141508 & 3,141531 & 3,141548 & 0,000051 \\ \hline
-10\textasciicircum{}10 & 3,141637 & 3,141616 & 3,141607 & 3,141607 & 3,141506 & 3,141595 & 0,000051 \\ \hline
-\end{tabular}
-\caption{Valori calcolati}
-\label{Tab:ValueMCPi}
-\end{table}
-
-Le tabelle \ref{Tab:TimeExceMCPi} e \ref{Tab:ValueMCPi} mostrano i risultati in termini di valori calcolati e il tempo di esecuzione.  Le colonne indicano il valore dell i-esima prova mentre ogni riga identifica il numero di punti generati.
-L'utilizzo di un metodo di Monte Carlo ha varie applicazioni dalla statistica all ingegneria\cite{MonteCarloStat} \cite{MonteCarloRadio}. Un approssimazione molto utilizzata del valore del $ \pi$ è 3,14 \cite{piGrecoCifre} questo valore è ottenuto generando $10^4$ punti(come valore medio) calcolato in 0,007236 secondi.  Invece con $10^6$ tutti i punti utilizzati hanno come valore 3,14.  Un altra approssimazione utilizzata è di 6 cifre ovvero 3,14159 ottenuto in 978 secondi (circa) come valore medio di cinque prove con $10^10$ punti generati. %Risultato notevole perché il metodo di Monte Carlo trova anche un applicazione nel machine learning \cite{MonteCarlo1} \cite{MonteCarlo2}. 
-
-
 
 
 \section{Sorting}
@@ -1294,56 +1087,27 @@ Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e un
 
 I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. 
 
-\section{BackTracking}
-Un altro problema che si puo affrontare è il problema del backtracking, ovvero quella tecnica per cui è necessario tornare su dei passi precedenti per trovare la soluzione al problema. Il primo programma utilizzato è un solutore di sudoku.
-I primi sudoku sono di difficoltà crescente mentre gli utlimi sono impossibili, uno impossibile per costruzione (sbagliato dalla partenza) , e l'altro impossibile completarlo.
-\begin{table}
-\centering
-\begin{tabular}{  |l | c | c |}
-\hline
-	& RISC-V & PC \\ \hline
-	1 & 0.004475 & 0.000384  \\ \hline
-2 & 0.055382 &0.004791           \\ \hline
-3 & 0.000282 &0.000026  \\ \hline
-4 & 0.048991 &0.005037  \\ \hline
-5 & 0.297553 &0.025939  \\ \hline
-6 & 1.488701 &0.122498  \\ \hline
-7 & 6.548320 &0.534505  \\ \hline
-8 & 0.001508 &0.000241  \\ \hline
-Vuoto & 0.001680 & 0.000267  \\ \hline
-\end{tabular}
-
-	\caption{Tempi di esecuzione del solutore di sudoku}
-	\label{Tab:SudoSolver}
-	\end{table}
-	
-Il secondo problema che utilizza il backtracking è un solutore di labirinti.
-
-\begin{table}
-\centering
-\begin{tabular}{  | l | c | c |}
-\hline
- & RISC & PC  \\ \hline
-maze0 & 0.000102 & 0.000007  \\ \hline
-maze1 & 0.005261 & 0.000235  \\ \hline
-maze2 &0.009123 & 0.000371  \\ \hline
-\end{tabular}
-
-	\caption{Tempi di esecuzione del solutore di labirinti}
-	\label{Tab:MazeSolver}
-	\end{table}
-
 
 
 %--------
 
 \chapter{Conclusione}
+%PUNTI conclusivi(cosa posso dire)
+% ISA -> due parole per sottolineare open
+% Risultati CoreMark
+% Risultati linpack
+% Codice comparato: RISCV piu linee di codice che ARM
+% commentare
+
+%MiBench <- 
+
+\begin{comment}
 In questa tesi si sono fatti alcuni test su RISC-V.  Si è controllato aspetti comuni come le operazioni aritmetiche e alcuni algoritmi di ordinamento.  Si è guardato il codice assembly generato dal compilatore e osservato le implementazioni delle varie operazioni comparandolo con altri codici assembly. Oltre alla comparazione con altri codici assembly si è comparato con diversi livelli di ottimizzazione.  Per ogni operazione è stato calcolato il tempo di esecuzione.
 Infine sono stati utilizzati degli algoritmi di ordinamento i cui risultati sono stati confrontati con un Raspberry.
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
-
+\end{comment}
 \todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
 
 
