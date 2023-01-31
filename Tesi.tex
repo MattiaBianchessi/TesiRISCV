@@ -414,6 +414,40 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 %%%--------------------
 
 \chapter{BenchMarking}
+\todo{Rileggi}
+Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Un benchmark deve avere sette caratteristiche fondamentali \cite{benchmarkIntro}.
+\begin{enumerate}
+    \item Rilevanza: i benchmark dovrebbero misurare caratteristiche relativamente vitali.
+  \item Rappresentatività: le metriche delle prestazioni di riferimento dovrebbero essere ampiamente accettate dall'industria e dal mondo accademico.
+  \item Equità: tutti i sistemi dovrebbero essere paragonati in modo equo.
+  \item Ripetibilità: è possibile verificare i risultati del benchmark.
+  \item Rapporto costo-efficacia: i test di benchmark sono economici.
+  \item Scalabilità: i test di benchmark dovrebbero funzionare su sistemi che possiedono una gamma di risorse da bassa ad alta.
+  \item Trasparenza: le metriche utilizzate dovrebbero essere facili da capire.
+\end{enumerate}
+In questa sezione viene presentata la storia dei benchmark dalle origini fino a oggi presentando gli standard attuali di valutazione dei benchmark.
+
+% Tipi di benchmark ...
+ 
+\subsection{Storia}
+\todo{rileggi}
+    Uno dei primi benchmark è Linpack che risale al 1977. Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo è quello di valutare le prestazioni in virgola mobile. \cite{LinpackSite}
+    Un altro benchmark famoso è dhrystone. Questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema.\cite{DhrystoneWP} 
+    Solamente nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC.\cite{SPECSite}% imparziali, significativi e pertinenti. 
+    Cosi come nei sistemi comuni sono stati sviluppati dei benchmark anche per quanto riguarda il mondo embedded, nel 1997 fu fondata EEMBC che, negli anni 2000, pubblicó una prima suite di test dedicati al mondo embedded. \cite{EEMBCSite}
+    Uno dei suoi prodotti piu famosi il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
+    Sempre nel mondo embedded la suite di test Embench iniziato nel 2019 \cite{embenchSite}
+    sviluppato grazie a \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)} che a sua volta è stato sviluppato da altre suite di benchmark come \textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library.}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006,}\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}
+    
+    Oggi gli tra gli standard settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile.  
+    Per quanto riguarda il mondo embedded EEMBC è uno standard riconosciuto che oltre a CoreMark ha sviluppato altri benchmark mirati per dispositivi specifici (AutoBench per dispositivi automotive e industriali, Netwoking2.0  per router e switch e altri). % \cite{EEMBCSite}
+    Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si ovvupa di creare dei benchmark per i DBMS. \cite{TPCSite}
+
+    Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Per citarne uno \textit{phoronix test suite}    \cite{ PhoronixTestSuiteSite}
+    che supporta Linux, Windows Osx, e altri sistemi e da la possibilita di eseguire dei benchmark in maniera semplice(con l unica richiesta di avere php) da linea di comando e i risultati possono essere caricati su OpenBenchmark. \cite{OpenBenchmarkSite}
+\end{document}
+
+
 \section{Descrizione board}
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
@@ -480,7 +514,7 @@ La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fo
 
 \section{CoreMark}
 Per citare il sito ufficiale: \textit{CoreMark is a simple, yet sophisticated benchmark that is designed specifically to test the functionality of a processor core. Running CoreMark produces a single-number score allowing users to make quick comparisons between processors}. 
-CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}..
+CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
 
 CoreMark è un benchmark sintetico, come Dhrystone. Come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU.\cite{analysis_EEMBC}
 I codice sorgente è disponibile nella repository Github{RepoCoreMark}.
