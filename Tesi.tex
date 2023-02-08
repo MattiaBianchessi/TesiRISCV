@@ -23,7 +23,6 @@
 \usepackage{pgfplots} 
 %\pgfplotsset{compat=1.18} 
 
-
 \usepackage{verbatim}
 
 \lstset{
@@ -33,7 +32,6 @@
 	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
 	basicstyle=\ttfamily\footnotesize
 }
-
 
 %MyStyle
 \renewcommand{\lstlistingname}{Code}
@@ -170,9 +168,10 @@ sorting=ynt,
 %%%%%%%%
 \chapter*{Introduzione}
 
+\begin{comment}
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set } basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
 \cite{RISCVHistory}.
 
 %\textbf{OBIETTIVI}
@@ -184,7 +183,7 @@ In alcuni casi viene anche analizzato il sorgente compilato.
 
 %\textbf{Struttura }
 La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. Nei capitoli 4 e 5 vengono presentati alcuni programmi che vengono utilizzati per la valutazione del processore RISC-V.
-
+\end{comment}
 
 \tableofcontents
 \listoffigures
@@ -198,7 +197,7 @@ La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi 
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto , (1.1- obbiettivi )
 %	2- storia  \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel} e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
@@ -415,14 +414,14 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 
 \chapter{BenchMarking}
 
-Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Un benchmark deve avere sette caratteristiche fondamentali \cite{benchmarkIntro}.
+Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey  of Qualitative Metrics }cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
-    \item Rilevanza: i benchmark dovrebbero misurare caratteristiche relativamente vitali.
-  \item Rappresentatività: le metriche delle prestazioni di riferimento dovrebbero essere ampiamente accettate dall'industria e dal mondo accademico.
+    \item Rilevanza: i benchmark dovrebbero misurare caratteristiche importanti.
+  \item Rappresentatività: le metriche delle prestazioni  dovrebbero essere accettate dall'industria e dal mondo accademico.
   \item Equità: tutti i sistemi dovrebbero essere paragonati in modo equo.
-  \item Ripetibilità: è possibile verificare i risultati del benchmark.
+  \item Ripetibilità: è possibile verificare i risultati dei benchmark.
   \item Rapporto costo-efficacia: i test di benchmark sono economici.
-  \item Scalabilità: i test di benchmark dovrebbero funzionare su sistemi che possiedono una gamma di risorse da bassa ad alta.
+  \item Scalabilità: i test di benchmark dovrebbero funzionare sia su sistemi che possiedono poche risorse che numerose risorse.
   \item Trasparenza: le metriche utilizzate dovrebbero essere facili da capire.
 \end{enumerate}
 In questa sezione viene prima presentata la storia dei programmi di benchmark dalle origini fino a oggi presentando alcuni standard attuali di  dei benchmark. Successivamente vengono approfonditi alcuni benchmark utilizzati.
@@ -430,24 +429,27 @@ In questa sezione viene prima presentata la storia dei programmi di benchmark da
 % Tipi di benchmark ... aggiungere ?
  
 \subsection{Storia}
-Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow and B.A. Wichmann svilupparono un programma per valutare le prestazioni in virgola mobile.  Pubblicato nel 1976 questo benchmark sintetico è organizzato in moduli ognuno specializzato per un aspetto .
-    Un altro benchmark è LINPACK che risale al 1977, originariamente non pensato per diventare un benchmark. Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo è quello di valutare le prestazioni in virgola mobile. \cite{LinpackSite}
-    Un altro benchmark famoso è dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema.\cite{DhrystoneWP} 
-    Fin ora i benchmark prodotti furono per un unico scopo,  nel 1986 fu pubblicato Livermore loops. Un benchmark contenente 24 loop interni che valutano aspetti differenti. L' autore F.H. McMahon gli ha organizzati in una suite di test e ha aggiunto dei codici per la misurazione del tempo di esecuzione.\cite{LivermoreInfo} 
-Una raccolta degna di nota è la raccolta prodotta da \textit{Stanford University}
-e \textit{the University of California,  Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti di piccoli programmi. Questi programmi erano un programma di permutazioni, torre di Hanoi, otto regine, moltiplicazione di matrici, puzzle, quicksort, bubblesort,treesort, moltiplicazione di matrici con valori in virgola mobile e FFT. (otto con valori interi, 2 per valori float). L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC. \cite{CommonBench}
-
-    Solamente nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC.\cite{SPECSite}% imparziali, significativi e pertinenti. 
-    Cosi come nei sistemi comuni sono stati sviluppati dei benchmark anche per quanto riguarda il mondo embedded, nel 1997 fu fondata EEMBC che, negli anni 2000, pubblicó una prima suite di test dedicati al mondo embedded. \cite{EEMBCSite}
-    Uno dei suoi prodotti piu famosi il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
-    Sempre nel mondo embedded la suite di test Embench iniziato nel 2019 \cite{embenchSite}
-    sviluppato grazie a \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)} che a sua volta è stato sviluppato da altre suite di benchmark come \textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library.}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006,}\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}
+Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow e B.A. Wichmann svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile.  Pubblicato nel 1976 questo benchmark sintetico è organizzato in moduli ognuno specializzato per un aspetto.
+    Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell epoca ma poi fu utilizzato anche su architetture meno potenti. \cite{LinpackSite}
+    Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema.\cite{DhrystoneWP}
+    Fino all introduzione di dhrystone il benchmark era utilizzato per valutare un singolo aspetto dell architettura ma nel 1986 ci fu un tentativo di avere un unico programma che valutasse più aspetti. Il benchmark si chiama Livermore loops. ed è composto da ventiquattro loop interni che valutano aspetti differenti. Il progetto è pensato per il \textit{parallel computers}\cite{LivermoreInfo}. 
     
+Una prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University}
+e \textit{the University of California,  Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi  di permutazioni,  di risoluzione di problemi come la torre di Hanoi,  le otto regine di puzzle e altri tipo moltiplicazione di matrici,, quicksort, bubblesort,treesort, moltiplicazione di matrici con valori in virgola mobile e FFT. (otto con valori interi, due per valori float). L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC. \cite{CommonBench}
+
+    Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC.\cite{SPECSite}% imparziali, significativi e pertinenti. 
+    Il motivo della fondazione fu che i programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture. Cosi fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
+    Cosi come nei sistemi comuni sono stati sviluppate delle suite di test anche per quanto riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicó una prima suite di test dedicati al mondo embedded. \cite{EEMBCSite} % nomi dei set in v1 ?
+    Uno dei suoi prodotti più famosi il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
+    Sempre nel mondo embedded fu creata la suite di test Embench, nel 2019 \cite{embenchSite}. Questa suite di test è stata sviluppata da altri progetti come \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)},\textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library.}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006,}\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}.  % BEEBES -> For the reasoning behind the choice of benchmarks in BEEBS, see BEEBS: Open Benchmarks for Energy Measurements on Embedded Platforms (https://arxiv.org/abs/1308.5174)
+    
+    %Quali sono gli standard di settore?
     Oggi gli tra gli standard settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile.  
     Per quanto riguarda il mondo embedded EEMBC è uno standard riconosciuto che oltre a CoreMark ha sviluppato altri benchmark mirati per dispositivi specifici (AutoBench per dispositivi automotive e industriali, Netwoking2.0  per router e switch e altri). % \cite{EEMBCSite}
-    Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si ovvupa di creare dei benchmark per i DBMS. \cite{TPCSite}
+    Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si ovvupa di creare dei benchmark per i DBMS. \cite{TPCSite} %Meh
 
-    Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Per citarne uno \textit{phoronix test suite}    \cite{ PhoronixTestSuiteSite}
+%Openbenchmark
+    Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Per citarne uno \textit{phoronix test suite}   \cite{ PhoronixTestSuiteSite}
     che supporta Linux, Windows Osx, e altri sistemi e da la possibilita di eseguire dei benchmark in maniera semplice(con l unica richiesta di avere php) da linea di comando e i risultati possono essere caricati su OpenBenchmark. \cite{OpenBenchmarkSite}
 
 
@@ -518,10 +520,13 @@ La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fo
 
 \newpage
 \section{CoreMark}
-Per citare il sito ufficiale: \textit{CoreMark is a simple, yet sophisticated benchmark that is designed specifically to test the functionality of a processor core. Running CoreMark produces a single-number score allowing users to make quick comparisons between processors}. 
+Per citare il sito ufficiale: 
+
+\textit{CoreMark is a simple, yet sophisticated benchmark that is designed specifically to test the functionality of a processor core. Running CoreMark produces a single-number score allowing users to make quick comparisons between processors}. 
+
 CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
 
-CoreMark è un benchmark sintetico, come Dhrystone. Come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU.\cite{analysis_EEMBC}
+CoreMark è un benchmark sintetico, come Dhrystone e ,come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU.\cite{analysis_EEMBC}
 I codice sorgente è disponibile nella repository Github{RepoCoreMark}. 
 		
 
