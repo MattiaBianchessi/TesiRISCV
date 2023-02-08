@@ -165,6 +165,14 @@ sorting=ynt,
 
 \listoftodos
 
+
+\tableofcontents
+\listoffigures
+\listoftables
+\lstlistoflistings
+
+
+
 %%%%%%%%
 \chapter*{Introduzione}
 
@@ -185,10 +193,6 @@ In alcuni casi viene anche analizzato il sorgente compilato.
 La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. Nei capitoli 4 e 5 vengono presentati alcuni programmi che vengono utilizzati per la valutazione del processore RISC-V.
 \end{comment}
 
-\tableofcontents
-\listoffigures
-\listoftables
-\lstlistoflistings
 
 % o sections (dipende dal documentclass)
 \chapter{RISC-V}
@@ -321,7 +325,7 @@ Di base l'ISA presenta un piccolo insieme di istruzioni  Le istruzioni base sono
 	\label{Fig:Formati_istruzioni_RV32I}
 	\cite{ISA}
 \end{figure}
-
+\todo{atrent: il cite fuori dalla caption?}
 
 
 In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il registro destinazione (\textit{rd}) vengono mantenuti nelle stesso posizioni per velocizzare la codifica.
@@ -376,10 +380,7 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0}
-\cite{openSource1}
-\cite{openOrg}
-\cite{stallman2003software}.
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0,openSource1,openOrg,stallman2003software}.
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -430,7 +431,7 @@ In questa sezione viene prima presentata la storia dei programmi di benchmark da
  
 \subsection{Storia}
 Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow e B.A. Wichmann svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile.  Pubblicato nel 1976 questo benchmark sintetico è organizzato in moduli ognuno specializzato per un aspetto.
-    Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell epoca ma poi fu utilizzato anche su architetture meno potenti. \cite{LinpackSite}
+    Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell epoca ma poi fu utilizzato anche su architetture meno potenti. \cite{LinpackSite}\todo{atrent: i cite vanno dentro la frase, non dopo il punto}
     Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema.\cite{DhrystoneWP}
     Fino all introduzione di dhrystone il benchmark era utilizzato per valutare un singolo aspetto dell architettura ma nel 1986 ci fu un tentativo di avere un unico programma che valutasse più aspetti. Il benchmark si chiama Livermore loops. ed è composto da ventiquattro loop interni che valutano aspetti differenti. Il progetto è pensato per il \textit{parallel computers}\cite{LivermoreInfo}. 
     
@@ -510,7 +511,7 @@ Dimensioni & lunghezza 85 mm, larghezza 56 mm, spessore 1,7 mm\\
 \end{table}
 
 \section{Ambiente di sviluppo}
-La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.
+La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.\todo{atrent: nel pdf il link così non si vede, è solo cliccabile, metti una footnote col link esplicito E cliccabile}
 
 
 \section{Programmi utilizzati}
@@ -527,7 +528,7 @@ Per citare il sito ufficiale:
 CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
 
 CoreMark è un benchmark sintetico, come Dhrystone e ,come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU.\cite{analysis_EEMBC}
-I codice sorgente è disponibile nella repository Github{RepoCoreMark}. 
+I codice sorgente è disponibile nella repository Github{RepoCoreMark}.\todo{atrent: io ho sempre dato "repo" per maschile... metteri inoltre il link}
 		
 
 \section{LINPACK}
@@ -538,7 +539,7 @@ La prima versione viene chiamata LINPACK 100 ed è molto simile a la versione de
 % approfondisci	?
 
 	
-\section{MultOrShift}
+\section{MultOrShift}\todo{atrent: questo è uno standard o un prog atto da te? va specificato}
 	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
 aritmetiche con lo shift. Il programma genera un array di interi di
 valori tra zero e maxInt e un array di potenze di due comprese tra due e
