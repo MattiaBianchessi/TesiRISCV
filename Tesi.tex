@@ -176,22 +176,23 @@ sorting=ynt,
 %%%%%%%%
 \chapter*{Introduzione}
 
-\begin{comment}
+
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire. RISC-V , con un \textit{istruction set } basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire.  RISC-V , con un \textit{istruction set } basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
 \cite{RISCVHistory}.
 
 %\textbf{OBIETTIVI}
 L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
 
 %\textbf{METODI E STRUMENTI}
-Per la valutazione sono stati scrittura dei codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori.
-In alcuni casi viene anche analizzato il sorgente compilato.
+Per la valutazione sono stati utilizzati due benchmark (Coremark, LINPACK) e alcuni
+codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori. Viene poi analizzato il codice sorgente generato in linguaggio macchina e confrontato con altri codici generati.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il capitolo successivo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente viene presentati alcuni tool di compilazione utilizzati per i programmi. Nei capitoli 4 e 5 vengono presentati alcuni programmi che vengono utilizzati per la valutazione del processore RISC-V.
-\end{comment}
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il secondo capitolo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori presentando la storia dalle origini fino ai compilatori moderni e la cross-compilazione,  in particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
+I capitoli quattro e cinque presentano i programmi utilizzati e i risultati vengono analizzati nel capitolo sei.
+
 
 
 % o sections (dipende dal documentclass)
@@ -201,20 +202,20 @@ La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi 
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto , (1.1- obbiettivi )
 %	2- storia  \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell' anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
 Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco gli obbiettivi di RISC-V. Gli obbiettivi dichiarati , nell'introduzione, della specifica dell' ISA user-mode sono:
 \begin{itemize}
 	\item un ISA con una licenza \textit{open source} disponibile per accademie e industria.
-	\item un ISA adatta ad un’implementazione hardware diretta, non una simulazione.
-	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficente per ogni implementazione.
-	\item modulare , organizzata in ISA più piccole con la possibilita di usare estensioni.
+	\item un ISA adatta ad un'implementazione hardware diretta, non una simulazione.
+	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente per ogni implementazione.
+	\item modulare , organizzata in ISA più piccole con la possibilità di usare estensioni.
 	\item supporto per lo standard floating-point 2008 IEEE-754.
 	\item supporto delle estensioni .
 	\item spazio di indirizzamento 32 e 64 bit.
-	\item supporto a delle implementazioni multicore e manycore sia ererogeneei sia omogenei.
+	\item supporto a delle implementazioni multi core e manycore sia eterogenei sia omogenei.
 	\item Istruzioni a lunghezza variabile.
 	\item completamente virtualizzabile 
 	\item permetta la semplificazione degli esperimenti con nuovi progetti ISA con \textit{supervisor-level} e \textit{hypervisor-level}. 
@@ -222,7 +223,7 @@ Durante la fase di progettazione i progettisti hanno voluto mettere nero su bian
 \end{itemize}
 
 \section{Panoramica}
-L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dall endianness del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
+L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dal \textit{endianness} del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
 Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare \cite{ISA}.
 
@@ -244,6 +245,67 @@ Si parla di eccezione quando una condizione non comune avviene a \textit{run tim
 Si parla di \textit{trap} quando verifica un trasferimento di controllo, da parte del \textit{trap handler}, da un  \textit{thread} ad un altro. Si parla di \textit{interrupt} quando la situazione imprevista è qualcosa di esterno.
 
 
+
+\section{Descrizione board} 
+
+La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
+
+
+
+\begin{figure}[!ht]
+\includegraphics[width = \textwidth]{D1H-BoardTopView.png}
+\caption{Board vista dall' alto}
+
+\includegraphics[width = \textwidth]{D1H-BoardBlockView.png}
+\caption{Schema a blocchi della scheda di sviluppo}\cite{BoardInfo}
+\end{figure}
+
+\vspace{2cm}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{| r | c |}
+\hline
+CPU & Allwinner D1-H \\
+\hline
+Clock & 1GHz\\
+\hline
+DRAM & DDR3 2GB\\
+\hline
+Memoria & 256MB  spin-nand integrato\\
+\hline 
+Supporto memoria & USB e  SD\\
+\hline
+Rete & Gigabit Ethernet,  2.4G WiFi e Bluetooth , antenna integrata\\
+\hline
+Display & MIPI-DSI + TP, HDMI, SPI \\
+\hline
+Audio & jack per cuffie da 3,5 mm\\
+\hline
+Tasti & FEL, LRADC OK\\
+\hline
+Luci &  alimentazione, LED tricolore\\
+\hline
+DEBUG & UART, USB ADB\\
+\hline
+USB & USB , USB OTG, USB2.0\\
+\hline
+PIN & array di pin 40\\
+\hline
+Alimentazione & USB-C  5V-2A\\
+\hline
+Dimensioni &  85 x 56 x 1,7 mm\\
+\hline
+
+\end{tabular}
+\caption{Caratteristiche della board}
+\end{table}
+
+\section{Ambiente di sviluppo}
+La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board.
+\footnote{Link al sito della board in esame \url{https://d1.docs.aw-ol.com/study/study_1tina/}}.
+
+
 %%
 % Capitolo 2
 % BASE -> ESTENSIONI
@@ -257,7 +319,7 @@ RISC-V prevede un nucleo di istruzioni di base mediante le quali si può support
 	\item RV32I, che ha lo spazio di indirizzamento di 32 bit.  
 	\item RV64I, che ha lo spazio di indirizzamento di 64 bit.
 	\item RV128I, che ha lo spazio di indirizzamento di 128 bit.
-	\item RV32E,  sotto-insieme di RV32I che ne offre un supporto simile ed è pensata  per dispositivi embedded.
+	\item RV32E,  sotto-insieme di RV32I che ne offre un supporto simile ed è pensata  per dispositivi \textit{embedded}.
 \end{itemize}
 Tutte le ISA base usano il complemento a due per la rappresentazione di valori interi con segno.  Le basi per la computazione a valori interi è identificata dalla lettera "I". 
 
@@ -321,11 +383,11 @@ Di base l'ISA presenta un piccolo insieme di istruzioni  Le istruzioni base sono
 
 \begin{figure}[h!]
 	\includegraphics[width = \textwidth]{FormatiIstruzione.png}
-	\caption{Formati istruzione RISC-V}
+	\caption{Formati istruzione RISC-V\cite{ISA}}
 	\label{Fig:Formati_istruzioni_RV32I}
-	\cite{ISA}
+	
 \end{figure}
-\todo{atrent: il cite fuori dalla caption?}
+
 
 
 In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il registro destinazione (\textit{rd}) vengono mantenuti nelle stesso posizioni per velocizzare la codifica.
@@ -352,7 +414,7 @@ Come mostrato in Figura \ref{Fig:ConvenzioneRegistri} notiamo che non è present
 
 
 \section{Le altre basi}
-Esistono altri set che aumentano i bit utilizzati dai registri come RV64I e RV128I. Tutto cio che è stato detto è valido anche per queste con alcuni accorgimenti che sollevano eccezioni di operazioni non valide.
+Esistono altri set che aumentano i bit utilizzati dai registri come RV64I e RV128I. Tutto quello che è stato detto è valido anche per queste con alcuni accorgimenti che sollevano eccezioni di operazioni non valide.
 Rispettivamente il valore di XLEN per RV64I e per RV128I è 128.
 
 
@@ -375,7 +437,7 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
 \label{Fig:MeccanismoCompilazione}
-\end{figure} % figura disegnata io
+\end{figure}
 
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
@@ -384,7 +446,7 @@ Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo svi
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
-Con il termine \textbf{Cross.compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross-compilatore.  Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. 
+Con il termine \textbf{Cross.compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross - compilatore.  Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. 
 
 
 \section{Compilatori moderni}
@@ -401,7 +463,7 @@ Quindi, un buon compilatore ci permette di concentrarci sul processo di programm
 
 
 \section{Toolchain di RISC-V}
-In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}).  RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community, quella piu aggiornata e utilizzata è quella del progetto GNU.  Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sito} sono elencate tutte le \textit{toolchain} disponibili ma anche offre una panoramica su tutto l'ecosistema RISC-V.
+In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}).  RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community, quella piu aggiornata e utilizzata è quella del progetto GNU.  Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sit} sono elencate tutte le \textit{toolchain} disponibili ma anche offre una panoramica su tutto l'ecosistema RISC-V.
 
 
 \subsubsection{GCC toolchain}
@@ -415,7 +477,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 
 \chapter{BenchMarking}
 
-Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey  of Qualitative Metrics }cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
+Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey  of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
     \item Rilevanza: i benchmark dovrebbero misurare caratteristiche importanti.
   \item Rappresentatività: le metriche delle prestazioni  dovrebbero essere accettate dall'industria e dal mondo accademico.
@@ -429,129 +491,72 @@ In questa sezione viene prima presentata la storia dei programmi di benchmark da
 
 % Tipi di benchmark ... aggiungere ?
  
-\subsection{Storia}
-Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow e B.A. Wichmann svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile.  Pubblicato nel 1976 questo benchmark sintetico è organizzato in moduli ognuno specializzato per un aspetto.
-    Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell epoca ma poi fu utilizzato anche su architetture meno potenti. \cite{LinpackSite}\todo{atrent: i cite vanno dentro la frase, non dopo il punto}
-    Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema.\cite{DhrystoneWP}
-    Fino all introduzione di dhrystone il benchmark era utilizzato per valutare un singolo aspetto dell architettura ma nel 1986 ci fu un tentativo di avere un unico programma che valutasse più aspetti. Il benchmark si chiama Livermore loops. ed è composto da ventiquattro loop interni che valutano aspetti differenti. Il progetto è pensato per il \textit{parallel computers}\cite{LivermoreInfo}. 
-    
-Una prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University}
-e \textit{the University of California,  Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi  di permutazioni,  di risoluzione di problemi come la torre di Hanoi,  le otto regine di puzzle e altri tipo moltiplicazione di matrici,, quicksort, bubblesort,treesort, moltiplicazione di matrici con valori in virgola mobile e FFT. (otto con valori interi, due per valori float). L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC. \cite{CommonBench}
-
-    Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC.\cite{SPECSite}% imparziali, significativi e pertinenti. 
-    Il motivo della fondazione fu che i programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture. Cosi fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
-    Cosi come nei sistemi comuni sono stati sviluppate delle suite di test anche per quanto riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicó una prima suite di test dedicati al mondo embedded. \cite{EEMBCSite} % nomi dei set in v1 ?
+\section{Storia}
+Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow e B.A. Wichmann svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile.  Pubblicato nel 1976 questo benchmark fu il primo esempio di benchmark sintetico. La sua semplicità è data dalla sua organizzazione in moduli ognuno specializzato per un aspetto.
+    Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell' epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
+    Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema\cite{DhrystoneWP}.
+    Tutti i programmi sviluppati prima dell introduzione di dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse più aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops., questo benchmark  è composto da ventiquattro loop interni che valutano aspetti differenti. Il progetto è pensato per il \textit{parallel computers}\cite{LivermoreInfo}. 
+    Dopo lo sviluppo di un programma \textit{general purpose} si iniziò a pensare a delle suite di test che permettono l' esecuzione solo di alcuni test che valutino determinati aspetti invece di un unico programma che svolga ogni valutazione pensata in fase di sviluppo.
+Una delle prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University}e \textit{the University of California,  Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi  di permutazioni,  di risoluzione di problemi come la torre di Hanoi,  le otto regine di puzzle e altri tipo moltiplicazione di matrici, quicksort,  bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (otto con valori interi, due per valori float).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
+%%
+    Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC \cite{SPECSite}.% imparziali, significativi e pertinenti. 
+    I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture.  Cosi fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
+    Cosi come nei sistemi comuni sono stati sviluppate delle suite di test anche per quanto riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
     Uno dei suoi prodotti più famosi il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
-    Sempre nel mondo embedded fu creata la suite di test Embench, nel 2019 \cite{embenchSite}. Questa suite di test è stata sviluppata da altri progetti come \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)},\textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library.}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006,}\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}.  % BEEBES -> For the reasoning behind the choice of benchmarks in BEEBS, see BEEBS: Open Benchmarks for Energy Measurements on Embedded Platforms (https://arxiv.org/abs/1308.5174)
+    Sempre nel mondo embedded fu creata la suite di test Embench, nel 2019 \cite{embenchSite}. Questa suite di test è stata sviluppata da altri progetti come \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)},\textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006,}\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}.  % BEEBES -> For the reasoning behind the choice of benchmarks in BEEBS, see BEEBS: Open Benchmarks for Energy Measurements on Embedded Platforms (https://arxiv.org/abs/1308.5174)
     
     %Quali sono gli standard di settore?
     Oggi gli tra gli standard settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile.  
     Per quanto riguarda il mondo embedded EEMBC è uno standard riconosciuto che oltre a CoreMark ha sviluppato altri benchmark mirati per dispositivi specifici (AutoBench per dispositivi automotive e industriali, Netwoking2.0  per router e switch e altri). % \cite{EEMBCSite}
-    Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si ovvupa di creare dei benchmark per i DBMS. \cite{TPCSite} %Meh
+    Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si ovvupa di creare dei benchmark per i DBMS\cite{TPCSite}. %Meh
 
 %Openbenchmark
     Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Per citarne uno \textit{phoronix test suite}   \cite{ PhoronixTestSuiteSite}
-    che supporta Linux, Windows Osx, e altri sistemi e da la possibilita di eseguire dei benchmark in maniera semplice(con l unica richiesta di avere php) da linea di comando e i risultati possono essere caricati su OpenBenchmark. \cite{OpenBenchmarkSite}
+    che supporta Linux, Windows Osx, e altri sistemi e da la possibilità di eseguire dei benchmark in maniera semplice(con l unica richiesta di avere php) da linea di comando e i risultati possono essere caricati su OpenBenchmark \cite{OpenBenchmarkSite}.
 
 
 
-\section{Descrizione board}
-
-La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
 
 
 
-\begin{figure}[!ht]
-\includegraphics[width = \textwidth]{D1H-BoardTopView.png}
-\caption{Board vista dall' alto}
-
-\includegraphics[width = \textwidth]{D1H-BoardBlockView.png}
-\caption{Schema a blocchi della scheda di sviluppo}\cite{BoardInfo}
-\end{figure}
-
-\vspace{2cm}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{| r | c |}
-\hline
-CPU & Allwinner D1-H \\
-\hline
-Clock & 1GHz\\
-\hline
-DRAM & DDR3 2GB\\
-\hline
-Memoria & 256MB  spin-nand integrato\\
-\hline 
-Supporto memoria & USB e  SD\\
-\hline
-Rete & Gigabit Ethernet,  2.4G WiFi e Bluetooth , antenna integrata\\
-\hline
-Display & MIPI-DSI + TP, HDMI, SPI \\
-\hline
-Audio & jack per cuffie da 3,5 mm\\
-\hline
-Tasti & FEL, LRADC OK\\
-\hline
-Luci &  alimentazione, LED tricolore\\
-\hline
-DEBUG & UART, USB ADB\\
-\hline
-USB & USB , USB OTG, USB2.0\\
-\hline
-PIN & array di pin 40\\
-\hline
-Alimentazione & USB-C  5V-2A\\
-\hline
-Dimensioni & lunghezza 85 mm, larghezza 56 mm, spessore 1,7 mm\\
-\hline
-
-\end{tabular}
-\caption{Caratteristiche della board}
-\end{table}
-
-\section{Ambiente di sviluppo}
-La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della \href{https://d1.docs.aw-ol.com/study/study_1tina/}{board}.\todo{atrent: nel pdf il link così non si vede, è solo cliccabile, metti una footnote col link esplicito E cliccabile}
-
-
-\section{Programmi utilizzati}
-
-\todo{atrent: da qualche parte spieghi la scelta degli snippet di test? cioè perché proprio quelli, tipicamente dovresti basarti su letteratura per decidere cosa testare. Esistono suite di benchmark standardizzate? Penso proprio di sì, dovresti citarle e confrontarti con esse. Anni fa ricordo che BYTE pubblicava i benchmark dei processori usando delle suite di test standard. cfr. anche \url{https://cpu.userbenchmark.com} o anche \url{https://www.cpu-monkey.com}}
-
+\section{Benchmark standard}
 
 \newpage
-\section{CoreMark}
+\subsection{CoreMark}
 Per citare il sito ufficiale: 
 
 \textit{CoreMark is a simple, yet sophisticated benchmark that is designed specifically to test the functionality of a processor core. Running CoreMark produces a single-number score allowing users to make quick comparisons between processors}. 
 
 CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
 
-CoreMark è un benchmark sintetico, come Dhrystone e ,come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU.\cite{analysis_EEMBC}
-I codice sorgente è disponibile nella repository Github{RepoCoreMark}.\todo{atrent: io ho sempre dato "repo" per maschile... metteri inoltre il link}
+CoreMark è un benchmark sintetico, come Dhrystone e ,come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
+I codice sorgente è disponibile nel repository Github \footnote{\url{https://github.com/eembc/coremark} \cite{RepoCoreMark}}.
 		
 
-\section{LINPACK}
+\subsection{LINPACK}
 Il LINPACK Benchmark è una misura della velocità di esecuzione in virgola mobile di un computer. Viene determinato eseguendo un programma  che risolve un denso sistema di equazioni lineari.  Durante gli anni si sono sviluppate tre versioni di questo programma. 
 
 La prima versione viene chiamata LINPACK 100 ed è molto simile a la versione del 1979. La soluzione si ottiene attraverso $  \frac{2}{3n^3} + 2n^2 $ operazioni in virgola mobile con n = 100.   La seconda versione si chiama LINPACK 1000 e differentemente risolve problemi con n = 1000. L'ultima verisione chiamata HPL (\textit{High-Performance Linpack}) è dedicata a una implementazione parallela di LINPACK\cite{LINPACK_PastPresFut} \cite{hplNetLib}.
 
 % approfondisci	?
 
-	
-\section{MultOrShift}\todo{atrent: questo è uno standard o un prog atto da te? va specificato}
+\chapter{Altri programmi} 
+In questa sezione vengono presentati due programmi scritti che non sono standard di benchmarking. 
+
+\section{MultOrShift}
 	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
-aritmetiche con lo shift. Il programma genera un array di interi di
+aritmetiche con lo shift logico. Il programma genera un array di interi di
 valori tra zero e maxInt e un array di potenze di due comprese tra due e
 milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione
 viene calcolato elemento per elemento il risultato e viene memorizzato il
 tempo di esecuzione. Il risultato del programma `e il tempo medio di esecuzione
 di mille operazioni per tipo (moltiplicazione normale, divisione normale,
-moltiplicazione tramite shift, divisione tramite shift). Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISCV e confrontarle con le stesse operazioni compilate per ARM.
+moltiplicazione tramite shift, divisione tramite shift). 
+Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISCV e confrontarle con le stesse operazioni compilate per ARM.
 		
 		
 \section{Sorting}
-Vengono utilizzati degli algoritmi di sorting per confrontare il tempo di esecuzione sulla board con gli stessi algoritmi su Raspberry.Gli algoritmi di sorting utilizzati sono:
+Vengono utilizzati degli algoritmi di \textit{sorting} per confrontare il tempo di esecuzione sulla board con gli stessi algoritmi su Raspberry.Gli algoritmi di sorting utilizzati sono:
 \begin{itemize}
 	\item BubbleSort
 	\item InsertionSort
@@ -571,10 +576,10 @@ Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha
 \section{CoreMark}
 CoreMark è stato compilato con:
 
-\begin{lstlisting}[language=sh]
+\begin{lstlisting}[language=sh, caption = {compilazione CoreMark}, captionpos = b]
 ./riscv64-unknown-elf-gcc -O2 -o coremark.exe core_list_join.c core_main.c core_matrix.c core_state.c core_util.c simple/core_portme.c -DPERFORMANCE_RUN=1 -DITERATIONS=1000
 \end{lstlisting}
-\captionof{lstlisting}{compilazione CoreMark}
+
 
 
 I codici sorgente sono stati compilati utilizzando alcuni file di configurazione per RISC-V presenti nella \href{https://github.com/riscv-boom/riscv-coremark}{repository}\cite{CoreMarkWrapper}. I file utilizzati non alterano la validità dell esecuzione di CoreMark
@@ -582,7 +587,7 @@ I codici sorgente sono stati compilati utilizzando alcuni file di configurazione
 
 Il programma è stato eseguito quindici volte con i seguente risultato:
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{|l|c|}
 \hline
@@ -595,7 +600,7 @@ Dev.std & 0,754112    \\ \hline
 
 
 \begin{comment}
-\begin{table}[h]
+\begin{table}[ht]
 \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
 \hline
 Device Vendor &
@@ -666,14 +671,14 @@ CM/MHz                            & 22.670             & 12.803        & 1.8625 
 \section{LINPACK}
 Il benchmark sia nella versione LINPACK100 che LINPACK1000 è stato compilato con:
 
-\begin{lstlisting}[language=sh]
+\begin{lstlisting}[language=sh, caption = {compilazione LINPACK}, captionpos = b]
 gcc -O4 -DDP -DROLL -o linpackc linpack.c -lm
 \end{lstlisting}
-\captionof{lstlisting}{compilazione CoreMark}
+
 
 Il programma è stato eseguito quindici volte con i seguente risultato:
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
@@ -684,7 +689,7 @@ Dev.std & 4,565740   & 0,282790   \\ \hline
 \caption{MFLOPS LINPACK}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
@@ -699,8 +704,8 @@ Dev.std & 0,000109 & 0,013134 \\ \hline
 Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift). Di seguito alcune porzioni di codice:
 
 \lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:Init} ]{PorzioniCodice/MultShift/init.c}
-\lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:Mult} ]{PorzioniCodice/MultShift/Mult.c}
-\lstinputlisting[language=c,  style = Cstyle, caption = Impostazioni dei dati,  label ={Code:Shift} ]{PorzioniCodice/MultShift/Shift.c}
+\lstinputlisting[language=c,  style = Cstyle, caption = Moltiplicazione,  label ={Code:Mult} ]{PorzioniCodice/MultShift/Mult.c}
+\lstinputlisting[language=c,  style = Cstyle, caption = Shift,  label ={Code:Shift} ]{PorzioniCodice/MultShift/Shift.c}
 
 Il codice \ref{Code:Init} imposta i due array.  I codici \ref{Code:Mult} e \ref{Code:Shift} mostrano l'operazione eseguita.
 La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati in millisecondi delle varie operazioni.
@@ -1045,7 +1050,7 @@ Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo
 35000 & 46.744558     & 23.460390     & 35.640101     \\ \hline
 50000 & 95.389578     & 47.888541     & 72.735791    \\ \hline
 \end{tabular}
-\caption{Tempi di esecuzione bubble sort}
+\caption{Tempi di esecuzione bubble sort in ms}
 \label{Tab:Tempi esecuzione Bubblesort}
 \end{table}
 
@@ -1083,13 +1088,14 @@ Come nel caso del bubble sort è riportato anche il tempo di esecuzione nel caso
 50000 & 53.187672     & 0.002720   & 26.499820    \\ \hline
 
 \end{tabular}
-\caption{Tempi di esecuzione insertion sort}
+\caption{Tempi di esecuzione insertion sort in ms}
 \label{Tab:Tempi esecuzione InsertionSort}
 \end{table}
 
 
 \subsection{QuickSort}
 L'algoritmo quicksort è un algoritmo ricorsivo del tipo divide et impera.L'algoritmo si basa:
+
 \begin{itemize}
 \item Scegli un pivot dagli elementi dell'array.
 \item Ordina l' array.Se l'elemento è più grande del pivot, allora mettilo  dopo il pivot, altrimenti prima.
@@ -1114,7 +1120,7 @@ Il tempo di esecuzione nel caso peggiore di $\mathcal{O}(n!) $, il tempo di esec
 50000 & 0.048096    \\ \hline
 
 \end{tabular}
-\caption{Tempi di esecuzione quick sort}
+\caption{Tempi di esecuzione quick sort in ms}
 \label{Tab:Tempi esecuzione QuickSort}
 \end{table}
 
@@ -1137,7 +1143,7 @@ L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata
 50000 & 0.128863    \\ \hline
 
 \end{tabular}
-\caption{Tempi di esecuzione heap sort}
+\caption{Tempi di esecuzione heap sort in ms}
 \label{Tab:Tempi esecuzione HeapSort}
 \end{table}
 
@@ -1147,14 +1153,14 @@ Come mostrato dai grafici \ref{Fig:AllSort} i risultati mostrano che il peggior 
      \centering
      \begin{subfigure}[t]{0.45\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Img/GraficiSorting/AllSorting.png}
+         \includegraphics[width=\textwidth]{Img/GraficiSorting/Sorting1.png}
          \caption{Bubblesort insertionsort, heapsort e quicksort}
          \label{Fig:AllSortingAlg}
      \end{subfigure}
      \hfill
      \begin{subfigure}[t]{0.45\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Img/GraficiSorting/QHSorting.png}
+         \includegraphics[width=\textwidth]{Img/GraficiSorting/Sorting2.png}
          \caption{Quicksort e Heapsort}
          \label{Fig:QHSort}
      \end{subfigure}
@@ -1167,25 +1173,32 @@ Come mostrato dai grafici \ref{Fig:AllSort} i risultati mostrano che il peggior 
 \subsection{Confronto Sorting}
 In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa iniziamo con confrontare i risultati con l'esecuzione su MacBook.
 
-\begin{figure}[ht]
-     \centering
-     \begin{subfigure}[t]{0.49\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Img/GraficiSorting/BubbleInsert.png}
-       
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[t]{0.49\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Img/GraficiSorting/HeapQuick.png}
-        
-     \end{subfigure}
 
-   \caption{Algoritmi di oridinamento a confronto eseguiti su PC e su RISC-V}
-   \label{Fig:AllSort_PC}
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/BubbleSort_Pc_Riscv.PNG}
+         \caption{Tempi di esecuzione Bubblesort PC e RISC-V}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/InsertionsortPcRisc.PNG}
+         \caption{Tempi di esecuzione Insertionsort PC e RISC-V}
 \end{figure}
 	
-	
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/QuicksortPCRisc.PNG}
+         \caption{Tempi di esecuzione Quicksort PC e RISC-V}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/Heapsort_PC_RISC}
+         \caption{Tempi di esecuzione Heapsort PC e RISC-V}
+\end{figure}
+
+
 	\begin{table}[ht]
 		\centering
 		\begin{tabular}		{| l | c | c | c | c |}
@@ -1200,7 +1213,7 @@ In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa i
 50000 & 7.019640     & 1.633171   & 0.012359  & 0.006857  \\ \hline
 
 		\end{tabular}
-		\caption{Tempi di esecuzione degli algoritmi di sorting su PC}
+		\caption{Tempi di esecuzione degli algoritmi di sorting su PC in ms}
 		\label{Fig:PcSort}
 	\end{table}
 
@@ -1231,30 +1244,62 @@ Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e un
 50000 & 250.008917     & 51.757841   & 0.210807  & 0.157344  \\ \hline
 
 		\end{tabular}
-		\caption{Tempi di esecuzione Raspberry Pi B}
+		\caption{Tempi di esecuzione Raspberry Pi B in ms}
 		\label{Tab:RaspSorting}
 			\end{table}
 
 \begin{figure}[ht]
-     \centering
-     \begin{subfigure}[t]{0.49\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Img/GraficiSorting/BISort_RB.png}
-        
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[t]{0.49\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Img/GraficiSorting/HQSort_RB.png}
-         
-     \end{subfigure}
-
-   \caption{Algoritmi di oridinamento a confronto eseguiti su Raspberry e su RISC-V}
-   \label{Fig:AllSort_RB}
+\centering
+	\includegraphics[scale=0.8]{Bubblesort_RB_RISC.PNG}
+	\caption{Tempi di esecuzione Bubblesort Raspberry e RISC-V}
+	\label{GrafBubble}
 \end{figure}
 
-I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. 
+\begin{figure}[ht]
+\centering
+	\includegraphics[scale=0.8]{Insertionsort_RB_RISC.PNG}
+	\caption{Tempi di esecuzione Insertionsort Raspberry e RISC-V}
+	\label{GrafInsertion}
+\end{figure}
+\begin{figure}[ht]
+\centering
+	\includegraphics[scale=0.8]{Quicksort_RB_RISC.PNG}
+	\caption{Tempi di esecuzione Quicksort Raspberry e RISC-V}
+	\label{GrafQuick}
+\end{figure}
+\begin{figure}[ht]
+\centering
+	\includegraphics[scale=0.8]{Heapsort_RB_RISC.PNG}
+	\caption{Tempi di esecuzione Heapsort Raspberry e RISC-V}
+	\label{GrafHeap}
+\end{figure}
 
+I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. 
+
+
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/Bubblesort_All.PNG}
+         \caption{Tempi di esecuzione Bubblesort}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/Insertionsort_All.PNG}
+         \caption{Tempi di esecuzione Insertionsort}
+\end{figure}
+	
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/Quicksort_All.PNG}
+         \caption{Tempi di esecuzione Quicksort}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+         \includegraphics[scale=0.8]{Img/GraficiSorting/Heapsort_All}
+         \caption{Tempi di esecuzione Heapsort}
+\end{figure}
 
 
 %--------
@@ -1267,21 +1312,24 @@ I grafici \ref{Fig:AllSort_RB} mostrano i tempi di esecuzione degli algoritmi di
 % Codice comparato: RISCV piu linee di codice che ARM
 % commentare
 
-%MiBench <- 
 
-\begin{comment}
-In questa tesi si sono fatti alcuni test su RISC-V.  Si è controllato aspetti comuni come le operazioni aritmetiche e alcuni algoritmi di ordinamento.  Si è guardato il codice assembly generato dal compilatore e osservato le implementazioni delle varie operazioni comparandolo con altri codici assembly. Oltre alla comparazione con altri codici assembly si è comparato con diversi livelli di ottimizzazione.  Per ogni operazione è stato calcolato il tempo di esecuzione.
-Infine sono stati utilizzati degli algoritmi di ordinamento i cui risultati sono stati confrontati con un Raspberry.
+In questa tesi si sono fatti alcuni test su RISC-V.  
+%CoreMark, Linpack
+
+%Multshift
+Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto a ARM. 
+%Sorting
+In confronto con gli algoritmi di sorting RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc.
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
-\end{comment}
+
 \todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
 
 
 
 %\addcontentsline{toc}{chapter}{Bibliografia}
 
-\printbibliography
+\printbibliography 
 
 \end{document}
