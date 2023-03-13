@@ -552,7 +552,7 @@ viene calcolato elemento per elemento il risultato e viene memorizzato il
 tempo di esecuzione. Il risultato del programma `e il tempo medio di esecuzione
 di mille operazioni per tipo (moltiplicazione normale, divisione normale,
 moltiplicazione tramite shift, divisione tramite shift). 
-Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISCV e confrontarle con le stesse operazioni compilate per ARM.
+Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISC-V e confrontarle con le stesse operazioni compilate per ARM.
 		
 		
 \section{Sorting}
@@ -1309,22 +1309,27 @@ I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mo
 % ISA -> due parole per sottolineare open
 % Risultati CoreMark
 % Risultati linpack
-% Codice comparato: RISCV piu linee di codice che ARM
+% Codice comparato: RISC-V piu linee di codice che ARM
 % commentare
 
+%ISA
+Nonostante RISC-V non sia la prima ISA open source,  sta guadagnando sempre più popolarità grazie alla sua semplicità, alla sua caratteristica di modularità.  In questa tesi si sono fatti alcuni test su RISC-V.  
 
-In questa tesi si sono fatti alcuni test su RISC-V.  
+
 %CoreMark, Linpack
 
 %Multshift
-Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto a ARM. 
+Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto ad ARM. RISC-V rischiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta. 
+
 %Sorting
-In confronto con gli algoritmi di sorting RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc.
+Per quanto riguarda il sorting il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc mostra che l board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc.
+
+Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
 
-\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
+%\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
 
 
 
