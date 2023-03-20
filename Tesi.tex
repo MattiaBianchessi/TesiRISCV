@@ -175,7 +175,7 @@ sorting=ynt,
 
 %%%%%%%%
 \chapter*{Introduzione}
-
+\todo{Rileggere}
 
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
@@ -197,7 +197,7 @@ I capitoli quattro e cinque presentano i programmi utilizzati e i risultati veng
 
 % o sections (dipende dal documentclass)
 \chapter{RISC-V}
-
+\todo{Rileggere}
 % OUTLINE CH 1 
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto , (1.1- obbiettivi )
@@ -311,6 +311,7 @@ La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fo
 % BASE -> ESTENSIONI
 % 
 \chapter{ISA RISC-V}
+\todo{Rileggere}
 Prima di discutere dei risultati ottenuti presentiamo L'\textit{Instruction Set Architecture} o \textbf{ISA}.
 %BASE ED ESTENSIONE
 \section{Base}
@@ -427,6 +428,7 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 % cos è -> Storia -> Riguardo RISC-V  -> due parole su gcc e clang
 
 \chapter{Compilatori}
+\todo{Rileggere}
 
 \section{Descrizione}
 Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
@@ -476,6 +478,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 %%%--------------------
 
 \chapter{BenchMarking}
+\todo{Rileggere}
 
 Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey  of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
@@ -541,6 +544,7 @@ La prima versione viene chiamata LINPACK 100 ed è molto simile a la versione de
 % approfondisci	?
 
 \chapter{Altri programmi} 
+\todo{Rileggere}
 In questa sezione vengono presentati due programmi scritti che non sono standard di benchmarking. 
 
 \section{MultOrShift}
@@ -568,6 +572,7 @@ Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10
 
 
 \chapter{Comparativa}
+\todo{Rileggere}
 
 \section*{MacBook Air}
 \label{sec:MacBook}
@@ -1305,6 +1310,7 @@ I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mo
 %--------
 
 \chapter{Conclusione}
+\todo{Rileggere}
 %PUNTI conclusivi(cosa posso dire)
 % ISA -> due parole per sottolineare open
 % Risultati CoreMark
@@ -1325,7 +1331,7 @@ Per quanto riguarda il codice assembly generato il compilatore RISC-V genera cod
 %Sorting
 Per quanto riguarda il sorting il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc mostra che l board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc.
 
-Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
+Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
