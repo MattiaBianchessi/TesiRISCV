@@ -174,12 +174,10 @@ sorting=ynt,
 
 
 %%%%%%%%
-\chapter*{Introduzione}
-\todo{Rileggere}
-
+\chapter{Introduzione}
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire.  RISC-V , con un \textit{istruction set } basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni\todo{ripetizione} che, un processore,  può eseguire.  RISC-V ,\todo{mai lo spazio prima della virgola} con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
 \cite{RISCVHistory}.
 
 %\textbf{OBIETTIVI}
@@ -190,32 +188,33 @@ Per la valutazione sono stati utilizzati due benchmark (Coremark, LINPACK) e alc
 codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori. Viene poi analizzato il codice sorgente generato in linguaggio macchina e confrontato con altri codici generati.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il secondo capitolo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori presentando la storia dalle origini fino ai compilatori moderni e la cross-compilazione,  in particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica\todo{ripetizione} sulla storia del progetto. Il secondo capitolo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori presentando la storia dalle origini fino ai compilatori moderni e la cross-compilazione,  in particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
 I capitoli quattro e cinque presentano i programmi utilizzati e i risultati vengono analizzati nel capitolo sei.
 
+
+\todo{passa uno spellchecker e un tool di controllo delle ripetizioni (TexStudio lo fa), elimina i doppi spazi}
 
 
 % o sections (dipende dal documentclass)
 \chapter{RISC-V}
-\todo{Rileggere}
 % OUTLINE CH 1 
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto , (1.1- obbiettivi )
 %	2- storia  \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell' anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell' anno\todo{mai spazio dopo apostrofo} successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
-Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco gli obbiettivi di RISC-V. Gli obbiettivi dichiarati , nell'introduzione, della specifica dell' ISA user-mode sono:
+Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco gli obbiettivi di RISC-V. Gli obbiettivi\todo{ripetizione} dichiarati , nell'introduzione, della specifica dell' ISA user-mode sono:
 \begin{itemize}
-	\item un ISA con una licenza \textit{open source} disponibile per accademie e industria.
+	\item un ISA con una licenza \textit{open source} disponibile per accademia e industria.
 	\item un ISA adatta ad un'implementazione hardware diretta, non una simulazione.
-	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente per ogni implementazione.
+	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente per ogni implementazione.\todo{ripetizione}
 	\item modulare , organizzata in ISA più piccole con la possibilità di usare estensioni.
-	\item supporto per lo standard floating-point 2008 IEEE-754.
-	\item supporto delle estensioni .
+	\item supporto per lo standard floating-point 2008 IEEE-754.\todo{link}
+	\item supporto delle estensioni .\todo{mai spazio prima del punto, spiega estensioni in che senso}
 	\item spazio di indirizzamento 32 e 64 bit.
-	\item supporto a delle implementazioni multi core e manycore sia eterogenei sia omogenei.
+	\item supporto a delle implementazioni multi core e manycore\todo{spiega termine manycore o link o footnote} sia eterogenei sia omogenei.
 	\item Istruzioni a lunghezza variabile.
 	\item completamente virtualizzabile 
 	\item permetta la semplificazione degli esperimenti con nuovi progetti ISA con \textit{supervisor-level} e \textit{hypervisor-level}. 
@@ -223,9 +222,9 @@ Durante la fase di progettazione i progettisti hanno voluto mettere nero su bian
 \end{itemize}
 
 \section{Panoramica}
-L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dal \textit{endianness} del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
+L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dal \textit{endianness}\todo{per me endianness è femminile} del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
-Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare \cite{ISA}.
+Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo\todo{sempre spazio dopo il punto} spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare \cite{ISA}.
 
 
 %Modalita indirizzamento
@@ -238,7 +237,7 @@ contenuto di un registro e una costante.
 \item \textbf{indirizzamento relativo al PC} l'operando dipende dal \textit{Program Counter} che viene sommato a una costante.
 \end{itemize}
 
-Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento:
+Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento:\todo{due punti??? segue una bullet list o simili...}
 
 %Eccezioni, trap, iterrupt
 Si parla di eccezione quando una condizione non comune avviene a \textit{run time} associata a un istruzione.
@@ -250,6 +249,7 @@ Si parla di \textit{trap} quando verifica un trasferimento di controllo, da part
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
 
+\todo{troppe ripetizioni}
 
 
 \begin{figure}[!ht]
@@ -304,7 +304,7 @@ Dimensioni &  85 x 56 x 1,7 mm\\
 \section{Ambiente di sviluppo}
 La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board.
 \footnote{Link al sito della board in esame \url{https://d1.docs.aw-ol.com/study/study_1tina/}}.
-
+\todo{footnote PRIMA del punto, ci sono due punti}
 
 %%
 % Capitolo 2
