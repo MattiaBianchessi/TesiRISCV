@@ -174,10 +174,12 @@ sorting=ynt,
 
 
 %%%%%%%%
-\chapter{Introduzione}
+\chapter*{Introduzione}
+\todo{Rileggere}
+
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni\todo{ripetizione} che, un processore,  può eseguire.  RISC-V ,\todo{mai lo spazio prima della virgola} con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
+Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono le istruzioni che, un processore,  può eseguire.  RISC-V , con un \textit{istruction set } basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè
 \cite{RISCVHistory}.
 
 %\textbf{OBIETTIVI}
@@ -188,33 +190,32 @@ Per la valutazione sono stati utilizzati due benchmark (Coremark, LINPACK) e alc
 codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei programmi vengono riportati e , in alcuni casi, comparati con risultati di programmi simili compilati per altri processori. Viene poi analizzato il codice sorgente generato in linguaggio macchina e confrontato con altri codici generati.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica\todo{ripetizione} sulla storia del progetto. Il secondo capitolo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori presentando la storia dalle origini fino ai compilatori moderni e la cross-compilazione,  in particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e una panoramica  sulla storia del progetto. Il secondo capitolo presenta in sintesi l' ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori presentando la storia dalle origini fino ai compilatori moderni e la cross-compilazione,  in particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
 I capitoli quattro e cinque presentano i programmi utilizzati e i risultati vengono analizzati nel capitolo sei.
 
-
-\todo{passa uno spellchecker e un tool di controllo delle ripetizioni (TexStudio lo fa), elimina i doppi spazi}
 
 
 % o sections (dipende dal documentclass)
 \chapter{RISC-V}
+\todo{Rileggere}
 % OUTLINE CH 1 
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto , (1.1- obbiettivi )
 %	2- storia  \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell' anno\todo{mai spazio dopo apostrofo} successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico.  Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell' anno successivo. Nel 2015 viene fondata  \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
-Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco gli obbiettivi di RISC-V. Gli obbiettivi\todo{ripetizione} dichiarati , nell'introduzione, della specifica dell' ISA user-mode sono:
+Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco gli obbiettivi di RISC-V. Gli obbiettivi dichiarati , nell'introduzione, della specifica dell' ISA user-mode sono:
 \begin{itemize}
-	\item un ISA con una licenza \textit{open source} disponibile per accademia e industria.
+	\item un ISA con una licenza \textit{open source} disponibile per accademie e industria.
 	\item un ISA adatta ad un'implementazione hardware diretta, non una simulazione.
-	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente per ogni implementazione.\todo{ripetizione}
+	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente per ogni implementazione.
 	\item modulare , organizzata in ISA più piccole con la possibilità di usare estensioni.
-	\item supporto per lo standard floating-point 2008 IEEE-754.\todo{link}
-	\item supporto delle estensioni .\todo{mai spazio prima del punto, spiega estensioni in che senso}
+	\item supporto per lo standard floating-point 2008 IEEE-754.
+	\item supporto delle estensioni .
 	\item spazio di indirizzamento 32 e 64 bit.
-	\item supporto a delle implementazioni multi core e manycore\todo{spiega termine manycore o link o footnote} sia eterogenei sia omogenei.
+	\item supporto a delle implementazioni multi core e manycore sia eterogenei sia omogenei.
 	\item Istruzioni a lunghezza variabile.
 	\item completamente virtualizzabile 
 	\item permetta la semplificazione degli esperimenti con nuovi progetti ISA con \textit{supervisor-level} e \textit{hypervisor-level}. 
@@ -222,9 +223,9 @@ Durante la fase di progettazione i progettisti hanno voluto mettere nero su bian
 \end{itemize}
 
 \section{Panoramica}
-L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dal \textit{endianness}\todo{per me endianness è femminile} del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
+L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dal \textit{endianness} del sistema.  Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
-Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo\todo{sempre spazio dopo il punto} spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare \cite{ISA}.
+Le celle della memoria principale sono di lunghezza variabile a seconda dell' ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32.Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato , sfruttando dunque la caratteristica circolare \cite{ISA}.
 
 
 %Modalita indirizzamento
@@ -237,7 +238,7 @@ contenuto di un registro e una costante.
 \item \textbf{indirizzamento relativo al PC} l'operando dipende dal \textit{Program Counter} che viene sommato a una costante.
 \end{itemize}
 
-Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento:\todo{due punti??? segue una bullet list o simili...}
+Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento:
 
 %Eccezioni, trap, iterrupt
 Si parla di eccezione quando una condizione non comune avviene a \textit{run time} associata a un istruzione.
@@ -249,7 +250,6 @@ Si parla di \textit{trap} quando verifica un trasferimento di controllo, da part
 
 La scheda di sviluppo utilizzata è  D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, supporta  2G DDR3, 258 MB di spin-nand, WiFi/Bluetooth connessione, con interfacce audio e video,  può essere collegato a varie periferiche, interfaccia MIPI-DSI+TP integrata, interfaccia scheda SD,interfaccia HDMI, interfaccia scheda figlia microfono, interfaccia auricolari da 3,5 mm , interfaccia Gigabit Ethernet, USB HOST, interfaccia di tipo C, interfaccia di debug UART, array di pin a 40 pin.
 
-\todo{troppe ripetizioni}
 
 
 \begin{figure}[!ht]
@@ -304,19 +304,20 @@ Dimensioni &  85 x 56 x 1,7 mm\\
 \section{Ambiente di sviluppo}
 La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito  adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board.
 \footnote{Link al sito della board in esame \url{https://d1.docs.aw-ol.com/study/study_1tina/}}.
-\todo{footnote PRIMA del punto, ci sono due punti}
+
 
 %%
 % Capitolo 2
 % BASE -> ESTENSIONI
 % 
-\chapter{ISA RISC-V}\todo{atrent: riletto, ok struttura, ma pesantemente da sistemare ortografia}
+\chapter{ISA RISC-V}
+\todo{Rileggere}
 Prima di discutere dei risultati ottenuti presentiamo L'\textit{Instruction Set Architecture} o \textbf{ISA}.
 %BASE ED ESTENSIONE
 \section{Base}
-RISC-V prevede un nucleo di istruzioni di base mediante le quali si può supportare dei sistemi funzionanti.\todo{eh?} Esistono diversi nuclei base denominati a seconda di quanti bit utilizza il sistema.  Esistono\todo{ripetizione} 4 basi:
+RISC-V prevede un nucleo di istruzioni di base mediante le quali si può supportare dei sistemi funzionanti. Esistono diversi nuclei base denominati a seconda di quanti bit utilizza il sistema.  Esistono 4 basi:
 \begin{itemize}
-	\item RV32I, che ha lo spazio di indirizzamento di\todo{a} 32 bit.  
+	\item RV32I, che ha lo spazio di indirizzamento di 32 bit.  
 	\item RV64I, che ha lo spazio di indirizzamento di 64 bit.
 	\item RV128I, che ha lo spazio di indirizzamento di 128 bit.
 	\item RV32E,  sotto-insieme di RV32I che ne offre un supporto simile ed è pensata  per dispositivi \textit{embedded}.
@@ -326,7 +327,7 @@ Tutte le ISA base usano il complemento a due per la rappresentazione di valori i
 %Perche avere estensioni
 %%?
 \section{Estensioni}
-Se si utilizza solo una base si hanno solo delle funzionalità basilari, per questo motivo vengono introdotte le estensioni. Usare un estensione\todo{apostrofo!} significa estendere le funzionalità e aggiungere il supporto per determinate azioni.Di\todo{spazio dopo punto} seguito vengono riportate alcune estensioni:
+Se si utilizza solo una base si hanno solo delle funzionalità basilari, per questo motivo vengono introdotte le estensioni. Usare un estensione significa estendere le funzionalità e aggiungere il supporto per determinate azioni.Di seguito vengono riportate alcune estensioni:
 \begin{itemize}
 		\item "M", aggiunge istruzioni per le operazioni di moltiplicazioni e divisioni di interi.
 		\item "A" istruzioni atomiche,  istruzioni di lettura-scrittura-modifica atomiche. % Atomiche = def?
@@ -334,8 +335,6 @@ Se si utilizza solo una base si hanno solo delle funzionalità basilari, per que
 		\item "M" istruzioni a virgola mobile a doppia precisione.
 		\item "C" istruzioni a 16 bit.
 \end{itemize}
-
-\todo{da qui in poi smetto di correggere ortografia, però applica davvero un correttore!}
 
 Le estensioni, possono essere di tre tipi in base alla standardizzazione:
 \begin{itemize}
@@ -410,7 +409,7 @@ L'ISA base è stata progettata per supportare i moderni sistemi operativi. Quest
 	\includegraphics[scale=0.3]{ABI-RISC-V}
 	\caption{Convenzione dei registri}
 	\label{Fig:ConvenzioneRegistri}
-\end{figure}\todo{fonte?}
+\end{figure}
 
 Come mostrato in Figura \ref{Fig:ConvenzioneRegistri} notiamo che non è presente un registro dedicato allo \textit{stack pointer} ne un \textit{return adress} ma vengono utilizzati rispettivamente il registro x2 e il registro x1.
 
@@ -429,10 +428,10 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 % cos è -> Storia -> Riguardo RISC-V  -> due parole su gcc e clang
 
 \chapter{Compilatori}
-\todo{atrent: riletto, sempre ignorando i numerosi errori ortgrafici e fraseologici}
+\todo{Rileggere}
 
 \section{Descrizione}
-Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune\todo{quale sarebbe il meno comune?} per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
+Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il motivo più comune per trasformare il codice sorgente è creare un programma eseguibile su una determinata macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda ,utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
 
 
 \begin{figure}
@@ -440,16 +439,16 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
 \label{Fig:MeccanismoCompilazione}
-\end{figure}\todo{fonte?}
+\end{figure}
 
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker\todo{allora non era un compilatore vero e proprio, elabora meglio} , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source\todo{elabora, aveva una licenza considerabile libera?!?} della storia dell'informatica \cite{SystemA0,openSource1,openOrg,stallman2003software}.\todo{le citazioni vanno più vicine a dove le usi, non tutte in fondo}
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato.  Una  prima implementazione di un compilatore è dovuta a Grace Hopper  che ha anche coniato il termine ``compilatore''.  Il primo compilatore , chiamato \textit{A-0 System} ,  funzionava come caricatore o linker , non come i moderni compilatori. E' importante menzionare che una versione successiva del \textit{A-0 System} (la versione A-2 datata 1953)fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, quindi possiamo considerarlo come il primo software libero e open source della storia dell'informatica \cite{SystemA0,openSource1,openOrg,stallman2003software}.
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
-Con il termine \textbf{cross-compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross - compilatore.  Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. \todo{elabora meglio}
+Con il termine \textbf{Cross.compilazione} si intende la tecnica mediante la quale si utilizza un compilatore per compilare il codice sorgente e il codice generato ha come target un architettura diversa da quella su cui viene utilizzato il cross - compilatore.  Alcuni esempi di una cross-compilazione può essere la compilazione di un applicazione per un sistema embedded. 
 
 
 \section{Compilatori moderni}
@@ -460,13 +459,13 @@ Il secondo nato nel 2005 sviluppato da Apple Inc.  Inizialmente fu sviluppato co
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno  sempre più espressivi e astratti.  Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
-Oltre a generare programmi eseguibili ad alte prestazioni, i compilatori devono anche avere prestazioni elevate. Un progetto software di grandi dimensioni  può contenere da centinaia a migliaia di singole unità di traduzione\todo{spiega termine}. Ogni unità di traduzione può contenere migliaia di righe di codice.  Oltre all efficienza delle prestazioni del codice generato si deve tener conto anche del tempo in cui si genera il codice.
+Oltre a generare programmi eseguibili ad alte prestazioni, i compilatori devono anche avere prestazioni elevate. Un progetto software di grandi dimensioni  può contenere da centinaia a migliaia di singole unità di traduzione. Ogni unità di traduzione può contenere migliaia di righe di codice.  Oltre all efficienza delle prestazioni del codice generato si deve tener conto anche del tempo in cui si genera il codice.
 
 Quindi, un buon compilatore ci permette di concentrarci sul processo di programmazione,  piuttosto che farci preoccupare della struttura del sistema e deve essere in grado di produrre del codice che abbia delle buone performance in tempo relativamente breve.
 
 
 \section{Toolchain di RISC-V}
-In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}).  RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi\todo{sii più specifico} utilizzati sequenzialmente per la creazione di un software. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community, quella piu aggiornata e utilizzata è quella del progetto GNU.  Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sit} sono elencate tutte le \textit{toolchain} disponibili ma anche offre una panoramica su tutto l'ecosistema RISC-V.
+In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}).  RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community, quella piu aggiornata e utilizzata è quella del progetto GNU.  Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sit} sono elencate tutte le \textit{toolchain} disponibili ma anche offre una panoramica su tutto l'ecosistema RISC-V.
 
 
 \subsubsection{GCC toolchain}
@@ -479,7 +478,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 %%%--------------------
 
 \chapter{BenchMarking}
-\todo{atrent: riletto, fraseologia a volte zoppicante, al solito ignoro ortografia (da rivedere MOLTO)}
+\todo{Rileggere}
 
 Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey  of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
@@ -498,10 +497,10 @@ In questa sezione viene prima presentata la storia dei programmi di benchmark da
 \section{Storia}
 Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow e B.A. Wichmann svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile.  Pubblicato nel 1976 questo benchmark fu il primo esempio di benchmark sintetico. La sua semplicità è data dalla sua organizzazione in moduli ognuno specializzato per un aspetto.
     Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell' epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
-    Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi\todo{le prestazioni DEI numeri interi?} nel sistema\cite{DhrystoneWP}.
-    Tutti i programmi sviluppati prima dell introduzione di dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse più aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops., questo benchmark  è composto da ventiquattro loop interni che valutano aspetti differenti. Il progetto è pensato per il \textit{parallel computers}\cite{LivermoreInfo}. \todo{sembra una pessima traduzione letterale dall'inglese...}
+    Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei numeri interi nel sistema\cite{DhrystoneWP}.
+    Tutti i programmi sviluppati prima dell introduzione di dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse più aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops., questo benchmark  è composto da ventiquattro loop interni che valutano aspetti differenti. Il progetto è pensato per il \textit{parallel computers}\cite{LivermoreInfo}. 
     Dopo lo sviluppo di un programma \textit{general purpose} si iniziò a pensare a delle suite di test che permettono l' esecuzione solo di alcuni test che valutino determinati aspetti invece di un unico programma che svolga ogni valutazione pensata in fase di sviluppo.
-Una delle prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University}e \textit{the University of California,  Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi  di permutazioni,  di risoluzione di problemi come la torre di Hanoi,  le otto regine di puzzle e altri tipo moltiplicazione di matrici, quicksort,  bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT\todo{espandi acronimo} (otto con valori interi, due per valori float).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
+Una delle prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University}e \textit{the University of California,  Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi  di permutazioni,  di risoluzione di problemi come la torre di Hanoi,  le otto regine di puzzle e altri tipo moltiplicazione di matrici, quicksort,  bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (otto con valori interi, due per valori float).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
 %%
     Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC \cite{SPECSite}.% imparziali, significativi e pertinenti. 
     I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture.  Cosi fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
@@ -533,7 +532,7 @@ Per citare il sito ufficiale:
 
 CoreMark è un benchmark che misura le prestazioni dei microcontrollori  e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici , macchina a stati  e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
 
-CoreMark è un benchmark sintetico, come Dhrystone e ,come Dhrystone, CoreMark è piccolo, portatile,gratuito\todo{libero?} ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
+CoreMark è un benchmark sintetico, come Dhrystone e ,come Dhrystone, CoreMark è piccolo, portatile,gratuito ma ,a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
 I codice sorgente è disponibile nel repository Github \footnote{\url{https://github.com/eembc/coremark} \cite{RepoCoreMark}}.
 		
 
@@ -545,10 +544,8 @@ La prima versione viene chiamata LINPACK 100 ed è molto simile a la versione de
 % approfondisci	?
 
 \chapter{Altri programmi} 
-\todo{atrent: non lo metterei come capitolo a parte, ma come sezione del precedente}
+\todo{Rileggere}
 In questa sezione vengono presentati due programmi scritti che non sono standard di benchmarking. 
-
-\todo{devi dichiarare l'autore e la motivazione}
 
 \section{MultOrShift}
 	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
@@ -575,13 +572,11 @@ Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10
 
 
 \chapter{Comparativa}
-\todo{idem come sopra}
+\todo{Rileggere}
 
 \section*{MacBook Air}
 \label{sec:MacBook}
 Per alcuni benchmark è stato utilizzato un MacBook Air per confronto.  Il PC ha un processore 2,2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini Pc fanno riferimento a questa architettura.
-
-\todo{non avevi citato anche un raspberry?}
 
 \section{CoreMark}
 CoreMark è stato compilato con:
@@ -605,7 +600,7 @@ Media   & 2311,307997 \\ \hline
 Dev.std & 0,754112    \\ \hline
 \end{tabular}
 \caption{Score medio e deviazione standard di CoreMark}
-\end{table}\todo{metterei anche i singoli risultati}
+\end{table}
 
 
 
@@ -697,7 +692,7 @@ Media   & 170,098131 & 120,066523 \\ \hline
 Dev.std & 4,565740   & 0,282790   \\ \hline
 \end{tabular}
 \caption{MFLOPS LINPACK}
-\end{table}\todo{idem}
+\end{table}
 
 \begin{table}[ht]
 \centering
@@ -708,7 +703,7 @@ Media   & 0,004040 & 5,569164 \\ \hline
 Dev.std & 0,000109 & 0,013134 \\ \hline
 \end{tabular}
 \caption{Tempo di risoluzione LINPACK}
-\end{table}\todo{idem}
+\end{table}
 
 \section{MultOrShift}
 Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift). Di seguito alcune porzioni di codice:
@@ -737,15 +732,13 @@ La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati i
 \section{Analisi codice assembly}
 Per capire meglio i risultati osserviamo e compariamo i codici generati dai compilatori.  I Compilatori confrontati sono \textit{gcc RISC-V},  \textit{gcc ARM} e \textit{gcc x86\_64}.  I compilatori RISC-V e ARM vengono confrontati per il loro focus sul ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0) \cite{ConfrontoISABook}.
 
-\todo{atrent: c'è un problema di struttura, "analisi codice assembly" contiene "operazioni", ecc. tolgo "operazioni"}
-%\section{Operazioni}
 
-
+\section{Operazioni}
 \subsection{Addizione con costante}
 
 \lstinputlisting[language=c,  style = Cstyle,  caption = Addizione, label = {Code:AddComp}]{PorzioniCodice/ConfrontoCompilatori/C/get_num.c}
 
-La funzione è una semplice funzione scritta in C che dato un numero di tipo intero restituisce il numero sommato a ventitré. \todo{valore a caso o c'è un motivo?}
+La funzione è una semplice funzione scritta in C che dato un numero di tipo intero restituisce il numero sommato a ventitré. 
 
 \vspace{0.3 cm}
 \textbf{RISC-V}
@@ -1011,10 +1004,10 @@ In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazion
 Per quanto riguarda la divisione viene utilizzato la stessa metodologia della moltiplicazione.
 
 
-\todo{manca una analisi, hai solo mostrato come vengono tradotte in assembly, ma non metti commenti}
 
 
-\section{Sorting}\todo{questo va separato bene dal precedente?}
+
+\section{Sorting}
 Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dati e sono ampiamente utilizzati in molti aspetti, ad esempio in crittografia e nella ricerca di informazioni. Esistono molti tipi di algoritmi di ordinamento e ognuno ha i suoi vantaggi e limiti. In informatica, l'algoritmo di ordinamento è solitamente classificato come segue.
 
 \begin{itemize}
@@ -1160,7 +1153,6 @@ L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata
 \end{table}
 
 Come mostrato dai grafici \ref{Fig:AllSort} i risultati mostrano che il peggior algoritmo è il bubblesort mentre il migliore è quicksort.  Risultato poco notevole, nella sezione successiva un confronto più significativo.
-\todo{esatto, banale e ovvio, forse non vale nemmeno la pena di dirlo}
 
 \begin{figure}[ht]
      \centering
@@ -1318,6 +1310,7 @@ I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mo
 %--------
 
 \chapter{Conclusione}
+\todo{Rileggere}
 %PUNTI conclusivi(cosa posso dire)
 % ISA -> due parole per sottolineare open
 % Risultati CoreMark
@@ -1326,7 +1319,7 @@ I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mo
 % commentare
 
 %ISA
-Nonostante RISC-V non sia la prima ISA open source\todo{mi è sfuggito dove citavi altre...},  sta guadagnando sempre più popolarità grazie alla sua semplicità, alla sua caratteristica di modularità.  In questa tesi si sono fatti alcuni test su RISC-V.  
+Nonostante RISC-V non sia la prima ISA open source,  sta guadagnando sempre più popolarità grazie alla sua semplicità, alla sua caratteristica di modularità.  In questa tesi si sono fatti alcuni test su RISC-V.  
 
 
 %CoreMark, Linpack
@@ -1334,17 +1327,14 @@ Nonostante RISC-V non sia la prima ISA open source\todo{mi è sfuggito dove cita
 
 %Multshift
 Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto ad ARM. RISC-V rischiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta. 
-\todo{mmmm, quanto? hai fatto conti? poi con la disponibilità di memoria di oggi quanto incide?}
 
 %Sorting
 Per quanto riguarda il sorting il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc mostra che l board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc.
-\todo{riassumi qualche numero, di quanto?}
 
 Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri.  
 
-\todo{conclusione minimale, riesci a dire se ci sono aspetti in cui uno è meglio dell'altro e viceversa? comparazioni di costo? corrente consumata? ecc.}
 
 %\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
 
