@@ -538,9 +538,9 @@ La prima versione viene chiamata LINPACK 100 ed è molto simile a la versione de
 
 \section{Altri programmi} 
 
-In questa sezione vengono presentati due programmi scritti che non sono standard di benchmarking. 
+In questa sezione vengono presentati due programmi scritti da me che non sono standard di benchmarking. Il primo programma viene utilizzato per poi analizzare il codice assembly generato dal compilatore, mentre con il secondo vengono utilizzati degli algoritmi di sorting e comparato il tempo di esecuzione con gli stessi algoritmi eseguiti sul Raspberry.
 
-\todo{devi dichiarare l'autore e la motivazione}
+%\todo{devi dichiarare l'autore e la motivazione}
 
 \subsection{MultOrShift}
 	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
@@ -573,7 +573,17 @@ Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10
 \label{sec:MacBook}
 Per alcuni benchmark è stato utilizzato un MacBook Air per confronto. Il PC ha un processore 2, 2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini Pc fanno riferimento a questa architettura.
 
-\todo{non avevi citato anche un raspberry?}
+\section*{Raspberry Pi}
+
+Il Raspberry Pi utilizzato è Raspberry Pi model B. La board datata 2013 è stata sviluppata come board scolastica e successivamente applicata a molti contesti come nel mondo embedded.
+Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz, due porte USB (Universal Serial Bus) e un'Ethernet da 100 MB porta. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware. La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry \cite{Rasp}.
+
+\begin{figure}[ht]
+\centering
+	\includegraphics[scale=0.5 ]{RBTop.jpeg}
+	\caption{Vista superiore Raspberry model B}
+	\label{fig:RaspberryB}
+\end{figure}
 
 \section{CoreMark}
 CoreMark è stato compilato con:
@@ -589,6 +599,20 @@ I codici sorgente sono stati compilati utilizzando alcuni file di configurazione
 
 Il programma è stato eseguito quindici volte con i seguente risultato:
 
+
+\begin{table}[ht]
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+  & Score       &   & Score       &    & Score       &    & Score       \\ \hline
+1 & 2312,479985 & 5 & 2311,881624 & 9 & 2311,874448 & 13 & 2311,444275 \\ \hline
+2 & 2312,596169 & 6 & 2311,149103 & 10 & 2311,432578 & 14 & 2310,397101 \\ \hline
+3 & 2311,137567 & 7 & 2310,215865 & 11 & 2311,265017 & 15 & 2311,553826 \\ \hline
+4 & 2311,144929 & 8 & 2312,048460 & 12 & 2311,013694 &  &  \\ \hline
+\end{tabular}
+\caption{Score di CoreMark ad ogni esecuzione}
+\end{table}
+
+
 \begin{table}[ht]
 \centering
 \begin{tabular}{|l|c|}
@@ -597,7 +621,7 @@ Media & 2311, 307997 \\ \hline
 Dev.std & 0, 754112 \\ \hline
 \end{tabular}
 \caption{Score medio e deviazione standard di CoreMark}
-\end{table}\todo{metterei anche i singoli risultati}
+\end{table}
 
 
 \begin{table}
@@ -628,6 +652,17 @@ gcc -O4 -DDP -DROLL -o linpackc linpack.c -lm
 Il programma è stato eseguito quindici volte con i seguente risultato:
 
 \begin{table}[ht]
+\begin{tabular}{|l|l|l|l|l|l|l|l|}
+\hline
+  & MFLOPS     &   & MFLOPS     &    & MFLOPS     &    & MFLOPS     \\ \hline
+1 & 169,004840 & 5 & 163,725958 & 9 & 170,431042 & 13 & 175,125393 \\ \hline
+2 & 166,062072 & 6 & 161,682756 & 10 & 175,125393 & 14 & 175,528289 \\ \hline
+3 & 168,424495 & 7 & 163,999682 & 11 & 173,313142 & 15 & 173,094698 \\ \hline
+4 & 168,672726 & 8 & 169,840877 & 12 & 175,573170 &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
 \centering
 \begin{tabular}{|l|l|l|}
 \hline
@@ -636,7 +671,7 @@ Media & 170, 098131 & 120, 066523 \\ \hline
 Dev.std & 4, 565740 & 0, 282790 \\ \hline
 \end{tabular}
 \caption{MFLOPS LINPACK}
-\end{table}\todo{idem}
+\end{table}
 
 \begin{table}[ht]
 \centering
@@ -647,7 +682,7 @@ Media & 0, 004040 & 5, 569164 \\ \hline
 Dev.std & 0, 000109 & 0, 013134 \\ \hline
 \end{tabular}
 \caption{Tempo di risoluzione LINPACK}
-\end{table}\todo{idem}
+\end{table}
 
 \section{MultOrShift}
 Il programma confronta la velocità di esecuzione di moltiplicazione e divisione aritmetiche con lo shift. Il programma genera un array di interi di valori tra zero e maxInt e un array di potenze di due comprese tra due e milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione viene calcolato elemento per elemento il risultato e viene memorizzato il tempo di esecuzione. Il risultato del programma è il tempo medio di esecuzione di mille operazioni per tipo (moltiplicazione normale, divisione normale, moltiplicazione tramite shift, divisione tramite shift). Di seguito alcune porzioni di codice:
@@ -1167,15 +1202,7 @@ In questa sezione vengono visualizzati i risultati a confronto. Per prima cosa i
 La tabella \ref{Fig:PcSort} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti sul PC. 
 Un altro confronto lo possiamo fare con Raspberry pi \footnote{Il modello utilizzato è il modello Raspberry model B mostrato in figura \ref{fig:RaspberryB} }.
 
-\begin{figure}[ht]
-\centering
-	\includegraphics[scale=0.5 ]{RBTop.jpeg}
-	\caption{Vista superiore Raspberry model B}
-	\label{fig:RaspberryB}
-\end{figure}
 
-Il Raspberry Pi utilizzato è Raspberry Pi model B. La board datata 2013 è stata sviluppata come board scolastica e successivamente applicata a molti contesti come nel mondo embedded.
-Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz, due porte USB (Universal Serial Bus) e un'Ethernet da 100 MB porta. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware. La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry \cite{Rasp}.
 
 \begin{table}[ht]
 		\centering
