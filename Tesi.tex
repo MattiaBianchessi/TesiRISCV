@@ -158,7 +158,7 @@ sorting=ynt,
 \end{flushright}
 \vspace{4mm}
 \begin{center}
-{\large{\bf Anno Accademico 2022-2023}}
+{\large{\bf Anno Accademico 2021-2022}}
 \end{center}
 \end{titlepage}
 
@@ -177,18 +177,18 @@ sorting=ynt,
 \chapter{Introduzione}
 %\textbf{Oggetto della tesi}
 Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori ognuno caratterizzato da un insieme di istruzioni che definiscono che cosa un processore può eseguire. RISC-V, con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè \cite{RISCVHistory}.
+Oggigiorno sono presenti numerosi processori, ognuno caratterizzato da un insieme di istruzioni che definiscono  cosa un processore può eseguire. RISC-V, con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè \cite{RISCVHistory}.
 
 %\textbf{OBIETTIVI}
 L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
 
 %\textbf{METODI E STRUMENTI}
 Per la valutazione sono stati utilizzati due benchmark (Coremark, LINPACK) e alcuni
-codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei programmi vengono riportati e, in alcuni casi, comparati con risultati di programmi simili compilati per altri processori. Viene poi analizzato il codice sorgente generato in linguaggio macchina e confrontato con altri codici generati.
+codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei test vengono riportati e, in alcuni casi, comparati con i risultati di programmi simili compilati per altri processori. Viene poi analizzato il codice sorgente generato in linguaggio macchina e confrontato con altri codici generati.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e la storia del progetto. Il secondo capitolo presenta in sintesi l'ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori presentando la storia dalle origini fino ai compilatori moderni e la cross-compilazione, in particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
-I capitoli quattro e cinque presentano i programmi utilizzati e i risultati vengono analizzati nel capitolo sei.
+La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e la storia del progetto. Il secondo capitolo mostra in sintesi l'ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori mostrando la storia dalle origini fino ai compilatori moderni e la cross-compilazione. In particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
+Nei capitoli quattro e cinque vengono presentati i programmi utilizzati e i risultati ottenuti vengono analizzati nel capitolo sei.
 
 
 % o sections (dipende dal documentclass)
@@ -197,53 +197,52 @@ I capitoli quattro e cinque presentano i programmi utilizzati e i risultati veng
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto, (1.1- obbiettivi )
 %	2- storia \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico. Nel 2010, a Berkeley, il progetto inizio diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell'anno successivo. Nel 2015 viene fondata \textbf{RISC-V Foudation} un azienda no-profit che controlla la direzione di sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con il quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico. Nel 2010, a Berkeley(California), il progetto inizi\'o diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell'anno successivo. Nel 2015 viene fondata \textbf{RISC-V Foudation}, un' azienda no-profit che controlla lo sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con la quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
-Durante la fase di progettazione i progettisti hanno voluto mettere nero su bianco lo scopo di RISC-V. Gli obbiettivi dichiarati,nell'introduzione, della specifica dell'ISA user-mode sono:
+Durante la fase di progettazione, i progettisti hanno voluto mettere nero su bianco lo scopo di RISC-V. Gli obbiettivi dichiarati nell'introduzione della specifica dell'ISA user-mode sono:
 \begin{itemize}
 	\item un ISA con una licenza \textit{open source} disponibile per accademia e industria.
 	\item un ISA adatta ad un'implementazione hardware diretta, non una simulazione.
 	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente.
-	\item modulare,organizzata in ISA più piccole con la possibilità di usare estensioni.
+	\item un ISA modulare,organizzata in ISA più piccole con la possibilità di usare estensioni\footnote{Insiemi di istruzioni opzionali che possono essere aggiunte alla base dell'ISA di RISC-V per fornire funzionalità specifiche. Sezione \ref{estensioni}.}.
 	\item supporto per lo standard floating-point 2008 IEEE-754 \footnote{ \url{https://ieeexplore.ieee.org/document/4610935} \cite{IEEE754-2008}}.
-	\item supporto delle estensioni \footnote{Insiemi di istruzioni opzionali che possono essere aggiunte alla base dell'ISA di RISC-V per fornire funzionalità specifiche. Sezione \ref{estensioni}}.
+	\item supporto delle estensioni. 
 	\item spazio di indirizzamento 32 e 64 bit.
-	\item supporto a delle implementazioni multi core e manycore \footnote{I processori Manycore sono un tipo speciale di processori multi-core progettati per un alto grado di elaborazione parallela. Contengono numerose core più semplici e indipendenti. Questi processori sono ampiamente utilizzati nei sistemi embedded e nell'elaborazione ad alte prestazioni.} sia eterogenei sia omogenei.
-	\item Istruzioni a lunghezza variabile.
-	\item completamente virtualizzabile.
-	\item permetta la semplificazione degli esperimenti con nuovi progetti ISA con \textit{supervisor-level} e \textit{hypervisor-level}. 
+	\item supporto a delle implementazioni multi core e manycore \footnote{I processori Manycore sono un tipo speciale di processori multi-core progettati per un alto grado di elaborazione parallela. Contengono numerose core più semplici e indipendenti. } sia eterogenei che omogenei.
+	\item istruzioni a lunghezza variabile.
+	\item un ISA completamente virtualizzabile.
+	\item un ISA che permetta la semplificazione degli esperimenti con nuovi progetti ISA con \textit{supervisor-level} e \textit{hypervisor-level}. 
 	
 \end{itemize}
 
 \section{Panoramica}
-L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dall'\textit{endianness} del sistema. Ogni pacchetto ha nei bit meno significativi i bit per la codifica della lunghezza in questo modo il sistema lo decodifica, in questo modo le istruzioni di lunghezza variabile sono decodificate velocemente.
+L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria sia \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dall'\textit{endianness} del sistema. Ogni pacchetto ha nei bit meno significativi i bit per la codifica delle istruzioni. In questo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
-Le celle della memoria principale sono di lunghezza variabile a seconda dell'ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32. Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendo per un modulo adeguato,sfruttando dunque la caratteristica circolare \cite{ISA}.
+Le celle della memoria principale sono di lunghezza variabile a seconda dell'ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32. Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendosi per un modulo adatto sfruttando cosi la caratteristica circolare \cite{ISA}.
 
 
 %Modalita indirizzamento
-Avendo tutte le istruzioni di lunghezza fissa non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell istruzione. La soluzione è l'utilizzo della modalità di indirizzamento
+Avendo tutte le istruzioni di lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell'istruzione. La soluzione è l'utilizzo della modalità di indirizzamento:
 \begin{itemize}
-	\item \textbf{indirizzamento immediato}, l’operando è una costante nell’istruzione è comunque limitato dai bit assegnati del campo.
-	\item \textbf{indirizzamento a registro} l’operando è un registro.
-	\item \textbf{indirizzamento di base con spostamento}, l’operando è la somma tra il
+	\item \textbf{indirizzamento immediato}: l’operando è una costante nell’istruzione è comunque limitato dai bit assegnati del campo.
+	\item \textbf{indirizzamento a registro}: l’operando è un registro.
+	\item \textbf{indirizzamento di base con spostamento}: l’operando è la somma tra il
 contenuto di un registro e una costante.
-\item \textbf{indirizzamento relativo al PC} l'operando dipende dal \textit{Program Counter} che viene sommato a una costante.
+\item \textbf{indirizzamento relativo al PC}: l'operando dipende dal \textit{Program Counter} che viene sommato a una costante.
 \end{itemize}
 
-Essendo un’architettura RISC e dunque avendo tutte le istruzioni a lunghezza fissa,non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell’istruzione. Per ovviare a questo problema si usano quelle che sono dette modalità di indirizzamento.
 
 %Eccezioni, trap, iterrupt
-Si parla di eccezione quando una condizione non comune avviene a \textit{run time} associata a un istruzione.
-Si parla di \textit{trap} quando verifica un trasferimento di controllo, da parte del \textit{trap handler}, da un \textit{thread} ad un altro. Si parla di \textit{interrupt} quando la situazione imprevista è qualcosa di esterno.
+Si parla di eccezione quando una condizione non comune avviene a \textit{run time} associata a un'istruzione.
+Si parla di \textit{trap} quando si verifica un trasferimento di controllo da parte del \textit{trap handler}, da un \textit{thread} ad un altro. Si parla di \textit{interrupt} quando la situazione imprevista è qualcosa di esterno.
 
 
 
 \section{Descrizione board} 
 
-La scheda di sviluppo utilizzata è D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, ha la memoria 2G DDR3, 258 MB di spin-nand, connessione WiFi/Bluetooth, con interfacce audio e video, può essere collegato a varie periferiche, MIPI-DSI+TP, supporta il collegamento con scheda SD, HDMI, auricolari da 3,5 mm, Gigabit Ethernet, USB,USB-C, UART, 40 pin.
+La scheda di sviluppo utilizzata è D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, ha la memoria 2G DDR3, 258 MB di spin-nand, connessione WiFi/Bluetooth, con interfacce audio e video, può essere collegata a varie periferiche, MIPI-DSI+TP, supporta il collegamento con scheda SD, HDMI, auricolari da 3,5 mm, Gigabit Ethernet, USB,USB-C, UART, 40 pin.
 
 
 \begin{figure}[!ht]
@@ -296,7 +295,7 @@ Dimensioni & 85 x 56 x 1,7 mm\\
 \end{table}
 
 \section{Ambiente di sviluppo}
-La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board
+La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito \'e adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board
 \footnote{Link al sito della board in esame \url{https://d1.docs.aw-ol.com/study/study_1tina/}}.
 
 
@@ -323,20 +322,20 @@ Tutte le ISA base usano il complemento a due per la rappresentazione di valori i
 \section{Estensioni} \label{estensioni}
 Se si utilizza solo una base si hanno solo delle funzionalità basilari, per questo motivo vengono introdotte le estensioni. Le estensioni dell'ISA di RISC-V sono insiemi di istruzioni opzionali che possono essere aggiunte alla base dell'ISA di RISC-V per fornire funzionalità specifiche e personalizzate. L'ISA base di RISC-V è progettata per essere estensibile in modo modulare, il che significa che le estensioni possono essere aggiunte senza influire sulla compatibilità con il software esistente.
 
-Usare un estensione significa estendere le funzionalità e aggiungere il supporto per determinate azioni.Di seguito vengono riportate alcune estensioni:
+Usare un'estensione significa estendere le funzionalità e aggiungere il supporto per determinate azioni. Di seguito vengono riportate alcune estensioni:
 \begin{itemize}
 		\item "M", aggiunge istruzioni per le operazioni di moltiplicazioni e divisioni di interi.
 		\item "A" istruzioni atomiche, istruzioni di lettura-scrittura-modifica atomiche. % Atomiche = def?
-		\item "F"istruzioni a virgola mobile a singola precisione, aggiungendo anche registri, istruzioni, load e store a virgola mobile a singola precisione.
-		\item "M" istruzioni a virgola mobile a doppia precisione.
+		\item "F"istruzioni a virgola mobile a singola precisione, aggiungendo anche registri.
+		\item "D" istruzioni a virgola mobile a doppia precisione.
 		\item "C" istruzioni a 16 bit.
 \end{itemize}
 
 Le estensioni, possono essere di tre tipi in base alla standardizzazione:
 \begin{itemize}
 	\item \textbf{standard} definite dalla RISC-V Foundation, come le sopra citate.
-	\item \textbf{reserved} non ancora definite ma riservate per usi futuri.Molte aziende utilizzano RISC-V come base per la progettazione di processori personalizzati, e spesso aggiungono estensioni proprietarie per soddisfare le esigenze specifiche del loro settore o dei loro clienti.
-	\item \textbf{non standard} non definita dalla RISC-V Foundation che non sono ancora state standardizzate o ampiamente adottate..
+	\item \textbf{reserved} non ancora definite ma riservate per usi futuri.\footnote{utilizzato dalle aziende per la progettazione di processori personalizzati e spesso aggiungono estensioni proprietarie per soddisfare esigenze specifiche del loro settore o dei loro clienti.}
+	\item \textbf{non standard} non ancora standardizzate o ampiamente adottate.
 \end{itemize}
 
 \begin{table}
@@ -387,13 +386,13 @@ Di base l'ISA presenta un piccolo insieme di istruzioni Le istruzioni base sono 
 
 
 
-In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il registro destinazione (\textit{rd}) vengono mantenuti nelle stesso posizioni per velocizzare la codifica.
-I formati B e J possono essere visti come delle variazioni dei formati S e U nel senso che il campo imm dei formati B e J sono un ulteriore divisione dello stesso campo dei formati S e U, ad esempio il fomato S, ha un solo campo imm compreso tra 25:31 bit per il formato B il campo è diviso in due ma mantenuto nella stessa posizione. L'ISA presenta 4 categorie di istruzioni:
+In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il registro destinazione (\textit{rd}) vengono mantenuti nelle stesse posizioni per velocizzare la codifica.
+L'ISA presenta 4 categorie di istruzioni:
 \begin{itemize}
-	\item \textbf{Istruzioni computazionali}: Sono presenti 21 istruzioni computazionali e vengono codificate nel formati R se è un'operazione trai registri o nel formato I se è un'operazione tra registro e immediato. Le istruzioni di questo tipo includono istruzioni aritmetiche, logiche e di comparazione sia per valore senza segno che valori con segno.
-	\item \textbf{Accesso alla memoria}Le istruzioni di accesso alla memoria premetto il trasferimento di datti dalla memoria e alla memoria. Sono presenti 8 istruzioni in totale, 5 di load codificate nel formato I e 3 di store codificate nel formato S.
-	\item \textbf{Controllo del flusso}Le istruzioni di controllo permettono di alterare il normale flusso sequenziale del programma. Sono presenti 6 istruzioni di questo tipo che permettono il trasferimento codificate nel formato B. Le istruzioni prevedono il confronto degli operandi in \textit{rs1} e \textit{rs2} se la condizione è verificate viene aggiunto il valore del campo imm al \textit{program counter} per raggiungere l'indirizzo di arrivo.
-	\item \textbf{Istruzioni di sistema}Con RV32I sono presenti 8 istruzioni di controllo del sistema. Possiamo dividerle in due gruppi. Il primo gruppo (ECALL, EBREAK) gestisce le \textit{system call}. Il secondo gruppo sono utilizzate per leggere e scrivere i registri di stato.
+	\item \textbf{Istruzioni computazionali}: Sono presenti 21 istruzioni computazionali e vengono codificate nel formato R se è un'operazione tra i registri o nel formato I se è un'operazione tra registro e costante. Le istruzioni di questo tipo includono istruzioni aritmetiche, logiche e di comparazione sia per valore senza segno che per i valori con segno.
+	\item \textbf{Accesso alla memoria}Le istruzioni di accesso alla memoria permettono il trasferimento di dati dalla memoria e alla memoria. Sono presenti 8 istruzioni in totale, 5 di load codificate nel formato I e 3 di store codificate nel formato S.
+	\item \textbf{Controllo del flusso}Le istruzioni di controllo permettono di alterare il normale flusso sequenziale del programma. Sono presenti 6 istruzioni di questo tipo che permettono il trasferimento codificate nel formato B. Le istruzioni prevedono il confronto degli operandi in \textit{rs1} e \textit{rs2} e se la condizione è verificata viene aggiunto il valore del campo imm al \textit{program counter} per raggiungere l'indirizzo di arrivo.
+	\item \textbf{Istruzioni di sistema}Con RV32I sono presenti 8 istruzioni di controllo del sistema. Possiamo dividerle in due gruppi. Il primo gruppo (ECALL, EBREAK) gestisce le \textit{system call}. Il secondo gruppo è utilizzato per leggere e scrivere i registri di stato.
 \end{itemize}
 
 
@@ -440,7 +439,8 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. E'importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, Pertanto, A-2 potrebbe essere considerato un esempio del risultato di una filosofia precoce simile al software libero e open source. \todo{aveva una licenza considerabile libera?!?} \cite{openSource1, openOrg, stallman2003software}.
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. E'importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, Pertanto, A-2 potrebbe essere considerato un esempio del risultato di una filosofia precoce simile al software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
+%\todo{aveva una licenza considerabile libera?!?} -> non ho trovato nessun riferimento al tipo di licenza.
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -716,13 +716,13 @@ Per capire meglio i risultati osserviamo e compariamo i codici generati dai comp
 
 \lstinputlisting[language=c, style = Cstyle, caption = Addizione, label = {Code:AddComp}]{PorzioniCodice/ConfrontoCompilatori/C/get_num.c}
 
-La funzione è una semplice funzione scritta in C che dato un numero di tipo intero restituisce il numero sommato a ventitré. \todo{valore a caso o c'è un motivo?}
-
+La funzione è una semplice funzione scritta in C che dato un numero di tipo intero restituisce il numero sommato a ventitré \footnote{La scelta del numero è puramente casuale}.
+  
 \vspace{0.3 cm}
 \textbf{RISC-V}
 
 \vspace{0.3 cm}
-Il sorgente compilato con il compilatore RISC-V \ref{Code:AddRISCV} da riga due fino a riga sei predispone la chiamata della procedura posizionando sullo stack il necessario, da riga sette inizia la funzione. Su quella riga viene recuperato il valore di \textit{num} che alla riga otto, tramite l'operazione di add immediate, viene sommato a num. Il risultato dell operazione addiw è la somma del valore di num sommato alla costante ventitré, il risultato è esteso su sessantaquattro bit, vengono ignorati gli errori di overflow. Successivamente tramite la pseudo istruzione sext.w che prende i 32 bit inferiori e li memorizza nel registro rd. Questa istruzione corrisponde a addiw rd, rs, 1 0. Il risultato viene spostato nel registro a0 che, nei processori RISC-V, viene utilizzato come restituzione di risultato. Le righe successive ripristinano lo stack e restituisce il controllo al chiamante.
+Il sorgente compilato con il compilatore RISC-V \ref{Code:AddRISCV} da riga due fino a riga sei predispone la chiamata della procedura posizionando sullo stack il necessario, da riga sette inizia la funzione. Su quella riga viene recuperato il valore di \textit{num} che alla riga otto, tramite l'operazione di add immediate, viene sommato a num. Il risultato dell'operazione addiw è la somma del valore di num sommato alla costante ventitré, il risultato è esteso su sessantaquattro bit, vengono ignorati gli errori di overflow. Successivamente tramite la pseudo istruzione sext.w che prende i 32 bit inferiori e li memorizza nel registro rd. Questa istruzione corrisponde a addiw rd, rs, 1 0. Il risultato viene spostato nel registro a0 che, nei processori RISC-V, viene utilizzato come restituzione di risultato. Le righe successive ripristinano lo stack e restituisce il controllo al chiamante.
 
 \vspace{0.3 cm}
 \textbf{ARM}
