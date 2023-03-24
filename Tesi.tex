@@ -410,11 +410,9 @@ Come mostrato in Figura \ref{Fig:ConvenzioneRegistri} notiamo che non è present
 
 
 \section{Le altre basi}
-Esistono altri set che aumentano i bit utilizzati dai registri come RV64I e RV128I. Tutto quello che è stato detto è valido anche per queste con alcuni accorgimenti che sollevano eccezioni di operazioni non valide.
-Rispettivamente il valore di XLEN per RV64I e per RV128I è 128.
+Esistono altri set che aumentano i bit utilizzati dai registri come RV64I e RV128I. 
 
-
-Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le linee guida per fare delle proprie estensioni.
+%Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le linee guida per fare delle proprie estensioni.
 
 
 
@@ -426,7 +424,7 @@ Sul documento che propone RISC-V sul proprio ISA vengono anche impostate le line
 \todo{atrent: riletto, sempre ignorando i numerosi errori ortgrafici e fraseologici}
 
 \section{Descrizione}
-Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il processo di compilazione prevede diverse fasi. La prima prevede un analisi lessicale da cui vengono generati dei token. La seconda, utilizzando i token, prevede un analisi sintattica e infine un analisi semantica dopo la quale viene generato il codice un codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
+Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il processo di compilazione prevede diverse fasi. La prima fase prevede un'analisi lessicale da cui vengono generati dei token. La seconda, utilizzando i token, prevede un'analisi sintattica e infine un'analisi semantica dopo la quale viene generato il codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
 
 
 \begin{figure}
@@ -436,32 +434,34 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 \label{Fig:MeccanismoCompilazione}
 \end{figure}%\todo{fonte?} Questa l'ho fatta io 
 
-Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito, quindi tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
+Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito. Tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. E'importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti all UNIVAC, Pertanto, A-2 potrebbe essere considerato un esempio del risultato di una filosofia precoce simile al software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
+%della filosofia del software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
+
 %\todo{aveva una licenza considerabile libera?!?} -> non ho trovato nessun riferimento al tipo di licenza.
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
-La cross-compilazione è il processo di compilazione del codice sorgente su un sistema diverso da quello in cui il codice verrà eseguito. In altre parole, il compilatore viene eseguito su una piattaforma diversa rispetto a quella di destinazione del software compilato. Ad esempio, si può compilare un'applicazione per un sistema operativo diverso o per un'architettura hardware diversa. La cross-compilazione è spesso utilizzata nel contesto dello sviluppo di software per dispositivi embedded, dove lo sviluppatore scrive il codice sorgente su un computer host più potente e poi lo compila per l'hardware a cui è destinato.
+La cross-compilazione è il processo di compilazione del codice sorgente su un sistema diverso da quello in cui il codice verrà eseguito. In altre parole, il compilatore viene eseguito su una piattaforma diversa rispetto a quella di destinazione del software compilato. La cross-compilazione è spesso utilizzata nel contesto dello sviluppo di software per dispositivi embedded dove lo sviluppatore scrive il codice sorgente su un computer host più potente e poi lo compila per l'hardware a cui è destinato.
 
 
 \section{Compilatori moderni}
-Nel ecosistema dei compilatori moderni i due dei piu famosi sono: GCC e CLANG.
-Il primo GCC (GNU Compiler Collection) fu creato nel 1987 oggi viene sviluppato da programmatori di tutto il mondo. Inizialmente nato per il linguaggio C oggi oggi supporta altri linguaggi come Java, C++, Objective C \cite{GCCstory}.
+Nell'ecosistema dei compilatori moderni i due pi\'u famosi sono: GCC e CLANG.
+Il primo GCC (GNU Compiler Collection) fu creato nel 1987 ed oggi viene sviluppato da programmatori di tutto il mondo. Inizialmente nato per il linguaggio C oggi supporta altri linguaggi come Java, C++, Objective C \cite{GCCstory}.
 
-Il secondo nato nel 2005 sviluppato da Apple Inc. Inizialmente fu sviluppato con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
+Il secondo \'e nato nel 2005 e sviluppato da Apple Inc. Con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
 \section{Un buon compilatore} %
-La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline supescalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno sempre più espressivi e astratti. Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto, si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
-Oltre a generare programmi eseguibili ad alte prestazioni, i compilatori devono anche avere prestazioni elevate. Un progetto software di grandi dimensioni può contenere da centinaia a migliaia di singole unità di traduzione. Le unità di traduzione sono parti del codice sorgente che vengono tradotte dal compilatore in un file oggetto o in un file eseguibile. Ogni unità di traduzione può contenere migliaia di righe di codice. Oltre all efficienza delle prestazioni del codice generato si deve tener conto anche del tempo in cui si genera il codice.
+La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline superscalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno sempre più espressivi e astratti. Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto. Si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
+Oltre a generare programmi eseguibili ad alte prestazioni, i compilatori devono anche avere prestazioni elevate. Un progetto software di grandi dimensioni può contenere da centinaia a migliaia di singole unità di traduzione. Le unità di traduzione sono parti del codice sorgente che vengono tradotte dal compilatore in un file oggetto o in un file eseguibile. Ogni unità di traduzione può contenere migliaia di righe di codice. Oltre all'efficienza delle prestazioni del codice generato si deve tener conto anche del tempo in cui si genera il codice.
 
-Quindi, un buon compilatore ci permette di concentrarci sul processo di programmazione, piuttosto che farci preoccupare della struttura del sistema e deve essere in grado di produrre del codice che abbia delle buone performance in tempo relativamente breve.
+Quindi, un buon compilatore ci permette di concentrarci sul processo di programmazione piuttosto che farci preoccupare della struttura del sistema e deve essere in grado di produrre un codice che abbia delle buone performance in tempo relativamente breve.
 
 
 \section{Toolchain di RISC-V}
-In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}). RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. In generale i programmi presenti sono un compilatore, un linker, un assembler, un debugger, un profiler, degli strumenti di analisi del codice e strumenti di gestione del progetto. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community, quella piu aggiornata e utilizzata è quella del progetto GNU. Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sit} sono elencate tutte le \textit{toolchain} disponibili ma anche offre una panoramica su tutto l'ecosistema RISC-V.
+In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}). RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. In generale i programmi presenti sono un compilatore, un linker, un assembler, un debugger, un profiler, degli strumenti di analisi del codice e strumenti di gestione del progetto. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community.Quella pi\'u aggiornata e utilizzata è quella del progetto GNU. Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sito} sono elencate tutte le \textit{toolchain} disponibili e il sito offre una panoramica su tutto l'ecosistema RISC-V.
 
 
 \subsubsection{GCC toolchain}
@@ -476,7 +476,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 \chapter{BenchMarking}
 \todo{atrent: riletto, fraseologia a volte zoppicante, al solito ignoro ortografia (da rivedere MOLTO)}
 
-Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark sintetici o applicativi. I primi hanno lo scopo dimisurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
+Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark: sintetici o applicativi. I primi hanno lo scopo di misurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
  \item Rilevanza: i benchmark dovrebbero misurare caratteristiche importanti.
  \item Rappresentatività: le metriche delle prestazioni dovrebbero essere accettate dall'industria e dal mondo accademico.
@@ -486,38 +486,38 @@ Quando si parla di benchmark si intendono dei test di prova con lo scopo di forn
  \item Scalabilità: i test di benchmark dovrebbero funzionare sia su sistemi che possiedono poche risorse che numerose risorse.
  \item Trasparenza: le metriche utilizzate dovrebbero essere facili da capire.
 \end{enumerate}
-In questa sezione viene prima presentata la storia dei programmi di benchmark dalle origini fino a oggi presentando alcuni standard attuali di dei benchmark. Successivamente vengono approfonditi alcuni benchmark utilizzati.
+In questa sezione viene prima presentata la storia dei programmi di benchmark dalle origini fino a oggi presentando alcuni standard attuali dei benchmark. Successivamente vengono approfonditi alcuni benchmark utilizzati.
 
 % Tipi di benchmark ... aggiungere ?
  
 \section{Storia}
-Il primo benchmark citato in letteratura prende il nome di Whetstone i suoi autori H.J. Curnow e B.A. Wichmann svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile. Pubblicato nel 1976 questo benchmark fu il primo esempio di benchmark sintetico. La sua semplicità è data dalla sua organizzazione in moduli ognuno specializzato per un aspetto.
- Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per esegui operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell'epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
- Un altro benchmark simile è il famoso dhrystone, questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei microprocessori e dei sistemi di elaborazione dati \cite{DhrystoneWP}.
- Tutti i programmi sviluppati prima dell introduzione di dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse più aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops., questo benchmark è composto da ventiquattro loop interni che valutano aspetti differenti. 
- Dopo lo sviluppo di un programma \textit{general purpose} si iniziò a pensare a delle suite di test che permettono l'esecuzione solo di alcuni test che valutino determinati aspetti invece di un unico programma che svolga ogni valutazione pensata in fase di sviluppo.
-Una delle prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University}e \textit{the University of California, Berkeley} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi di permutazioni, di risoluzione di problemi come la torre di Hanoi, le otto regine di puzzle e altri tipo moltiplicazione di matrici, quicksort, bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (\textit{Fast Fourier Transform}) (otto con valori interi, due per valori float). L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
+Il primo benchmark citato in letteratura prende il nome di Whetstone. I suoi autori, H.J. Curnow e B.A. Wichmann, svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile. Pubblicato nel 1976 questo benchmark fu il primo esempio di benchmark sintetico. La sua semplicità è data dalla sua organizzazione in moduli, ognuno specializzato per un aspetto.
+ Un altro benchmark è LINPACK che risale al 1979(non pensato per\'o diventare un benchmark ). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per eseguire operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell'epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
+ Un altro benchmark simile è il famoso Dhrystone. Questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei microprocessori e dei sistemi di elaborazione dati \cite{DhrystoneWP}.
+ Tutti i programmi sviluppati prima dell'introduzione di Dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse pi\'u aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops. Questo benchmark è composto da ventiquattro loop interni che valutano aspetti differenti. 
+ Dopo lo sviluppo di un programma \textit{general purpose} si iniziò a pensare a delle suite di test che permettessero l'esecuzione solo di alcuni test per valutare determinati aspetti invece di un unico programma che svolgesse ogni valutazione pensata in fase di sviluppo.
+Una delle prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University} e \textit{the University of California} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi di: permutazione,  risoluzione di problemi come la torre di Hanoi, le otto regine,  puzzle e altri tipo moltiplicazione di matrici, quicksort, bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (\textit{Fast Fourier Transform}).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
 %%
  Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC \cite{SPECSite}.% imparziali, significativi e pertinenti. 
- I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture. Cosi fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
- Cosi come nei sistemi comuni sono stati sviluppate delle suite di test anche per quanto riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
- Uno dei suoi prodotti più famosi il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
+ I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture. Cos\'i fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
+ Come nei sistemi comuni sono state sviluppate delle suite di test, cosi anche nel mondo riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
+ Uno dei suoi prodotti più famosi \'e il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
  Sempre nel mondo embedded fu creata la suite di test Embench, nel 2019 \cite{embenchSite}. Questa suite di test è stata sviluppata da altri progetti come \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)}, \textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006, }\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}. % BEEBES -> For the reasoning behind the choice of benchmarks in BEEBS, see BEEBS: Open Benchmarks for Energy Measurements on Embedded Platforms (https://arxiv.org/abs/1308.5174)
  
  %Quali sono gli standard di settore?
- Oggi gli tra gli standard settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile. 
- Per quanto riguarda il mondo embedded EEMBC è uno standard riconosciuto che oltre a CoreMark ha sviluppato altri benchmark mirati per dispositivi specifici (AutoBench per dispositivi automotive e industriali, Netwoking2.0 per router e switch e altri). % \cite{EEMBCSite}
- Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si ovvupa di creare dei benchmark per i DBMS\cite{TPCSite}. %Meh
+ Oggi gli tra gli standard di settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile. 
+ Per quanto riguarda il mondo embedded, EEMBC è uno standard riconosciuto che, oltre a CoreMark, ha sviluppato altri benchmark mirati per dispositivi specifici (AutoBench per dispositivi automotive e industriali, Netwoking2.0 per router e switch e altri). % \cite{EEMBCSite}
+ Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si occupa di creare dei benchmark per i DBMS\cite{TPCSite}. %Meh
 
 %Openbenchmark
- Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Per citarne uno \textit{phoronix test suite} \cite{ PhoronixTestSuiteSite}
- che supporta Linux, Windows Osx, e altri sistemi e da la possibilità di eseguire dei benchmark in maniera semplice(con l unica richiesta di avere php) da linea di comando e i risultati possono essere caricati su OpenBenchmark \cite{OpenBenchmarkSite}.
+ Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Un esempio \textit{phoronix test suite} \cite{ PhoronixTestSuiteSite}
+ che supporta Linux, Windows Osx, e altri sistemi. Questa suite di test d\'a la possibilità di eseguire dei benchmark in maniera semplice(con l'unica richiesta di avere php da linea di comando ) e i risultati possono essere caricati su OpenBenchmark \cite{OpenBenchmarkSite}.
 
 
 
 \section{Benchmark standard}
 
-\newpage
+
 \subsection{CoreMark}
 Per citare il sito ufficiale: 
 
@@ -525,14 +525,14 @@ Per citare il sito ufficiale:
 
 CoreMark è un benchmark che misura le prestazioni dei microcontrollori e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici, macchina a stati e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
 
-CoreMark è un benchmark sintetico, come Dhrystone e, come Dhrystone, CoreMark è piccolo, portatile, gratuito \footnote{La licenza di CoreMark è la "CoreMark License Agreement". La CoreMark License Agreement stabilisce che l'utente può utilizzare il benchmark CoreMark solo per scopi di valutazione delle prestazioni dei microprocessori e non per fini commerciali.} ma, a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore CoreMark si focalizza su le capacita di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
-I codice sorgente è disponibile nel repository Github \footnote{\url{https://github.com/eembc/coremark} \cite{RepoCoreMark}}.
+CoreMark è un benchmark sintetico come Dhrystone e, come Dhrystone, CoreMark è piccolo, portatile, gratuito \footnote{La licenza di CoreMark è la "CoreMark License Agreement". La CoreMark License Agreement stabilisce che l'utente può utilizzare il benchmark CoreMark solo per scopi di valutazione delle prestazioni dei microprocessori e non per fini commerciali.} ma, a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore, CoreMark si focalizza sulle capacit\'a di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
+Il codice sorgente è disponibile nel repository Github \footnote{\url{https://github.com/eembc/coremark} \cite{RepoCoreMark}}.
 		
 
 \subsection{LINPACK}
 Il LINPACK Benchmark è una misura della velocità di esecuzione in virgola mobile di un computer. Viene determinato eseguendo un programma che risolve un denso sistema di equazioni lineari. Durante gli anni si sono sviluppate tre versioni di questo programma. 
 
-La prima versione viene chiamata LINPACK 100 ed è molto simile a la versione del 1979. La soluzione si ottiene attraverso $ \frac{2}{3n^3} + 2n^2 $ operazioni in virgola mobile con n = 100. La seconda versione si chiama LINPACK 1000 e differentemente risolve problemi con n = 1000. L'ultima verisione chiamata HPL (\textit{High-Performance Linpack}) è dedicata a una implementazione parallela di LINPACK\cite{LINPACK_PastPresFut} \cite{hplNetLib}.
+La prima versione viene chiamata LINPACK 100 ed è molto simile alla versione del 1979. La soluzione si ottiene attraverso $ \frac{2}{3n^3} + 2n^2 $ operazioni in virgola mobile con n = 100. La seconda versione si chiama LINPACK 1000 e differentemente risolve problemi con n = 1000. L'ultima verisione chiamata HPL (\textit{High-Performance Linpack}) è dedicata ad una implementazione parallela di LINPACK\cite{LINPACK_PastPresFut} \cite{hplNetLib}.
 
 % approfondisci	?
 
@@ -547,9 +547,9 @@ In questa sezione vengono presentati due programmi scritti da me che non sono st
 aritmetiche con lo shift logico. Il programma genera un array di interi di
 valori tra zero e maxInt e un array di potenze di due comprese tra due e
 milleventiquattro. Entrambi gli array hanno mille elementi. Dopo la generazione
-viene calcolato elemento per elemento il risultato e viene memorizzato il
-tempo di esecuzione. Il risultato del programma `e il tempo medio di esecuzione
-di mille operazioni per tipo (moltiplicazione normale, divisione normale, 
+viene calcolato il risultato elemento per elemento e viene memorizzato il
+tempo di esecuzione. Il risultato del programma \`e il tempo medio di esecuzione
+di mille operazioni per tipo (moltiplicazione, divisione, 
 moltiplicazione tramite shift, divisione tramite shift). 
 Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISC-V e confrontarle con le stesse operazioni compilate per ARM.
 		
@@ -563,7 +563,7 @@ Vengono utilizzati degli algoritmi di \textit{sorting} per confrontare il tempo 
 	\item HeapSort
 \end{itemize}
 
-Ogni algoritmo viene eseguito su array di dimensione diversa 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni dimensione vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell'array da ordinare, come ad esempio utilizzando il BubbleSort vengono ordinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
+Ogni algoritmo viene eseguito su array di dimensioni diverse: 500, 1000, 5000, 10000, 20000, 35000, 50000. Per ogni dimensione vengono eseguite 150 prove sulle quali viene calcolato il tempo di esecuzione. Il programma informa per ogni gruppo di array il tempo massimo, il minimo e il tempo medio. Per alcuni algoritmi vengono utilizzate anche delle configurazioni particolari dell'array da ordinare, come ad esempio utilizzando il BubbleSort vengono ordinati array strettamente crescenti e strettamente decrescenti oltre che ai campioni casuali. Nella situazione generale gli array vengono generati con numeri interi casuali.
 
 
 \chapter{Comparativa}
@@ -576,7 +576,7 @@ Per alcuni benchmark è stato utilizzato un MacBook Air per confronto. Il PC ha 
 \section*{Raspberry Pi}
 
 Il Raspberry Pi utilizzato è Raspberry Pi model B. La board datata 2013 è stata sviluppata come board scolastica e successivamente applicata a molti contesti come nel mondo embedded.
-Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz, due porte USB (Universal Serial Bus) e un'Ethernet da 100 MB porta. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware. La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry \cite{Rasp}.
+Con la dimensione di una carta di credito il Raspberry ha una RAM di 512 MB e una CPU da 700 MHz, due porte USB (Universal Serial Bus) e un'Ethernet. In aggiunta a ciò, ci sono pin di input/output (GPIO) per uso generico per collegare alcuni hardware. La tabella \ref{Tab:RaspSorting} mostra i tempi di esecuzione degli algoritmi di ordinamento eseguiti su Raspberry \cite{Rasp}.
 
 \begin{figure}[ht]
 \centering
@@ -597,7 +597,7 @@ CoreMark è stato compilato con:
 I codici sorgente sono stati compilati utilizzando alcuni file di configurazione per RISC-V presenti nella \href{https://github.com/riscv-boom/riscv-coremark}{repository}\cite{CoreMarkWrapper}. I file utilizzati non alterano la validità dell esecuzione di CoreMark
 \cite{CoreMarkRepo}.
 
-Il programma è stato eseguito quindici volte con i seguente risultato:
+Il programma è stato eseguito quindici volte con i seguenti risultati:
 
 
 \begin{table}[ht]
@@ -649,7 +649,7 @@ gcc -O4 -DDP -DROLL -o linpackc linpack.c -lm
 \end{lstlisting}
 
 
-Il programma è stato eseguito quindici volte con i seguente risultato:
+Il programma è stato eseguito quindici volte con i seguenti risultati:
 
 \begin{table}[ht]
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
@@ -709,7 +709,7 @@ La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati i
 	
 	
 \section{Analisi codice assembly}
-Per capire meglio i risultati osserviamo e compariamo i codici generati dai compilatori. I Compilatori confrontati sono \textit{gcc RISC-V}, \textit{gcc ARM} e \textit{gcc x86\_64}. I compilatori RISC-V e ARM vengono confrontati per il loro focus sul ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0) \cite{ConfrontoISABook}.
+Per capire meglio i risultati osserviamo e compariamo i codici generati dai compilatori. I Compilatori confrontati sono \textit{gcc RISC-V}, \textit{gcc ARM} e \textit{gcc x86\_64}. I compilatori RISC-V e ARM vengono confrontati per il loro focus sul'ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0) \cite{ConfrontoISABook}.
 
 
 \subsection{Addizione con costante}
@@ -722,20 +722,20 @@ La funzione è una semplice funzione scritta in C che dato un numero di tipo int
 \textbf{RISC-V}
 
 \vspace{0.3 cm}
-Il sorgente compilato con il compilatore RISC-V \ref{Code:AddRISCV} da riga due fino a riga sei predispone la chiamata della procedura posizionando sullo stack il necessario, da riga sette inizia la funzione. Su quella riga viene recuperato il valore di \textit{num} che alla riga otto, tramite l'operazione di add immediate, viene sommato a num. Il risultato dell'operazione addiw è la somma del valore di num sommato alla costante ventitré, il risultato è esteso su sessantaquattro bit, vengono ignorati gli errori di overflow. Successivamente tramite la pseudo istruzione sext.w che prende i 32 bit inferiori e li memorizza nel registro rd. Questa istruzione corrisponde a addiw rd, rs, 1 0. Il risultato viene spostato nel registro a0 che, nei processori RISC-V, viene utilizzato come restituzione di risultato. Le righe successive ripristinano lo stack e restituisce il controllo al chiamante.
+Il sorgente compilato con il compilatore RISC-V \ref{Code:AddRISCV} da riga due fino a riga sei, predispone la chiamata della procedura posizionando sullo stack il necessario. Da riga sette inizia la funzione. Su quella riga viene recuperato il valore di \textit{num} che alla riga otto, tramite l'operazione di add immediate, viene sommato a num. Il risultato dell'operazione addiw è la somma del valore di num sommato alla costante ventitré. Il risultato è esteso su sessantaquattro bit e vengono ignorati gli errori di overflow. Successivamente tramite la pseudo-istruzione sext.w prende i 32 bit inferiori e li memorizza nel registro rd. Questa istruzione corrisponde a addiw rd, rs, 1 0. Il risultato viene spostato nel registro a0 che, nei processori RISC-V, viene utilizzato come restituzione di risultato. Le righe successive ripristinano lo stack e restituiscono il controllo al chiamante.
 
 \vspace{0.3 cm}
 \textbf{ARM}
 
 \vspace{0.3 cm}
 
-l sorgente \ref{Code:Addx86}, compilato con gcc ARM, mostra che la preparazione della procedure si esegue da riga due a riga cinque, le con le due righe successive si esegue la funzione. La riga sei recupera il valore di num la riga successiva calcola il valore del risultato e, infine, alla riga otto si sposta il risultato nel registro di restituzione
+Il sorgente \ref{Code:Addx86}, compilato con gcc ARM, mostra che la preparazione della procedura si esegue da riga due a riga cinque.Con le due righe successive si esegue la funzione. La riga sei recupera il valore di num. La riga successiva calcola il valore del risultato e, infine, alla riga otto si sposta il risultato nel registro di restituzione
 
 
 \vspace{0.3 cm}
 \textbf{x86}
 
-l sorgente \ref{Code:AddARM} è compilato con gcc di x86. Da riga due fino a riga quattro viene preparato lo stack, a riga cinque viene posizionato num nel registro eax che a riga sei viene sommato a ventitré che viene memorizzato nel registro eax. Infine viene ridato il controllo al chiamante.
+Il sorgente \ref{Code:AddARM} è compilato con gcc di x86. Da riga due fino a riga quattro viene preparato lo stack, a riga cinque viene posizionato num nel registro eax e a riga sei viene sommato a ventitré e memorizzato nel registro eax. Infine viene ridato il controllo al chiamante.
 
 \vspace{0.3 cm}
 
@@ -774,12 +774,12 @@ Nel caso generale viene calcolata la somma di tre numeri.
 \vspace{0.3 cm}
 \textbf{RISC-V}
 
-Nel caso del compilatore RISC-V la somma avviene tra tredici e diciannove dove gli operandi vengono caricati nei registri a4 e a5, successivamente calcolato il risultato e memorizzato in a4 che poi verrà sommato con l'ultimo operando, caricato a riga diciassette.
+Nel caso del compilatore RISC-V la somma avviene tra riga tredici e riga diciannove dove gli operandi vengono caricati nei registri a4 e a5 e successivamente calcolato il risultato e memorizzato in a4 che poi verrà sommato con l'ultimo operando, caricato a riga diciassette.
 
 \vspace{0.3 cm}
 \textbf{ARM}
 
-Nel caso ARM avviene lo stesso meccanismo. Tra le righe otto e dodici avviene il caricamento dei primi due operandi la somma parziale e infine la somma totale.
+Nel caso ARM avviene lo stesso meccanismo. Tra le righe otto e dodici avviene il caricamento dei primi due operandi e la somma parziale e infine la somma totale.
 
 \vspace{0.3 cm}
 \textbf{x86}
@@ -822,11 +822,11 @@ Infine per x86 il calcolo avviene tra le righe sette e undici nello stesso modo 
 
 \lstinputlisting[language=C, style = Cstyle, caption = {Moltiplicazione per potenza di 2}, label = {Code:Mul2Comp}]{PorzioniCodice/ConfrontoCompilatori/C/mult2.c}
 
-La funzione dato un numero di tipo intero restituisce il numero moltiplicato per due. Per i sorgenti le parti di preparazione sono simili per le rispettive preparazioni precedenti.
+La funzione "dato un numero di tipo intero" restituisce il numero moltiplicato per due. Per i sorgenti le parti di preparazione sono simili alle rispettive preparazioni precedenti.
 
 
 \vspace{0.3 cm}
-Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplicazione per due. Questa avviene per RISC-V e per ARM tramite uno shift logical left di un bit (SLLIW) mentre per x86 avviene tramite una somma. Questa somma è un caso particolare, infatti se volessimo moltiplicare per una qualsiasi potenza di due le operazioni avvengono tutte tramite shift left di un opportuno valore. Con la figura \ref{Fig:mult8} viene mostrato il calcolo di una moltiplicazione per otto. In tutti i casi il calcolo avviene attraverso Shift.
+Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplicazione per due. Questa avviene per RISC-V e per ARM tramite uno shift logical left di un bit (SLLIW) mentre per x86 avviene tramite una somma. Questa somma è un caso particolare: infatti se volessimo moltiplicare per una qualsiasi potenza di due,  le operazioni avvengono tutte tramite shift left di un opportuno valore. Con la figura \ref{Fig:mult8} viene mostrato il calcolo di una moltiplicazione per otto. In tutti i casi il calcolo avviene attraverso Shift.
 
 
 \vspace{0.3 cm}
@@ -887,7 +887,7 @@ Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplica
 
 \textbf{Moltiplicazione per una costante}
 
-Vengono presentati due codici molto simili, il primo moltiplica il numero per trentuno che rappresenta più in generale un numero che dista da una potenza di due di uno. Il secondo è un caso più generale dove avviene la moltiplicazione di un numero non potenza di due e che dista da una potenza almeno di due, nel nostro caso il numero è trenta.
+Vengono presentati due codici molto simili: il primo moltiplica il numero per trentuno che rappresenta più in generale un numero che dista da una potenza di due,  di uno. Il secondo è un caso più generale dove avviene la moltiplicazione di un numero non potenza di due e che dista da una potenza almeno di due. Nel nostro caso il numero è trenta.
 
 \vspace{0.2 cm }
 
@@ -907,7 +907,7 @@ Vengono presentati due codici molto simili, il primo moltiplica il numero per tr
 \end{figure}
 
 \vspace{0.3 cm}
-
+%%%%%
 Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré, il numero successivo alla potenza di due, l'operazione di sottrazione viene sostituita con una di addizione. Nel caso più generale invece abbiamo un approccio differente.
 
 Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei. Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l'implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta avviene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di uno (moltiplicazione per due). Quindi: 
