@@ -887,7 +887,7 @@ Nei sorgenti in figura \ref{Fig:code2} viene mostrata l'operazione di moltiplica
 
 \textbf{Moltiplicazione per una costante}
 
-Vengono presentati due codici molto simili: il primo moltiplica il numero per trentuno che rappresenta più in generale un numero che dista da una potenza di due,  di uno. Il secondo è un caso più generale dove avviene la moltiplicazione di un numero non potenza di due e che dista da una potenza almeno di due. Nel nostro caso il numero è trenta.
+Vengono presentati due codici: il primo moltiplica per un numero che dista da una potenza di due solamente uno, il secondo che dista di due. I numeri presi per questo esempio sono trentuno, nel primo caso, e trenta nel secondo.
 
 \vspace{0.2 cm }
 
@@ -908,7 +908,7 @@ Vengono presentati due codici molto simili: il primo moltiplica il numero per tr
 
 \vspace{0.3 cm}
 %%%%%
-Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré, il numero successivo alla potenza di due, l'operazione di sottrazione viene sostituita con una di addizione. Nel caso più generale invece abbiamo un approccio differente.
+Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré, il numero successivo alla potenza di due, l'operazione di sottrazione viene sostituita con una di addizione. Nel secondo caso abbiamo un approccio differente.
 
 Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei. Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l'implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta avviene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di uno (moltiplicazione per due). Quindi: 
 \begin{center}
@@ -983,6 +983,8 @@ Per quanto riguarda la divisione viene utilizzato la stessa metodologia della mo
 
 
 \todo{manca una analisi, hai solo mostrato come vengono tradotte in assembly, ma non metti commenti}
+\todo{Qui non so' come continuare }
+\todo{questo è altro materiale online: \href{https://www.electropages.com/blog/2021/03/arm-vs-risc-v}{sit}}
 
 \newpage
 \section{Sorting}
