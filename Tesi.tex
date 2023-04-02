@@ -421,8 +421,8 @@ Esistono altri set che aumentano i bit utilizzati dai registri come RV64I e RV12
 % cos è -> Storia -> Riguardo RISC-V -> due parole su gcc e clang
 
 \chapter{Compilatori}
-\todo{atrent: riletto, sempre ignorando i numerosi errori ortgrafici e fraseologici}
-
+%\todo{atrent: riletto, sempre ignorando i numerosi errori ortgrafici e fraseologici}
+\todo{Rileggere}
 \section{Descrizione}
 Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il processo di compilazione prevede diverse fasi. La prima fase prevede un'analisi lessicale da cui vengono generati dei token. La seconda, utilizzando i token, prevede un'analisi sintattica e infine un'analisi semantica dopo la quale viene generato il codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
 
@@ -474,7 +474,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 %%%--------------------
 
 \chapter{BenchMarking}
-\todo{atrent: riletto, fraseologia a volte zoppicante, al solito ignoro ortografia (da rivedere MOLTO)}
+\todo{Rileggere}
 
 Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark: sintetici o applicativi. I primi hanno lo scopo di misurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
@@ -567,7 +567,7 @@ Ogni algoritmo viene eseguito su array di dimensioni diverse: 500, 1000, 5000, 1
 
 
 \chapter{Comparativa}
-\todo{idem come sopra}
+\todo{Rileggere}
 
 \section*{MacBook Air}
 \label{sec:MacBook}
@@ -981,12 +981,92 @@ In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazion
 \subsection{Divisione}
 Per quanto riguarda la divisione viene utilizzato la stessa metodologia della moltiplicazione.
 
+\subsection{Confronto ISA}
+Le ISA, RISC-V e ARM, prese in esame hanno un approccio RISC. 
 
-\todo{atrent: manca una analisi, hai solo mostrato come vengono tradotte in assembly, ma non metti commenti
-mattia: Qui non so come continuare
-atrent: basta che man mano che descrivi i confronti fra i due assembly dici qualche parola di commento, ad esempio sulla lunghezza del codice vs. cicli di clock per l'esecuzione vs. memoria occupata}
-\todo{mattia: questo è altro materiale online: \href{https://www.electropages.com/blog/2021/03/arm-vs-risc-v}{sit}
-atrent: mi sembra buono, puoi usare le parti interessanti citando in footnote il blogpost}
+\todo{ISA femminile -> controlla generi}
+Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie implementazioni architetturali, non \'e da meno RISC-V. La struttura di questa ISA \'e caratterizzata da una pipeline a 5 \textit{stages}. In ogni fase della pipeline l'istruzione compie una determinata azione che permette l'esecuzione quasi parallela. %\todo{controlla che si dica cosi}
+%confronto pipeline e non-pipeline
+%...
+Le cinque fasi della pipeline RISC-V sono \textit{Istruction fetch}, \textit{Istruction decode}, \textit{Execute}, \textit{Memory access}, \textit{Writeback}. %spiega le fasi
+Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolti tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Nel nostro caso in esame il core della CPU D1-H \'e XuanTie C906, che da documentazione\cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
+%architetture ARM 
+Per quanti riguarda ARM abbiamo avuto dei miglioramenti.  Inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione In ogni momento tre istruzioni diverse possono occupare ognuno dei tre stadi. L’hardware di ogni stadio deve poter operare in maniera indipendente. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima \'e pari ai tre cicli e il throughtput \'e una sola istruzione, inoltre, ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l’istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI\footnote{La nomenclatura del processore identifica le specifiche dello stesso. 9: Serie, T: Thumb ; D: Debugger; M: Moltiplicatore; I: ICE Macrocel integrato;} la pipeline è diventata a 5 stadi avendo le caratteristiche precedentemente citate.
+
+%
+%Immagine
+Le architetture ARM con focus nel embedded sono caratterizzate da una pipeline a 3 stadi. 
+
+%CPI
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+RISC-V   & Clock & Linee & CPI  \\ \hline
+get\_num & 17    & 12    & 1.41 \\ \hline
+sumgen   & 24    & 22    & 1.09 \\ \hline
+mult2    & 17    & 12    & 1.41 \\ \hline
+mult8    & 17    & 12    & 1.41 \\ \hline
+mult30   & 20    & 15    & 1.33 \\ \hline
+mult31   & 20    & 14    & 1.42 \\ \hline
+\end{tabular}
+\caption{CPI per RISC-V}
+\label{tab:CPI_RISCV}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+ARM  & Clock & Linee & CPI  \\ \hline
+get\_num & 27    & 11    & 2.45 \\ \hline
+sumgen   & 31    & 16    & 1.93 \\ \hline
+mult2    & 21    & 11    & 1.9  \\ \hline
+mult8    & 21    & 11    & 1.9  \\ \hline
+mult30   & 25    & 12    & 2.08 \\ \hline
+mult31   & 25    & 13    & 1.92 \\ \hline
+\end{tabular}
+\caption{CPI per ARM}
+\label{tab:CPI_ARM}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+CPI  & RISC-V & ARM   \\ \hline
+get\_num & 1.41 & 2.25     \\ \hline
+sumgen   & 1.09 & 1.93     \\ \hline
+mult2    & 1.41 & 1.9      \\ \hline
+mult8    & 1.41 & 1.9      \\ \hline
+mult30   & 1.33 & 2.08   \\ \hline
+mult31   & 1.42 & 1.92  \\ \hline
+\end{tabular}
+\caption{CPI a confronto}
+\label{tab:CPI_RISC-V_ARM}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Dimensione codice & get\_num & sumGen & mult2 & mult8 & mult30 & mult31 \\ \hline
+ARM           & 2546     & 2896   & 2535  & 2537  & 2584   & 2569   \\ \hline
+RISC-V               & 3295     & 3588   & 3284  & 3286  & 3306   & 3322   \\ \hline
+\end{tabular}
+\caption{Code size in byte [B]}
+\end{table}
+
+Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti per eseguire ogni programma. La tabella \ref{tab:CPI_RISC-V_ARM} confronta diretamente i CPI delle architetture. Dalle tabelle possiamo capire che pur avendo un numero di linee di codice maggiore e una dimensione maggiore RISC-V riesce, grazie alla struttura in 5 stages, a avere un numero di clock per esecuzione minore rispetto a ARM. %alcuni numeri
+
+
+
+
+%\todo{atrent: manca una analisi, hai solo mostrato come vengono tradotte in assembly, ma non metti commenti}
+%\todo{mattia: Qui non so come continuare atrent: basta che man mano che descrivi i confronti fra i due assembly dici qualche parola di commento, ad esempio sulla lunghezza del codice vs. cicli di clock per l'esecuzione vs. memoria occupata}
+%\todo{mattia: questo è altro materiale online: \href{https://www.electropages.com/blog/2021/03/arm-vs-risc-v}{sit}
+%atrent: mi sembra buono, puoi usare le parti interessanti citando in footnote il blogpost}
+\todo{mattia: aggiunto alla fine qualche parola di commento(CPI, lunghezza, dimensione) }
 
 \newpage
 \section{Sorting}
@@ -1298,15 +1378,29 @@ Nonostante RISC-V non sia la prima ISA open source\todo{mi è sfuggito dove cita
 
 
 %Multshift
-Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto ad ARM. RISC-V rischiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta. 
-\todo{mmmm, quanto? hai fatto conti? poi con la disponibilità di memoria di oggi quanto incide?}
+Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto ad ARM. RISC-V rischiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta, ma RISC-V richiede meno cicli di clock per esecuzione. I codici portati mostrano che la media richiesta da ARM \'e di 2.03 CPI mentre per RISC-V \'e 1.34. Il che significa che in media una singola istruzione per ARM richiede circa 2 cicli per essere completata mentre RISC-V per una singola istruzione, in media, richiede il 66\%.
+
 
 %Sorting
-Per quanto riguarda il sorting il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc mostra che l board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc.
+Per quanto riguarda il sorting il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc mostra che l board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc. Rispetto ai tempi di esecuzione del Raspberry la board \'e impiega in media il 68\% (in particolare \%del 33\% per il Bubblesort, 44\% per il Quicksort, 66\% per Heapsort e 129\% per Insertionsort). 
 \todo{riassumi qualche numero, di quanto?}
+\todo{mattia: aggiunto, sistema l'italiano}
 
 Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
+
+In conclusione i processore RISC-V richiedono un numero di clock per l'esecuzione minore rispetto ai processori ARM e, grazie alla struttura e all'ISA, hanno un numeri di istruzioni per ciclo minori rispetto a RISC-V. 
+%consumo di potenza %potenza per watt %area x costo
+Sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza rispetto ad ARM e con la loro architettura permettono una personalizzazione dell'ISA per soddisfare precise richieste.  Sempre parlando di consumi, i processori RISC-V offrono prestazioni migliori per watt rispetto ai processori ARM. Infine per quanto riguarda i costi dei chip i processori RISC-V tendono ad avere dimensioni inferiori rispetto ai processori ARM, rendendoli più adatti per applicazioni sensibili ai costi\footnote{\cite{blogArmRISC-V}}.
+
+In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, \'e arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affianca sul mercato alle architetture ARM dando la possibilit\'a ai progettisti di scegliere un'alternativa free e open-source per le loro necessit\'a. 
+
+\begin{comment}
+Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT.
+Un altra area di applicazione \'e il \textit{machine learning}.
+\end{comment}
+%Microcontrollers and Embedded Systems:
+%Data Centers:
 Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri. 
 
 \todo{conclusione minimale, riesci a dire se ci sono aspetti in cui uno è meglio dell'altro e viceversa? comparazioni di costo? corrente consumata? ecc.}
