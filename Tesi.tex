@@ -984,14 +984,14 @@ Per quanto riguarda la divisione viene utilizzato la stessa metodologia della mo
 \subsection{Confronto ISA}
 Le ISA, RISC-V e ARM, prese in esame hanno un approccio RISC. 
 
-\todo{ISA femminile -> controlla generi}
-Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie implementazioni architetturali, non \'e da meno RISC-V. La struttura di questa ISA \'e caratterizzata da una pipeline a 5 \textit{stages}. In ogni fase della pipeline l'istruzione compie una determinata azione che permette l'esecuzione quasi parallela. %\todo{controlla che si dica cosi}
+\todo{ISA femminile -\> controlla generi}
+Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie implementazioni architetturali e non \'e da meno RISC-V. La struttura di questa ISA \'e caratterizzata da una pipeline a 5 \textit{stages}. In ogni fase della pipeline l'istruzione compie una determinata azione che permette l'esecuzione quasi parallela. %\todo{controlla che si dica cosi}
 %confronto pipeline e non-pipeline
 %...
 Le cinque fasi della pipeline RISC-V sono \textit{Istruction fetch}, \textit{Istruction decode}, \textit{Execute}, \textit{Memory access}, \textit{Writeback}. %spiega le fasi
-Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolti tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Nel nostro caso in esame il core della CPU D1-H \'e XuanTie C906, che da documentazione\cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
+Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolte tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Nel nostro caso in esame il core della CPU D1-H \'e XuanTie C906 \cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
 %architetture ARM 
-Per quanti riguarda ARM abbiamo avuto dei miglioramenti.  Inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione In ogni momento tre istruzioni diverse possono occupare ognuno dei tre stadi. L’hardware di ogni stadio deve poter operare in maniera indipendente. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima \'e pari ai tre cicli e il throughtput \'e una sola istruzione, inoltre, ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l’istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI\footnote{La nomenclatura del processore identifica le specifiche dello stesso. 9: Serie, T: Thumb ; D: Debugger; M: Moltiplicatore; I: ICE Macrocel integrato;} la pipeline è diventata a 5 stadi avendo le caratteristiche precedentemente citate.
+Per quanto riguarda ARM abbiamo avuto dei miglioramenti.  Inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare ognuno dei tre stadi. L’hardware di ogni stadio deve poter operare in maniera indipendente. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima \'e pari ai tre cicli e il throughtput \'e una sola istruzione, inoltre, ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l’istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI\footnote{La nomenclatura del processore identifica le specifiche dello stesso. 9: Serie, T: Thumb ; D: Debugger; M: Moltiplicatore; I: ICE Macrocel integrato;} la pipeline è diventata a 5 stadi avendo le caratteristiche precedentemente citate.
 
 %
 %Immagine
@@ -1057,7 +1057,7 @@ RISC-V               & 3295     & 3588   & 3284  & 3286  & 3306   & 3322   \\ \h
 \caption{Code size in byte [B]}
 \end{table}
 
-Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti per eseguire ogni programma. La tabella \ref{tab:CPI_RISC-V_ARM} confronta diretamente i CPI delle architetture. Dalle tabelle possiamo capire che pur avendo un numero di linee di codice maggiore e una dimensione maggiore RISC-V riesce, grazie alla struttura in 5 stages, a avere un numero di clock per esecuzione minore rispetto a ARM. %alcuni numeri
+Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti per eseguire ogni programma. La tabella \ref{tab:CPI_RISC-V_ARM} confronta diretamente i CPI delle architetture. Dalle tabelle possiamo capire che pur avendo un numero di linee di codice maggiore e una dimensione maggiore, RISC-V riesce, grazie alla struttura in 5 stages, ad avere un numero di clock per esecuzione minore rispetto a ARM. %alcuni numeri
 
 
 
@@ -1070,26 +1070,26 @@ Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti pe
 
 \newpage
 \section{Sorting}
-Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dati e sono ampiamente utilizzati in molti aspetti, ad esempio in crittografia e nella ricerca di informazioni. Esistono molti tipi di algoritmi di ordinamento e ognuno ha i suoi vantaggi e limiti. In informatica, l'algoritmo di ordinamento è solitamente classificato come segue.
+Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dati e sono ampiamente utilizzati in molti aspetti ad esempio in crittografia e nella ricerca di informazioni. Esistono molti tipi di algoritmi di ordinamento e ognuno ha i suoi vantaggi e limiti. In informatica, l'algoritmo di ordinamento è solitamente classificato per:
 
 \begin{itemize}
-	\item La complessità temporale. Si basano su quanti valori si ha da distribuire. Questi vengono indicati con n.Possiamo avere una prestazione buona come $\mathcal{O}(n\log{}n)$ oppure peggiori come $\mathcal{O}(n!)$.
+	\item Complessità temporale. %Si basa su quanti valori si ha da distribuire. Questi vengono indicati con n.Possiamo avere una prestazione buona come $\mathcal{O}(n\log{}n)$ oppure peggiore come $\mathcal{O}(n!)$.
 	\item Memoria utilizzata.
-	\item Stabilita ovvero se viene preservato l'ordine relativo dei dati con chiavi uguali all'interno dei valori da ordinare.
+	\item Stabilit\'a.% ovvero se viene preservato l'ordine relativo dei dati con chiavi uguali all'interno dei valori da ordinare.
 \end{itemize}
 
-In base alle proprietà dei diversi tipi di dati, l'efficienza può essere migliorata scegliendo algoritmi di ordinamento appropriati. In questo capitolo verranno descritti quattro algoritmi di ordinamento e verranno analizzati comparandoli all esecuzione su raspberry. L'ordinamento a cui si fa riferimento nelle sezioni successive è un ordinamento di array da mettere in ordine non decrescente.
+In base alle proprietà dei diversi tipi di dati, l'efficienza può essere migliorata scegliendo algoritmi di ordinamento appropriati. In questo capitolo verranno descritti quattro algoritmi di ordinamento e verranno analizzati comparandoli all'esecuzione su raspberry. L'ordinamento a cui si fa riferimento nelle sezioni successive è un ordinamento di array da mettere in ordine non decrescente.
 
 \subsection{Bubble sort}
 Bubble sort è un semplice algoritmo di ordinamento. 
 L'algoritmo funziona nel modo seguente:
-\begin{itemize}
-	\item Confronta gli elementi adiacenti, se il primo è maggiore del secondo, scambialo.
-	\item Fai lo stesso confronto di prima dalla prima coppia all'ultima coppia. 
-	\item Ripeti i 2 passaggi precedenti per tutti gli elementi tranne l'ultimo.
-	\item Ripeti tutti i 3 passaggi precedenti finché non sono necessari elementi da scambiare.
-\end{itemize}
-L'efficienza dell algoritmo è basata sull'ordinamento dell array da ordinare. Nel caso migliore l'array è gia ordinato e, passandolo all algoritmo, esegue solo il punto 1 dall inizio alla fine. In contrario il caso peggiore è quando l'array si trova nell ordine non crescente.
+\begin{enumerate}
+	\item Confronta gli elementi adiacenti, se il primo è maggiore del secondo, scambiali.
+	\item Ripeti il primo punto dal secondo numero fino alla fine.
+	\item Ripeti i primi due passaggi tante volte quanti elementi da riordinare.
+\end{enumerate}
+
+L'efficienza dell'algoritmo è basata sull'ordinamento dell'array da ordinare. Nel caso migliore l'array è gia ordinato e, passandolo all'algoritmo, esegue solo il punto 1 dall'inizio alla fine. Al contrario il caso peggiore è quando l'array si trova nell'ordine non crescente.
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lc}
@@ -1097,11 +1097,11 @@ L'efficienza dell algoritmo è basata sull'ordinamento dell array da ordinare. N
 Caso peggiore & $ \mathcal{O}(n^2)$ \\
 Caso migliore & $ \mathcal{O}(n)$ \\
 \end{tabular}
-	\caption{complessita bubble sort}
+	\caption{complessit\'a bubble sort}
 	\label{Tab:CompBubbleSort}
 \end{table}
 
-Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo e i tempi di esecuzione(Tab \ref{Tab:Tempi esecuzione Bubblesort}) secondo la dimensione dell array e la situazione iniziale dell array:
+Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo e i tempi di esecuzione(Tab \ref{Tab:Tempi esecuzione Bubblesort}) secondo la dimensione dell'array e la situazione iniziale dell'array:
 \lstinputlisting[language=C, style = Cstyle, caption = {Algoritmo bubble sort scritto in c}, label = {Code:BubbleSort}]{PorzioniCodice/Sorting/Bubble.c}	
 
 \begin{table}[ht]
@@ -1123,7 +1123,7 @@ Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo
 
 \newpage
 \subsection{Insertion sort}
-L'arlogitmo consiste nel considerare un elemento alla volta, inserendo ciascuno nella posizione corretta tra gli elementi che sono stati ordinati. 
+L'algoritmo consiste nel considerare un elemento alla volta, inserendolo nella posizione corretta tra gli elementi che sono gi\'a stati ordinati. 
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lc}
@@ -1132,7 +1132,7 @@ Caso peggiore & $ \mathcal{O}(n!)$ \\
 Caso migliore & $ \mathcal{O}(n)$ \\
 Caso medio & $ \mathcal{O}(n!)$\\
 \end{tabular}
-	\caption{complessita insertion sort}
+	\caption{complessit\'a insertion sort}
 	\label{Tab:CompInsertionSort}
 \end{table}
 
@@ -1161,15 +1161,15 @@ Come nel caso del bubble sort è riportato anche il tempo di esecuzione nel caso
 
 
 \subsection{QuickSort}
-L'algoritmo quicksort è un algoritmo ricorsivo del tipo divide et impera.L'algoritmo si basa:
+L'algoritmo quicksort è un algoritmo ricorsivo del tipo divide et impera. L'algoritmo si basa:
 
-\begin{itemize}
+\begin{enumerate}
 \item Scegli un pivot dagli elementi dell'array.
-\item Ordina l'array.Se l'elemento è più grande del pivot, allora mettilo dopo il pivot, altrimenti prima.
+\item Ordina l'array. Se l'elemento è più grande del pivot, allora mettilo dopo il pivot, altrimenti prima.
 \item Ripetere questi due passaggi per i sottoarray finché ogni elemento non è nell'ordine corretto.
-\end{itemize}
+\end{enumerate}
 
-Il tempo di esecuzione nel caso peggiore di $\mathcal{O}(n!) $, il tempo di esecuzione medio di quicksort è $\mathcal{O}(n * \log{}n) $. In seguito viene mostrato l'implementazione 
+Il tempo di esecuzione nel caso peggiore \'e $\mathcal{O}(n!) $, il tempo di esecuzione medio di quicksort è $\mathcal{O}(n * \log{}n) $. In seguito viene mostrata l'implementazione 
 
 \lstinputlisting[language=C, style = Cstyle, caption = {Algoritmo quick sort scritto in c}, label = {Code:QuickSort}]{PorzioniCodice/Sorting/Quick.c}	
 
@@ -1192,7 +1192,7 @@ Il tempo di esecuzione nel caso peggiore di $\mathcal{O}(n!) $, il tempo di esec
 \end{table}
 
 \subsection{Heap sort}
-L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata è in-place.
+L'heapsort è un algoritmo di ordinamento iterativo, l'implementazione utilizzata è in-place.
 
 \lstinputlisting[language=C, style = Cstyle, caption = {Algoritmo heap sort scritto in c}, label = {Code:HeapSort}]{PorzioniCodice/Sorting/Heap.c}	
 
@@ -1231,7 +1231,7 @@ L'heapsort è un algoritmo di ordinamento iterativo l'implementazione utilizzata
  \label{Fig:QHSort}
  \end{subfigure}
 
- \caption{Algoritmi di oridinamento a confronto}
+ \caption{Algoritmi di ordinamento a confronto}
  \label{Fig:AllSort}
 \end{figure}
 
@@ -1332,7 +1332,8 @@ Un altro confronto lo possiamo fare con Raspberry pi \footnote{Il modello utiliz
 	\label{GrafHeap}
 \end{figure}
 
-I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi la board con processore RISC-V è 4 volte piu veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.6 rispetto a Raspberry. 
+I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. 
+La tabella \ref{Tab:confrontoPrestazioniSorting} mostra il rapporto tra gli algoritmi eseguiti sul Raspberry e quelli eseguiti sulla board RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi, la board con processore RISC-V è 3.44 volte pi\'u veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.64 rispetto a Raspberry. In media abbiamo un miglioramento di 2.12.Il che significa che la board in esame esegue il doppio pi\'u velocemente gli algoritmi di ordinamento del Raspberry.
 
 
 \begin{figure}[ht]
@@ -1360,6 +1361,25 @@ I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mo
 \end{figure}
 
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+      & Bubblesort & Insertionsort & Heapsort & Quicksort &      \\ \hline
+500   & 2.84       & 1.85          & 1.45     & 1.87      &      \\ \hline
+1000  & 2.73       & 1.92          & 1.49     & 1.87      &      \\ \hline
+5000  & 2.83       & 0.17          & 1.73     & 2.38      &      \\ \hline
+10000 & 2.95       & 1.79          & 1.55     & 2.20      &      \\ \hline
+20000 & 2.99       & 1.86          & 1.40     & 2.21      &      \\ \hline
+35000 & 3.30       & 1.86          & 1.38     & 2.57      &      \\ \hline
+50000 & 3.44       & 1.95          & 1.64     & 3.27      &      \\ \hline
+Media & 3.01       & 1.63          & 1.52     & 2.34      & 2.12 \\ \hline
+\end{tabular}
+\caption{Rapporto prestazioni RISC-V e ARM}
+\label{Tab:confrontoPrestazioniSorting}
+\end{table}
+
+
 %--------
 
 \chapter{Conclusione}
@@ -1371,44 +1391,41 @@ I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mo
 % commentare
 
 %ISA
-Nonostante RISC-V non sia la prima ISA open source\todo{mi è sfuggito dove citavi altre...}, sta guadagnando sempre più popolarità grazie alla sua semplicità, alla sua caratteristica di modularità. In questa tesi si sono fatti alcuni test su RISC-V. 
-
+In questa tesi si sono fatti alcuni test su RISC-V. 
 
 %CoreMark, Linpack
 
-
 %Multshift
-Per quanto riguarda il codice assembly generato il compilatore RISC-V genera codice di dimensioni maggiore rispetto ad ARM. RISC-V rischiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta, ma RISC-V richiede meno cicli di clock per esecuzione. I codici portati mostrano che la media richiesta da ARM \'e di 2.03 CPI mentre per RISC-V \'e 1.34. Il che significa che in media una singola istruzione per ARM richiede circa 2 cicli per essere completata mentre RISC-V per una singola istruzione, in media, richiede il 66\%.
-
+Per quanto riguarda il codice assembly, generato il compilatore RISC-V genera codici di dimensioni maggiori rispetto ad ARM. RISC-V richiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta, ma richiede meno cicli di clock per esecuzione. I codici riportati mostrano che la media richiesta da ARM \'e di 2.03 CPI mentre per RISC-V \'e 1.34. Il che significa che in media una singola istruzione per ARM richiede circa due cicli per essere completata mentre RISC-V per una singola istruzione, in media, richiede meno di due cicli. Inoltre, grazie alla sua struttura RISC-V ha un numero maggiore di Istruzioni per clock (IPC). 
+%I processore RISC-V richiedono un numero di clock per l'esecuzione minore rispetto ai processori ARM e, grazie alla struttura e all'ISA, hanno un numeri di istruzioni per ciclo minori rispetto a RISC-V. 
 
 %Sorting
-Per quanto riguarda il sorting il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc mostra che l board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc. Rispetto ai tempi di esecuzione del Raspberry la board \'e impiega in media il 68\% (in particolare \%del 33\% per il Bubblesort, 44\% per il Quicksort, 66\% per Heapsort e 129\% per Insertionsort). 
+Per quanto riguarda il sorting, il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc, mostra che la board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc. Rispetto ai tempi di esecuzione del Raspberry la board
+migliora il tempo di esecuzione in media di 2.12. 
 \todo{riassumi qualche numero, di quanto?}
-\todo{mattia: aggiunto, sistema l'italiano}
-
+\todo{mattia: aggiunto}
 Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
-
-In conclusione i processore RISC-V richiedono un numero di clock per l'esecuzione minore rispetto ai processori ARM e, grazie alla struttura e all'ISA, hanno un numeri di istruzioni per ciclo minori rispetto a RISC-V. 
 %consumo di potenza %potenza per watt %area x costo
-Sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza rispetto ad ARM e con la loro architettura permettono una personalizzazione dell'ISA per soddisfare precise richieste.  Sempre parlando di consumi, i processori RISC-V offrono prestazioni migliori per watt rispetto ai processori ARM. Infine per quanto riguarda i costi dei chip i processori RISC-V tendono ad avere dimensioni inferiori rispetto ai processori ARM, rendendoli più adatti per applicazioni sensibili ai costi\footnote{\cite{blogArmRISC-V}}.
+Utilizzando anche altri studi condotti su RISC-V fatte su consumi e potenza,
+sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza rispetto ad ARM e offrono prestazioni migliori per watt.  Per quanto riguarda i costi dei chip, i processori RISC-V tendono ad avere dimensioni inferiori rispetto ai processori ARM quindi meno costosi in termini di silicio, rendendoli più adatti per applicazioni sensibili ai costi \cite{blogArmRISC-V}.
 
-In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, \'e arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affianca sul mercato alle architetture ARM dando la possibilit\'a ai progettisti di scegliere un'alternativa free e open-source per le loro necessit\'a. 
+In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, \'e arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi con ARM dando la possibilit\'a ai progettisti di scegliere un'alternativa free e open-source per le loro necessit\'a. L'offerta di RISC-V \'e di una tecnologia a basso consumo, a costo ridotto di materiale, con la possiblit\'a di personalizzare liberamente l'ISA per specifiche funzionalit\'a. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
 
-\begin{comment}
+
 Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT.
-Un altra area di applicazione \'e il \textit{machine learning}.
-\end{comment}
-%Microcontrollers and Embedded Systems:
-%Data Centers:
-Questa tesi analizza solo alcuni aspetti di RISC-V, terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri. 
+Un altra area di applicazione \'e il \textit{machine learning} grazie alla loro configurabilità ottengono la possibilità di soddisfare requisiti specifici.
+%Anche in ambito accademico 
+
+
+Questa tesi analizza solo alcuni aspetti di RISC-V. 
+Terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri. 
 
 \todo{conclusione minimale, riesci a dire se ci sono aspetti in cui uno è meglio dell'altro e viceversa? comparazioni di costo? corrente consumata? ecc.}
+\todo{mattia: ok}
 
-\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli
-atrent: riesumo questo todo perché non mi pare ci sia traccia di commenti in tal senso}
-
-
+\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
+\todo{mattia: ok?}
 
 %\addcontentsline{toc}{chapter}{Bibliografia}
 
