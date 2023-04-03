@@ -1081,15 +1081,10 @@ Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dat
 In base alle proprietà dei diversi tipi di dati, l'efficienza può essere migliorata scegliendo algoritmi di ordinamento appropriati. In questo capitolo verranno descritti quattro algoritmi di ordinamento e verranno analizzati comparandoli all'esecuzione su raspberry. L'ordinamento a cui si fa riferimento nelle sezioni successive è un ordinamento di array da mettere in ordine non decrescente.
 
 \subsection{Bubble sort}
-Bubble sort è un semplice algoritmo di ordinamento. 
-L'algoritmo funziona nel modo seguente:
-\begin{enumerate}
-	\item Confronta gli elementi adiacenti, se il primo è maggiore del secondo, scambiali.
-	\item Ripeti il primo punto dal secondo numero fino alla fine.
-	\item Ripeti i primi due passaggi tante volte quanti elementi da riordinare.
-\end{enumerate}
+Bubble sort è un semplice algoritmo di ordinamento. L'algoritmo consiste nel scansionare tutte le coppie di valori adiacenti nell'array e scambiarli se non rispettano l'ordinamento.Questo processo viene reiterato per ogni coppia dell'array un numero di volte pari alla dimensione meno uno.
 
-L'efficienza dell'algoritmo è basata sull'ordinamento dell'array da ordinare. Nel caso migliore l'array è gia ordinato e, passandolo all'algoritmo, esegue solo il punto 1 dall'inizio alla fine. Al contrario il caso peggiore è quando l'array si trova nell'ordine non crescente.
+L'efficienza dell'algoritmo è basata sull'ordinamento dell'array da ordinare. Nel caso migliore l'array è già ordinato e vengono eseguite solo un numero di scansioni pari al numero di elementi meno uno. Al contrario il caso peggiore è quando l'array si trova nell'ordine opposto a quello desiderato.
+
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lc}
@@ -1123,7 +1118,8 @@ Di seguito viene riportato il codice (Code \ref{Code:BubbleSort}) dell'algoritmo
 
 \newpage
 \subsection{Insertion sort}
-L'algoritmo consiste nel considerare un elemento alla volta, inserendolo nella posizione corretta tra gli elementi che sono gi\'a stati ordinati. 
+L'algoritmo consiste nell'inserire un elemento dopo l'altro nella parte di array ordinata fino a terminare gli elementi da ordinare.
+
 \begin{table}[ht]
 	\centering
 	\begin{tabular}{lc}
@@ -1161,15 +1157,9 @@ Come nel caso del bubble sort è riportato anche il tempo di esecuzione nel caso
 
 
 \subsection{QuickSort}
-L'algoritmo quicksort è un algoritmo ricorsivo del tipo divide et impera. L'algoritmo si basa:
+L'algoritmo quicksort è un algoritmo ricorsivo del tipo divide et impera. L'algoritmo consiste nello scegliere un elemento come perno e spostare a destra e sinistra gli altri elementi rispetto all'ordine scelto.Questo procedimento viene ripetuto successivamente per la parte di sinistra e di destra fino ad ottenere l'ordine desiderato.
 
-\begin{enumerate}
-\item Scegli un pivot dagli elementi dell'array.
-\item Ordina l'array. Se l'elemento è più grande del pivot, allora mettilo dopo il pivot, altrimenti prima.
-\item Ripetere questi due passaggi per i sottoarray finché ogni elemento non è nell'ordine corretto.
-\end{enumerate}
-
-Il tempo di esecuzione nel caso peggiore \'e $\mathcal{O}(n!) $, il tempo di esecuzione medio di quicksort è $\mathcal{O}(n * \log{}n) $. In seguito viene mostrata l'implementazione 
+Il tempo di esecuzione nel caso peggiore \'e $\mathcal{O}(n!) $, il tempo di esecuzione medio di quicksort è $\mathcal{O}(n * \log{}n) $. In seguito viene mostrata l'implementazione.
 
 \lstinputlisting[language=C, style = Cstyle, caption = {Algoritmo quick sort scritto in c}, label = {Code:QuickSort}]{PorzioniCodice/Sorting/Quick.c}	
 
