@@ -1,0 +1,68 @@
+\documentclass[10pt]{article}
+\title{RISC-V stress testing}
+\author{Bianchessi Mattia - 931455}
+\date{}
+
+\usepackage[utf8]{inputenc}
+ \usepackage[
+backend=biber,
+style=numeric,
+sorting=ynt
+]{biblatex}
+
+
+\addbibresource{BibliografiaRiassunto.bib}
+
+\begin{document}
+\maketitle
+
+\section{ Ente presso cui è stato svolto il lavoro}
+Il tirocinio è stato svolto a distanza coordinato da Trentini Andrea e Carraturo Alexjan.
+
+\section{Contesto iniziale}
+Il professore Trentini Andrea ha pubblicato un annuncio per sviluppare una tesi riguardante una \textit{board} con RISC-V.La proposta era quella di svolgere dei test con una board (nezha D1-H) che supporta RISC-V.
+
+\section{Obiettivi del lavoro}
+Il fine del lavoro era quello di testare la \textit{board} e comparare il risultato con altri lavori simili e capire come RISC-V si potesse confrontare con altre architetture.
+
+\section{Descrizione lavoro svolto}
+Il lavoro è iniziato cercando informazioni riguardanti RISC-V dalle origini fino a oggi. Successivamente ho analizzato ISA del progetto e ho ricercato dei programmi da utilizzare per fare dei benchmark sulla \textit{board}. Dopo aver selezionato due benchmark ufficiali (CoreMark, LINPACK) ho scelto di scrivere dei programmi per confrontare altri aspetti.
+Un aspetto che volevo confrontare era quello dell'ISA comparandola con l'ISA di ARM e le rispettive architetture. Un altro aspetto comparato è stato i tempi di esecuzione di alcuni algoritmi di sorting eseguiti su un RaspberryPi.
+
+
+\section{Tecnologie coinvolte }
+% ISA
+% toolchain (cross-compilazione)
+% bash, Linux
+Le tecnologie coinvolte sono la \textit{board}, linguaggio assembly di RISC-V e di ARM.
+Per quanto riguarda la compilazione dei sorgenti è stata utilizzata la toolchain di RISC-V, quindi la \textit{cross-compilazione}. Il sistema operativo fornito dalla board (TinaOs) non forniva alcun interfaccia grafica quindi è stata richiesta una conoscenza minima del sistema Linux.
+
+\section{Competenze e risultati raggiunti }
+\begin{itemize}
+\item Quali risultati sono stati raggiunti rispetto agli obiettivi iniziali?
+
+%valutazione specifica delle capacita aritmetiche della board
+%una valutazione piu generale dell sistema RISC-V e confronto con ARM 
+L'obbiettivo iniziale era quello di valutare le performance aritmetiche della board, ma si è fatta una valutazione più generale della board e del sistema RISC-V.
+
+\item Quali insegnamenti si possono trarre dall’esperienza effettuata? 
+%RISC-V
+% Open, Configurabile, 
+Un primo insegnamento è certamente l'importanza del software libero e di come questa filosofia può portare al migliorare una tecnologia. RISC-V mostra i benefici che può portare questo movimento.
+ 
+%benchmarking
+Un altro insegnamento riguarda il benchmarking, l'importanza di avere dei programmi valutativi per fornire una misura delle prestazioni e di poter confrontare i risultati con altre esecuzioni su altri componenti. 
+
+\item Quali i problemi incontrati? Quali risolti e quali no? Perchè ? 
+
+%Compilare con toolchain, documentazione in cinese
+Il primo problema incontrato fu quello di dover compilare con la toolchain per la board, ad accentuare questa prima difficoltà un secondo problema fu la documentazione della board disponibile in cinese e solo alcune parti in inglese.  Questo secondo problema fu risolta grazie al traduttore web che dal cinese ha tradotto in inglese. Questo mi ha permesso di capire come compilare usando la toolchain.
+
+
+\end{itemize}
+
+\section{Bibliografia }
+\printbibliography
+\nocite{*}
+
+\end{document}
