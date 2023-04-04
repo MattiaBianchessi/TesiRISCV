@@ -427,8 +427,6 @@ Esistono altri set che aumentano i bit utilizzati dai registri come RV64I e RV12
 % cos è -> Storia -> Riguardo RISC-V -> due parole su gcc e clang
 
 \chapter{Compilatori}
-%\todo{atrent: riletto, sempre ignorando i numerosi errori ortgrafici e fraseologici}
-\todo{Rileggere}
 \section{Descrizione}
 Un compilatore è un programma che trasforma il codice sorgente in linguaggio macchina. Il processo di compilazione prevede diverse fasi. La prima fase prevede un'analisi lessicale da cui vengono generati dei token. La seconda, utilizzando i token, prevede un'analisi sintattica e infine un'analisi semantica dopo la quale viene generato il codice intermedio. Questo codice intermedio attraversa una fase di ottimizzazione e infine viene generato il codice target \cite{GCC} \cite{LLVM}.
 
@@ -438,7 +436,10 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 \includegraphics[width = \textwidth]{SchemaCompilatore.png}
 \caption{Schema meccanismo di compilazione}
 \label{Fig:MeccanismoCompilazione}
-\end{figure}%\todo{fonte?} Questa l'ho fatta io 
+\end{figure}
+\todo{atrent: fonte?
+- mattia: Questa l'ho fatta io
+- atrent: ok allora in intro aggiungi una nota in cui avvisi che tutte le immagini sono tue salvo citazione di altra fonte}
 
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito. Tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
@@ -446,8 +447,9 @@ Qualsiasi programma scritto in un linguaggio di programmazione di alto livello d
 Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
 %della filosofia del software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
 
-\todo{aveva una licenza considerabile libera?!?} 
-\todo{mattia: non ho trovato nessun riferimento al tipo di licenza.}
+\todo{aveva una licenza considerabile libera?!?
+- mattia: non ho trovato nessun riferimento al tipo di licenza
+- atrent: allora non puoi dire "licenza libera", a meno che nei bibref che citi non ci siano affermazioni che ti supportano, nel caso citale direttamente}
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -1064,7 +1066,8 @@ Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti pe
 %\todo{mattia: Qui non so come continuare atrent: basta che man mano che descrivi i confronti fra i due assembly dici qualche parola di commento, ad esempio sulla lunghezza del codice vs. cicli di clock per l'esecuzione vs. memoria occupata}
 %\todo{mattia: questo è altro materiale online: \href{https://www.electropages.com/blog/2021/03/arm-vs-risc-v}{sit}
 %atrent: mi sembra buono, puoi usare le parti interessanti citando in footnote il blogpost}
-\todo{mattia: aggiunto alla fine qualche parola di commento(CPI, lunghezza, dimensione) }
+\todo{mattia: aggiunto alla fine qualche parola di commento(CPI, lunghezza, dimensione) 
+- atrent: ok}
 
 \newpage
 \section{Sorting}
@@ -1390,8 +1393,8 @@ Per quanto riguarda il codice assembly, generato il compilatore RISC-V genera co
 %Sorting
 Per quanto riguarda il sorting, il confronto con gli algoritmi tra RISC-V, il Raspberry e il pc, mostra che la board dotata di RISC-V è sempre più veloce del Raspberry in ogni algoritmo ma è sempre più lento del pc. Rispetto ai tempi di esecuzione del Raspberry la board
 migliora il tempo di esecuzione in media di 2.12. 
-\todo{riassumi qualche numero, di quanto?}
-\todo{mattia: aggiunto}
+%\todo{riassumi qualche numero, di quanto?
+%- mattia: aggiunto}
 Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocità di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
 %consumo di potenza %potenza per watt %area x costo
@@ -1409,11 +1412,13 @@ Un altra area di applicazione è il \textit{machine learning} grazie alla loro c
 Questa tesi analizza solo alcuni aspetti di RISC-V. 
 Terminato questo lavoro di tesi vorrei sottolineare che non si tratta di un lavoro concluso, ma un punto di partenza per possibili approfondimenti futuri. 
 
-\todo{conclusione minimale, riesci a dire se ci sono aspetti in cui uno è meglio dell'altro e viceversa? comparazioni di costo? corrente consumata? ecc.}
-\todo{mattia: ok}
+\todo{atrent: conclusione minimale, riesci a dire se ci sono aspetti in cui uno è meglio dell'altro e viceversa? comparazioni di costo? corrente consumata? ecc.
+- mattia: ok
+- atrent: meglio}
 
-\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli}
-\todo{mattia: ok?}
+\todo{atrent: nelle conclusioni dovresti a questo punto (a valle del tuo lavoro di analisi) poter dire non solo come si confronta risc-v con gli altri, ma anche quali sono le aree di debolezza e forza, tanto da ipotizzare quale potrebbero essere i contesti d'uso favorevoli
+- mattia: ok?
+- atrent: forse alcune affermazioni (es. machine learning) andrebbero supportate con qualche bibref}
 
 %\addcontentsline{toc}{chapter}{Bibliografia}
 
