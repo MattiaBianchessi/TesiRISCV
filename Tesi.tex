@@ -523,7 +523,7 @@ Per citare il sito ufficiale:
 
 \textit{CoreMark is a simple, yet sophisticated benchmark that is designed specifically to test the functionality of a processor core. Running CoreMark produces a single-number score allowing users to make quick comparisons between processors}. 
 
-CoreMark è un benchmark che misura le prestazioni dei microcontrollori e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici, macchina a stati e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit\cite{CoreMark}.
+CoreMark è un benchmark che misura le prestazioni dei microcontrollori e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici, macchina a stati e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit \cite{CoreMark}.
 
 CoreMark è un benchmark sintetico come Dhrystone e, come Dhrystone, CoreMark è piccolo, portatile, gratuito \footnote{La licenza di CoreMark è la "CoreMark License Agreement". La CoreMark License Agreement stabilisce che l'utente può utilizzare il benchmark CoreMark solo per scopi di valutazione delle prestazioni dei microprocessori e non per fini commerciali.} ma, a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore, CoreMark si focalizza sulle capacit\'a di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
 Il codice sorgente è disponibile nel repository Github \footnote{\url{https://github.com/eembc/coremark} \cite{RepoCoreMark}}.
@@ -538,9 +538,9 @@ La prima versione viene chiamata LINPACK 100 ed è molto simile alla versione de
 
 \section{Altri programmi} 
 
-In questa sezione vengono presentati due programmi scritti da me che non sono standard di benchmarking. Il primo programma viene utilizzato per poi analizzare il codice assembly generato dal compilatore, mentre con il secondo vengono utilizzati degli algoritmi di sorting e comparato il tempo di esecuzione con gli stessi algoritmi eseguiti sul Raspberry.
+In questa sezione vengono presentati due programmi scritti da me che non sono standard di benchmarking. Il primo programma viene utilizzato per analizzare il codice assembly generato dal compilatore e per confrontare le architetture RISC-V e ARM, mentre con il secondo vengono utilizzati degli algoritmi di sorting e comparato il tempo di esecuzione con gli stessi algoritmi eseguiti sul Raspberry.
 
-%\todo{devi dichiarare l'autore e la motivazione}
+\todo{devi dichiarare l'autore e la motivazione}
 
 \subsection{MultOrShift}
 	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
@@ -571,7 +571,7 @@ Ogni algoritmo viene eseguito su array di dimensioni diverse: 500, 1000, 5000, 1
 
 \section*{MacBook Air}
 \label{sec:MacBook}
-Per alcuni benchmark è stato utilizzato un MacBook Air per confronto. Il PC ha un processore 2, 2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini Pc fanno riferimento a questa architettura.
+Per alcuni benchmark è stato utilizzato un MacBook Air per confronto. Il PC ha un processore 2, 2 GHz Intel Core i7 dual-core con memoria 8 GB 1600 MHz. Nelle sezioni successive i termini PC fanno riferimento a questa architettura.
 
 \section*{Raspberry Pi}
 
@@ -709,7 +709,7 @@ La tabella \ref{Tab:tempi_esecuzioneMS} mostra i tempi di esecuzione calcolati i
 	
 	
 \section{Analisi codice assembly}
-Per capire meglio i risultati osserviamo e compariamo i codici generati dai compilatori. I Compilatori confrontati sono \textit{gcc RISC-V}, \textit{gcc ARM} e \textit{gcc x86\_64}. I compilatori RISC-V e ARM vengono confrontati per il loro focus sul'ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0) \cite{ConfrontoISABook}.
+Per capire meglio i risultati osserviamo e compariamo i codici generati dai compilatori. I Compilatori confrontati sono \textit{gcc RISC-V}, \textit{gcc ARM} e \textit{gcc x86\_64}. I compilatori RISC-V e ARM vengono confrontati per il loro focus sull'ambiente embedded ed entrambi sono architetture RISC.Tutti i codici presentati in questa sezione vengono compilati e presentati con il livello di ottimizzazione di default (-O0) \cite{ConfrontoISABook}.
 
 
 \subsection{Addizione con costante}
@@ -991,7 +991,7 @@ Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie
 Le cinque fasi della pipeline RISC-V sono \textit{Istruction fetch}, \textit{Istruction decode}, \textit{Execute}, \textit{Memory access}, \textit{Writeback}. %spiega le fasi
 Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolte tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Nel nostro caso in esame il core della CPU D1-H \'e XuanTie C906 \cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
 %architetture ARM 
-Per quanto riguarda ARM abbiamo avuto dei miglioramenti.  Inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare ognuno dei tre stadi. L’hardware di ogni stadio deve poter operare in maniera indipendente. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima \'e pari ai tre cicli e il throughtput \'e una sola istruzione, inoltre, ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l’istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI\footnote{La nomenclatura del processore identifica le specifiche dello stesso. 9: Serie, T: Thumb ; D: Debugger; M: Moltiplicatore; I: ICE Macrocel integrato;} la pipeline è diventata a 5 stadi avendo le caratteristiche precedentemente citate.
+Per quanto riguarda ARM abbiamo avuto dei miglioramenti.  Inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare ognuno dei tre stadi. L’hardware di ogni stadio deve poter operare in maniera indipendente. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima \'e pari ai tre cicli e il throughtput \'e una sola istruzione, inoltre, ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l'istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI\footnote{La nomenclatura del processore identifica le specifiche dello stesso. 9: Serie, T: Thumb ; D: Debugger; M: Moltiplicatore; I: ICE Macrocel integrato;} la pipeline è diventata a 5 stadi avendo le caratteristiche precedentemente citate.
 
 %
 %Immagine
@@ -1057,7 +1057,7 @@ RISC-V               & 3295     & 3588   & 3284  & 3286  & 3306   & 3322   \\ \h
 \caption{Code size in byte [B]}
 \end{table}
 
-Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti per eseguire ogni programma. La tabella \ref{tab:CPI_RISC-V_ARM} confronta diretamente i CPI delle architetture. Dalle tabelle possiamo capire che pur avendo un numero di linee di codice maggiore e una dimensione maggiore, RISC-V riesce, grazie alla struttura in 5 stages, ad avere un numero di clock per esecuzione minore rispetto a ARM. %alcuni numeri
+Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti per eseguire ogni programma. La tabella \ref{tab:CPI_RISC-V_ARM} confronta direttamente i CPI delle architetture. Dalle tabelle possiamo capire che pur avendo un numero di linee di codice maggiore e una dimensione maggiore, RISC-V riesce, grazie alla struttura in 5 stages, ad avere un numero di clock per esecuzione minore rispetto a ARM. %alcuni numeri
 
 
 
@@ -1075,7 +1075,7 @@ Gli algoritmi di ordinamento sono una parte importante dell'elaborazione dei dat
 \begin{itemize}
 	\item Complessità temporale. %Si basa su quanti valori si ha da distribuire. Questi vengono indicati con n.Possiamo avere una prestazione buona come $\mathcal{O}(n\log{}n)$ oppure peggiore come $\mathcal{O}(n!)$.
 	\item Memoria utilizzata.
-	\item Stabilit\'a.% ovvero se viene preservato l'ordine relativo dei dati con chiavi uguali all'interno dei valori da ordinare.
+	\item Stabilità.% ovvero se viene preservato l'ordine relativo dei dati con chiavi uguali all'interno dei valori da ordinare.
 \end{itemize}
 
 In base alle proprietà dei diversi tipi di dati, l'efficienza può essere migliorata scegliendo algoritmi di ordinamento appropriati. In questo capitolo verranno descritti quattro algoritmi di ordinamento e verranno analizzati comparandoli all'esecuzione su raspberry. L'ordinamento a cui si fa riferimento nelle sezioni successive è un ordinamento di array da mettere in ordine non decrescente.
@@ -1092,7 +1092,7 @@ L'efficienza dell'algoritmo è basata sull'ordinamento dell'array da ordinare. N
 Caso peggiore & $ \mathcal{O}(n^2)$ \\
 Caso migliore & $ \mathcal{O}(n)$ \\
 \end{tabular}
-	\caption{complessit\'a bubble sort}
+	\caption{complessità bubble sort}
 	\label{Tab:CompBubbleSort}
 \end{table}
 
@@ -1128,7 +1128,7 @@ Caso peggiore & $ \mathcal{O}(n!)$ \\
 Caso migliore & $ \mathcal{O}(n)$ \\
 Caso medio & $ \mathcal{O}(n!)$\\
 \end{tabular}
-	\caption{complessit\'a insertion sort}
+	\caption{complessità insertion sort}
 	\label{Tab:CompInsertionSort}
 \end{table}
 
@@ -1365,7 +1365,7 @@ La tabella \ref{Tab:confrontoPrestazioniSorting} mostra il rapporto tra gli algo
 50000 & 3.44       & 1.95          & 1.64     & 3.27      &      \\ \hline
 Media & 3.01       & 1.63          & 1.52     & 2.34      & 2.12 \\ \hline
 \end{tabular}
-\caption{Rapporto prestazioni RISC-V e ARM}
+\caption{Rapporto prestazioni ARM e RISC-V}
 \label{Tab:confrontoPrestazioniSorting}
 \end{table}
 
