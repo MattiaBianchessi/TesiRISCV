@@ -174,21 +174,27 @@ sorting=ynt,
 
 
 %%%%%%%%
-\chapter{Introduzione}
+\chapter*{Introduzione}
 %\textbf{Oggetto della tesi}
-Il processore è il componente hardware con il quale vengono svolte le istruzioni.
-Oggigiorno sono presenti numerosi processori, ognuno caratterizzato da un insieme di istruzioni che definiscono  cosa un processore può eseguire. RISC-V, con un \textit{istruction set} basato su un approccio \textit{reduced instruction set computer}\cite{RISCOverview}, sta facendo parlare di sè \cite{RISCVHistory}.
+Nel panorama delle architetture moderne x86 e ARM la fanno da padrone, il primo nel settore computing e il secocondo per embedded. In questo contesto sta emergendo una nuova architettura RISC-V. 
 
 %\textbf{OBIETTIVI}
-L'obiettivo di questa tesi è quello di fare alcuni test sul processore dotato di RISC-V e valutarne le prestazioni.
+La tesi si occupa di presentare il progetto RISC-V e la sua ISA per poi eseguire dei benchmark e altri programmi con cui valutarne le caratteristiche.
 
 %\textbf{METODI E STRUMENTI}
-Per la valutazione sono stati utilizzati due benchmark (Coremark, LINPACK) e alcuni
-codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei test vengono riportati e, in alcuni casi, comparati con i risultati di programmi simili compilati per altri processori. Viene poi analizzato il codice sorgente generato in linguaggio macchina e confrontato con altri codici generati.
+Per la valutazione sono stati utilizzati due benchmark ufficiali (Coremark, LINPACK) e altri
+codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei test vengono riportati e, in alcuni casi, comparati con i risultati di programmi simili compilati per altri processori.Viene poi analizzato il codice sorgente di RISC-V e confrontato con il codice sorgente di ARM.
 
 %\textbf{Struttura }
-La tesi inizia con una panoramica sul progetto RISC-V presentando gli obiettivi e la storia del progetto. Il secondo capitolo mostra in sintesi l'ISA di RISC-V presentando alcuni punti importanti del progetto. Successivamente con il capitolo tre vengono presentati i compilatori mostrando la storia dalle origini fino ai compilatori moderni e la cross-compilazione. In particolare viene presentata la \textit{toolchain} utilizzata per la compilazione dei programmi.
-Nei capitoli quattro e cinque vengono presentati i programmi utilizzati e i risultati ottenuti vengono analizzati nel capitolo sei.
+La tesi è strutturata nel modo seguente:
+\begin{itemize}
+\item \textbf{Capitolo 1}: Presenta il progetto RISC-V presentando gli obbiettivi e la storia del progetto.
+\item \textbf{Capitolo 2}: Contiene una sintesi dell'ISA di RISC-V evidenziando alcuni punti importanti.
+\item \textbf{Capitolo 3}: Descrive la \textit{tool-chain} utilizzata per la compilazione dei programmi. Il capitolo inizia con la presentazione dei compilatori e della loro storia fino ad arrivare a parlare della \textit{tool-chain}
+\item \textbf{Capitolo 4}: Contiene una descrizione dei programmi utilizzati. Il capitolo tratta la storia dei benchmark e, successivamente, descrive i benchmark utilizzati e gli altri programmi.
+\item \textbf{Capitolo 5}: Contiene i dati raccolti durante l'esecuzione dei programmi scelti confrontandoli e analizzandoli.
+\item \textbf{Capitolo 6}:Conclusione della tesi. 
+\end{itemize}
 
 
 % o sections (dipende dal documentclass)
@@ -197,7 +203,7 @@ Nei capitoli quattro e cinque vengono presentati i programmi utilizzati e i risu
 % ->>>>Un approccio meno giornalistico 
 %	1- presentazione progetto, (1.1- obbiettivi )
 %	2- storia \\
-RISC-V è una ISA basato sul principio RISC nato come progetto accademico. Nel 2010, a Berkeley(California), il progetto inizi\'o diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell'anno successivo. Nel 2015 viene fondata \textbf{RISC-V Foudation}, un' azienda no-profit che controlla lo sviluppo di RISC-V. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con la quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
+RISC-V è una ISA basato sul principio RISC nato come progetto accademico. Nel 2010, a Berkeley(California), il progetto inizi\'o diretto dal prof. David Patterson finanziato da \textit{Intel } e \textit{Microsoft} e da alcune aziende Californiane. La prima pubblicazione è dell'anno successivo. Nel 2015 viene fondata \textbf{RISC-V Foudation}, un' azienda no-profit che controlla lo sviluppo di RISC-V \cite{RISCVHistory}. Nel 2018 viene annunciata una collaborazione tra l'azienda e \textit{Linux Foundation} con la quale si supporta lo sviluppo del progetto RISC-V \cite{RISCOrgHistory}.
 
 
 \section{Gli obbiettivi di RISC-V}
@@ -242,7 +248,7 @@ Si parla di \textit{trap} quando si verifica un trasferimento di controllo da pa
 
 \section{Descrizione board} 
 
-La scheda di sviluppo utilizzata è D1-H Nezha basata sul design del chip Allwinner D1-H. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, ha la memoria 2G DDR3, 258 MB di spin-nand, connessione WiFi/Bluetooth, con interfacce audio e video, può essere collegata a varie periferiche, MIPI-DSI+TP, supporta il collegamento con scheda SD, HDMI, auricolari da 3,5 mm, Gigabit Ethernet, USB,USB-C, UART, 40 pin.
+La scheda di sviluppo utilizzata è D1-H Nezha basata sul design del chip Allwinner D1-H \cite{DocH1}. La board integra una CPU Ali Pingtou Ge RISC-V C906, con clock a 1 GHz, supporta il kernel Linux standard, ha la memoria 2G DDR3, 258 MB di spin-nand, connessione WiFi/Bluetooth, con interfacce audio e video, può essere collegata a varie periferiche, MIPI-DSI+TP, supporta il collegamento con scheda SD, HDMI, auricolari da 3,5 mm, Gigabit Ethernet, USB,USB-C, UART, 40 pin.
 
 
 \begin{figure}[!ht]
@@ -295,7 +301,7 @@ Dimensioni & 85 x 56 x 1,7 mm\\
 \end{table}
 
 \section{Ambiente di sviluppo}
-La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito \'e adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board
+La scheda di sviluppo D1-H viene fornita con il sistema Tina Linux. Il kernel fornito è adattato al kernel Linux 5.4. La board fornisce il supporto di base e gestione delle risorse hardware del dispositivo. Ulteriori informazioni sono disponibili sul sito della board
 \footnote{Link al sito della board in esame \url{https://d1.docs.aw-ol.com/study/study_1tina/}}.
 
 
@@ -440,7 +446,8 @@ Qualsiasi programma scritto in un linguaggio di programmazione di alto livello d
 Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
 %della filosofia del software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
 
-%\todo{aveva una licenza considerabile libera?!?} -> non ho trovato nessun riferimento al tipo di licenza.
+\todo{aveva una licenza considerabile libera?!?} 
+\todo{mattia: non ho trovato nessun riferimento al tipo di licenza.}
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -451,7 +458,7 @@ La cross-compilazione è il processo di compilazione del codice sorgente su un s
 Nell'ecosistema dei compilatori moderni i due pi\'u famosi sono: GCC e CLANG.
 Il primo GCC (GNU Compiler Collection) fu creato nel 1987 ed oggi viene sviluppato da programmatori di tutto il mondo. Inizialmente nato per il linguaggio C oggi supporta altri linguaggi come Java, C++, Objective C \cite{GCCstory}.
 
-Il secondo \'e nato nel 2005 e sviluppato da Apple Inc. Con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
+Il secondo è nato nel 2005 e sviluppato da Apple Inc. Con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline superscalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno sempre più espressivi e astratti. Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto. Si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
@@ -501,7 +508,7 @@ Una delle prime raccolte di test degna di nota è la raccolta prodotta da \texti
  Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC \cite{SPECSite}.% imparziali, significativi e pertinenti. 
  I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture. Cos\'i fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
  Come nei sistemi comuni sono state sviluppate delle suite di test, cosi anche nel mondo riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
- Uno dei suoi prodotti più famosi \'e il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
+ Uno dei suoi prodotti più famosi è il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
  Sempre nel mondo embedded fu creata la suite di test Embench, nel 2019 \cite{embenchSite}. Questa suite di test è stata sviluppata da altri progetti come \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)}, \textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006, }\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}. % BEEBES -> For the reasoning behind the choice of benchmarks in BEEBS, see BEEBS: Open Benchmarks for Energy Measurements on Embedded Platforms (https://arxiv.org/abs/1308.5174)
  
  %Quali sono gli standard di settore?
@@ -511,7 +518,7 @@ Una delle prime raccolte di test degna di nota è la raccolta prodotta da \texti
 
 %Openbenchmark
  Oltre agli standard di settore, con gli anni, si sono sviluppati dei benchmark e delle suite di test open source. Un esempio \textit{phoronix test suite} \cite{ PhoronixTestSuiteSite}
- che supporta Linux, Windows Osx, e altri sistemi. Questa suite di test d\'a la possibilità di eseguire dei benchmark in maniera semplice(con l'unica richiesta di avere php da linea di comando ) e i risultati possono essere caricati su OpenBenchmark \cite{OpenBenchmarkSite}.
+ che supporta Linux, Windows Osx, e altri sistemi. Questa suite di test dà la possibilità di eseguire dei benchmark in maniera semplice(con l'unica richiesta di avere php da linea di comando ) e i risultati possono essere caricati su OpenBenchmark \cite{OpenBenchmarkSite}.
 
 
 
@@ -525,7 +532,7 @@ Per citare il sito ufficiale:
 
 CoreMark è un benchmark che misura le prestazioni dei microcontrollori e delle CPU utilizzate nei sistemi embedded. In CoreMark sono implementati algoritmi di list processing, manipolazione di matrici, macchina a stati e CRC (controllo di ridondanza ciclico) . È progettato per funzionare su dispositivi da 8 bit a 64 bit \cite{CoreMark}.
 
-CoreMark è un benchmark sintetico come Dhrystone e, come Dhrystone, CoreMark è piccolo, portatile, gratuito \footnote{La licenza di CoreMark è la "CoreMark License Agreement". La CoreMark License Agreement stabilisce che l'utente può utilizzare il benchmark CoreMark solo per scopi di valutazione delle prestazioni dei microprocessori e non per fini commerciali.} ma, a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore, CoreMark si focalizza sulle capacit\'a di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
+CoreMark è un benchmark sintetico come Dhrystone e, come Dhrystone, CoreMark è piccolo, portatile, gratuito \footnote{La licenza di CoreMark è la "CoreMark License Agreement". La CoreMark License Agreement stabilisce che l'utente può utilizzare il benchmark CoreMark solo per scopi di valutazione delle prestazioni dei microprocessori e non per fini commerciali.} ma, a differenza di Dhrystone, CoreMark ha regole di esecuzione e reporting specifiche ed è stato progettato per evitare aspetti problematici di Dhrystone. Mentre Dhrystone risulta un benchmark del compilatore, CoreMark si focalizza sulle capacità di lavoro della MCU o di una CPU \cite{analysis_EEMBC}.
 Il codice sorgente è disponibile nel repository Github \footnote{\url{https://github.com/eembc/coremark} \cite{RepoCoreMark}}.
 		
 
@@ -924,7 +931,7 @@ $ = 15 * num * 2 = num *30 $
 \vspace{0.2 cm}
 In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazioni per ottenere il valore della costante.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 
  \begin{subfigure}[b]{0.3\textwidth}
  
@@ -983,21 +990,14 @@ Per quanto riguarda la divisione viene utilizzato la stessa metodologia della mo
 
 \subsection{Confronto ISA}
 Le ISA, RISC-V e ARM, prese in esame hanno un approccio RISC. 
-
-\todo{ISA femminile -\> controlla generi}
-Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie implementazioni architetturali e non \'e da meno RISC-V. La struttura di questa ISA \'e caratterizzata da una pipeline a 5 \textit{stages}. In ogni fase della pipeline l'istruzione compie una determinata azione che permette l'esecuzione quasi parallela. %\todo{controlla che si dica cosi}
-%confronto pipeline e non-pipeline
+Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie implementazioni architetturali e non è da meno RISC-V. La struttura di questa ISA è caratterizzata da una pipeline a 5 \textit{stages}. In ogni fase della pipeline l'istruzione compie una determinata azione che permette l'esecuzione quasi parallela. 
 %...
 Le cinque fasi della pipeline RISC-V sono \textit{Istruction fetch}, \textit{Istruction decode}, \textit{Execute}, \textit{Memory access}, \textit{Writeback}. %spiega le fasi
-Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolte tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Nel nostro caso in esame il core della CPU D1-H \'e XuanTie C906 \cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
+Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolte tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Core della CPU D1-H è XuanTie C906 \cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
 %architetture ARM 
-Per quanto riguarda ARM abbiamo avuto dei miglioramenti.  Inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare ognuno dei tre stadi. L’hardware di ogni stadio deve poter operare in maniera indipendente. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima \'e pari ai tre cicli e il throughtput \'e una sola istruzione, inoltre, ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l'istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI\footnote{La nomenclatura del processore identifica le specifiche dello stesso. 9: Serie, T: Thumb ; D: Debugger; M: Moltiplicatore; I: ICE Macrocel integrato;} la pipeline è diventata a 5 stadi avendo le caratteristiche precedentemente citate.
+Per quanto riguarda ARM, inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare i tre stadi. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima è pari ai tre cicli e il throughtput. Inoltre ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l'istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI, nel 1998, la pipeline è diventata a 5 stadi. Tuttavia le architetture ARM con focus nel embedded sono caratterizzate da una pipeline a 3 stadi. 
 
-%
-%Immagine
-Le architetture ARM con focus nel embedded sono caratterizzate da una pipeline a 3 stadi. 
 
-%CPI
 \begin{table}[ht]
 \centering
 \begin{tabular}{|l|l|l|l|}
@@ -1046,7 +1046,7 @@ mult31   & 1.42 & 1.92  \\ \hline
 \label{tab:CPI_RISC-V_ARM}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
@@ -1058,9 +1058,7 @@ RISC-V               & 3295     & 3588   & 3284  & 3286  & 3306   & 3322   \\ \h
 \end{table}
 
 Le tabelle \ref{tab:CPI_RISCV} e \ref{tab:CPI_ARM} mostrano i clock richiesti per eseguire ogni programma. La tabella \ref{tab:CPI_RISC-V_ARM} confronta direttamente i CPI delle architetture. Dalle tabelle possiamo capire che pur avendo un numero di linee di codice maggiore e una dimensione maggiore, RISC-V riesce, grazie alla struttura in 5 stages, ad avere un numero di clock per esecuzione minore rispetto a ARM. %alcuni numeri
-
-
-
+%IPC(RISCV) > IPC(ARM)
 
 %\todo{atrent: manca una analisi, hai solo mostrato come vengono tradotte in assembly, ma non metti commenti}
 %\todo{mattia: Qui non so come continuare atrent: basta che man mano che descrivi i confronti fra i due assembly dici qualche parola di commento, ad esempio sulla lunghezza del codice vs. cicli di clock per l'esecuzione vs. memoria occupata}
@@ -1159,7 +1157,7 @@ Come nel caso del bubble sort è riportato anche il tempo di esecuzione nel caso
 \subsection{QuickSort}
 L'algoritmo quicksort è un algoritmo ricorsivo del tipo divide et impera. L'algoritmo consiste nello scegliere un elemento come perno e spostare a destra e sinistra gli altri elementi rispetto all'ordine scelto.Questo procedimento viene ripetuto successivamente per la parte di sinistra e di destra fino ad ottenere l'ordine desiderato.
 
-Il tempo di esecuzione nel caso peggiore \'e $\mathcal{O}(n!) $, il tempo di esecuzione medio di quicksort è $\mathcal{O}(n * \log{}n) $. In seguito viene mostrata l'implementazione.
+Il tempo di esecuzione nel caso peggiore è $\mathcal{O}(n!) $, il tempo di esecuzione medio di quicksort è $\mathcal{O}(n * \log{}n) $. In seguito viene mostrata l'implementazione.
 
 \lstinputlisting[language=C, style = Cstyle, caption = {Algoritmo quick sort scritto in c}, label = {Code:QuickSort}]{PorzioniCodice/Sorting/Quick.c}	
 
@@ -1386,7 +1384,7 @@ In questa tesi si sono fatti alcuni test su RISC-V.
 %CoreMark, Linpack
 
 %Multshift
-Per quanto riguarda il codice assembly, generato il compilatore RISC-V genera codici di dimensioni maggiori rispetto ad ARM. RISC-V richiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta, ma richiede meno cicli di clock per esecuzione. I codici riportati mostrano che la media richiesta da ARM \'e di 2.03 CPI mentre per RISC-V \'e 1.34. Il che significa che in media una singola istruzione per ARM richiede circa due cicli per essere completata mentre RISC-V per una singola istruzione, in media, richiede meno di due cicli. Inoltre, grazie alla sua struttura RISC-V ha un numero maggiore di Istruzioni per clock (IPC). 
+Per quanto riguarda il codice assembly, generato il compilatore RISC-V genera codici di dimensioni maggiori rispetto ad ARM. RISC-V richiede pi\'u spazio quindi è pi\'u costoso in termini di memoria di programma richiesta, ma richiede meno cicli di clock per esecuzione. I codici riportati mostrano che la media richiesta da ARM è di 2.03 CPI mentre per RISC-V è 1.34. Il che significa che in media una singola istruzione per ARM richiede circa due cicli per essere completata mentre RISC-V per una singola istruzione, in media, richiede meno di due cicli. Inoltre, grazie alla sua struttura RISC-V ha un numero maggiore di Istruzioni per clock (IPC). 
 %I processore RISC-V richiedono un numero di clock per l'esecuzione minore rispetto ai processori ARM e, grazie alla struttura e all'ISA, hanno un numeri di istruzioni per ciclo minori rispetto a RISC-V. 
 
 %Sorting
@@ -1394,17 +1392,17 @@ Per quanto riguarda il sorting, il confronto con gli algoritmi tra RISC-V, il Ra
 migliora il tempo di esecuzione in media di 2.12. 
 \todo{riassumi qualche numero, di quanto?}
 \todo{mattia: aggiunto}
-Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocit\'a di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
+Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocità di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
 %consumo di potenza %potenza per watt %area x costo
 Utilizzando anche altri studi condotti su RISC-V fatte su consumi e potenza,
 sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza rispetto ad ARM e offrono prestazioni migliori per watt.  Per quanto riguarda i costi dei chip, i processori RISC-V tendono ad avere dimensioni inferiori rispetto ai processori ARM quindi meno costosi in termini di silicio, rendendoli più adatti per applicazioni sensibili ai costi \cite{blogArmRISC-V}.
 
-In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, \'e arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi con ARM dando la possibilit\'a ai progettisti di scegliere un'alternativa free e open-source per le loro necessit\'a. L'offerta di RISC-V \'e di una tecnologia a basso consumo, a costo ridotto di materiale, con la possiblit\'a di personalizzare liberamente l'ISA per specifiche funzionalit\'a. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
+In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, è arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi con ARM dando la possibilità ai progettisti di scegliere un'alternativa free e open-source per le loro necessità. L'offerta di RISC-V è di una tecnologia a basso consumo, a costo ridotto di materiale, con la possiblità di personalizzare liberamente l'ISA per specifiche funzionalità. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
 
-
+%%%
 Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT.
-Un altra area di applicazione \'e il \textit{machine learning} grazie alla loro configurabilità ottengono la possibilità di soddisfare requisiti specifici.
+Un altra area di applicazione è il \textit{machine learning} grazie alla loro configurabilità ottengono la possibilità di soddisfare requisiti specifici.
 %Anche in ambito accademico 
 
 
