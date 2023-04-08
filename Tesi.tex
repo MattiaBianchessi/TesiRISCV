@@ -186,7 +186,7 @@ Per la valutazione sono stati utilizzati due benchmark ufficiali (Coremark, LINP
 codici in linguaggio C compilati con la \textit{toolchain} di RISC-V.I risultati dei test vengono riportati e, in alcuni casi, comparati con i risultati di programmi simili compilati per altri processori.Viene poi analizzato il codice sorgente di RISC-V e confrontato con il codice sorgente di ARM.
 
 %\textbf{Struttura }
-La tesi è strutturata nel modo seguente:
+La tesi è strutturata nel modo seguente\footnote{Le immagini utilizzate sono state autoprodotte salvo citazioni di altre fonti}:
 \begin{itemize}
 \item \textbf{Capitolo 1}: Presenta il progetto RISC-V presentando gli obbiettivi e la storia del progetto.
 \item \textbf{Capitolo 2}: Contiene una sintesi dell'ISA di RISC-V evidenziando alcuni punti importanti.
@@ -195,6 +195,7 @@ La tesi è strutturata nel modo seguente:
 \item \textbf{Capitolo 5}: Contiene i dati raccolti durante l'esecuzione dei programmi scelti confrontandoli e analizzandoli.
 \item \textbf{Capitolo 6}:Conclusione della tesi. 
 \end{itemize}
+
 
 
 % o sections (dipende dal documentclass)
@@ -383,7 +384,7 @@ La tabella \ref{tab:nomenclaturaISA}, presa da SPEC-2.2 \cite{ISA}, presenta i s
 \section{Istruzioni base}
 Di base l'ISA presenta un piccolo insieme di istruzioni Le istruzioni base sono solamente 47 e vengono codificate in 6 formati (R/I/S/U/B/J). 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 	\includegraphics[width = \textwidth]{FormatiIstruzione.png}
 	\caption{Formati istruzione RISC-V\cite{ISA}}
 	\label{Fig:Formati_istruzioni_RV32I}
@@ -444,7 +445,7 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito. Tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
+Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. %Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
 %della filosofia del software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
 
 \todo{aveva una licenza considerabile libera?!?
@@ -549,7 +550,6 @@ La prima versione viene chiamata LINPACK 100 ed è molto simile alla versione de
 
 In questa sezione vengono presentati due programmi scritti da me che non sono standard di benchmarking. Il primo programma viene utilizzato per analizzare il codice assembly generato dal compilatore e per confrontare le architetture RISC-V e ARM, mentre con il secondo vengono utilizzati degli algoritmi di sorting e comparato il tempo di esecuzione con gli stessi algoritmi eseguiti sul Raspberry.
 
-\todo{devi dichiarare l'autore e la motivazione}
 
 \subsection{MultOrShift}
 	Il programma confronta la velocità di esecuzione di moltiplicazione e divisione
@@ -1404,8 +1404,8 @@ sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza ris
 In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, è arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi con ARM dando la possibilità ai progettisti di scegliere un'alternativa free e open-source per le loro necessità. L'offerta di RISC-V è di una tecnologia a basso consumo, a costo ridotto di materiale, con la possiblità di personalizzare liberamente l'ISA per specifiche funzionalità. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
 
 %%%
-Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT.
-Un altra area di applicazione è il \textit{machine learning} grazie alla loro configurabilità ottengono la possibilità di soddisfare requisiti specifici.
+Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT \cite{ioTRISCV}.
+Un altra area di applicazione è il \textit{machine learning} \cite{mlRISCV} grazie alla loro configurabilità ottengono la possibilità di soddisfare requisiti specifici \cite{louis2019towards}.
 %Anche in ambito accademico 
 
 
