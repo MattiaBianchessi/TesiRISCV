@@ -227,7 +227,7 @@ Durante la fase di progettazione, i progettisti hanno voluto mettere nero su bia
 \section{Panoramica}
 L'ISA RISC-V è un architettura load-store con solo 49 istruzioni base. L'ISA supporta sistemi di memoria sia \textit{little-endian} che \textit{big-endian}. Le istruzioni sono organizzate in pacchetti da 16-bit memorizzati in maniera \textit{little-endian} indipendentemente dall'\textit{endianness} del sistema. Ogni pacchetto ha nei bit meno significativi i bit per la codifica delle istruzioni. In questo le istruzioni di lunghezza variabile sono decodificate velocemente.
 
-Le celle della memoria principale sono di lunghezza variabile a seconda dell'ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32. Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendosi per un modulo adatto sfruttando cosi la caratteristica circolare \cite{ISA}.
+Le celle della memoria principale sono di lunghezza variabile a seconda dell'ISA base scelto, il numero di celle di memoria è XLEN e la dimensione della singola cella è di $2^{XLEN - 1}$. Ad esempio l'ISA RV32I ha un XLEN di 32. Lo spazio di indirizzamento è circolare quindi l'errore di overflow non c'è in quanto i calcoli degli indirizzi vengono scalati in modo adeguato dividendosi per un modulo adatto sfruttando così la caratteristica circolare \cite{ISA}.
 
 
 %Modalita indirizzamento
@@ -382,7 +382,7 @@ La tabella \ref{tab:nomenclaturaISA}, presa da SPEC-2.2 \cite{ISA}, presenta i s
 
 
 \section{Istruzioni base}
-Di base l'ISA presenta un piccolo insieme di istruzioni Le istruzioni base sono solamente 47 e vengono codificate in 6 formati (R/I/S/U/B/J). 
+Di base l'ISA presenta un piccolo insieme di istruzioni. Le istruzioni base sono solamente 47 e vengono codificate in 6 formati (R/I/S/U/B/J). 
 
 \begin{figure}[!ht]
 	\includegraphics[width = \textwidth]{FormatiIstruzione.png}
@@ -397,14 +397,14 @@ In tutti i formati i registri sorgente (\textit{rs1} e \textit{rs2}) e il regist
 L'ISA presenta 4 categorie di istruzioni:
 \begin{itemize}
 	\item \textbf{Istruzioni computazionali}: Sono presenti 21 istruzioni computazionali e vengono codificate nel formato R se è un'operazione tra i registri o nel formato I se è un'operazione tra registro e costante. Le istruzioni di questo tipo includono istruzioni aritmetiche, logiche e di comparazione sia per valore senza segno che per i valori con segno.
-	\item \textbf{Accesso alla memoria}Le istruzioni di accesso alla memoria permettono il trasferimento di dati dalla memoria e alla memoria. Sono presenti 8 istruzioni in totale, 5 di load codificate nel formato I e 3 di store codificate nel formato S.
-	\item \textbf{Controllo del flusso}Le istruzioni di controllo permettono di alterare il normale flusso sequenziale del programma. Sono presenti 6 istruzioni di questo tipo che permettono il trasferimento codificate nel formato B. Le istruzioni prevedono il confronto degli operandi in \textit{rs1} e \textit{rs2} e se la condizione è verificata viene aggiunto il valore del campo imm al \textit{program counter} per raggiungere l'indirizzo di arrivo.
-	\item \textbf{Istruzioni di sistema}Con RV32I sono presenti 8 istruzioni di controllo del sistema. Possiamo dividerle in due gruppi. Il primo gruppo (ECALL, EBREAK) gestisce le \textit{system call}. Il secondo gruppo è utilizzato per leggere e scrivere i registri di stato.
+	\item \textbf{Accesso alla memoria}: Le istruzioni di accesso alla memoria permettono il trasferimento di dati dalla memoria e alla memoria. Sono presenti 8 istruzioni in totale, 5 di load codificate nel formato I e 3 di store codificate nel formato S.
+	\item \textbf{Controllo del flusso}: Le istruzioni di controllo permettono di alterare il normale flusso sequenziale del programma. Sono presenti 6 istruzioni di questo tipo che permettono il trasferimento codificate nel formato B. Le istruzioni prevedono il confronto degli operandi in \textit{rs1} e \textit{rs2} e se la condizione è verificata viene aggiunto il valore del campo imm al \textit{program counter} per raggiungere l'indirizzo di arrivo.
+	\item \textbf{Istruzioni di sistema}: Con RV32I sono presenti 8 istruzioni di controllo del sistema. Possiamo dividerle in due gruppi. Il primo gruppo (ECALL, EBREAK) gestisce le \textit{system call}. Il secondo gruppo è utilizzato per leggere e scrivere i registri di stato.
 \end{itemize}
 
 
 \section{RV32I}
-L'ISA base è stata progettata per supportare i moderni sistemi operativi. Questa base contiene 47 istruzioni uniche. I 32 registri sono di 32 bit (XLEN = 32) vengono identificati da x seguito da un numero. Il primo registro x0 contiene la costante zero e ogni istruzione che cerca di modificarlo solleva un eccezione. Gli altri registri x1 - x31 sono \textit{general purpose}. L'ABI definisce le convenzioni di utilizzo dei registri(Figura \ref{Fig:ConvenzioneRegistri}).
+L'ISA base è stata progettata per supportare i moderni sistemi operativi. Questa base contiene 47 istruzioni uniche. I 32 registri sono di 32 bit (XLEN = 32) vengono identificati da x seguito da un numero. Il primo registro x0 contiene la costante zero e ogni istruzione che cerca di modificarlo solleva una eccezione. Gli altri registri x1 - x31 sono \textit{general purpose}. L'ABI definisce le convenzioni di utilizzo dei registri(Figura \ref{Fig:ConvenzioneRegistri}).
 
 \begin{figure}[h!]
 \centering
@@ -413,7 +413,7 @@ L'ISA base è stata progettata per supportare i moderni sistemi operativi. Quest
 	\label{Fig:ConvenzioneRegistri}
 \end{figure}
 
-Come mostrato in Figura \ref{Fig:ConvenzioneRegistri} notiamo che non è presente un registro dedicato allo \textit{stack pointer} ne un \textit{return adress} ma vengono utilizzati rispettivamente il registro x2 e il registro x1.
+Come mostrato in Figura \ref{Fig:ConvenzioneRegistri} notiamo che non è presente un registro dedicato allo \textit{stack pointer} nè un \textit{return adress} ma vengono utilizzati rispettivamente il registro x2 e il registro x1.
 
 
 \section{Le altre basi}
@@ -478,7 +478,7 @@ In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cro
 La toolchain GCC di RISC-V supporta linguaggi come C, C++, Objective-C, e Go. La versione corrente è la 12.2 (datata Agosto 2022). La toolchain ha aggionamenti molto di frequente. Ci sono quattro manutentori Andrew Waterman, Jim Wilson, Kito Cheng, Palmer Dabbelt .
 
 \subsubsection{CLANG toolchain}
-La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è alla versione 15.0.2. A differenza della \textit{toolchain gcc} è mantenuta solamente da Alex Bradbury.
+La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} e attualmente è alla versione 15.0.2. A differenza della \textit{toolchain gcc} è mantenuta solamente da Alex Bradbury.
 
 
 %%%--------------------
@@ -486,7 +486,7 @@ La toolchain LLVM/CLANG è sviluppata da \textit{lowRISC project} attualmente è
 \chapter{BenchMarking}
 \todo{Rileggere}
 
-Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark: sintetici o applicativi. I primi hanno lo scopo di misurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey of Qualitative Metrics }\cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
+Quando si parla di benchmark si intendono dei test di prova con lo scopo di fornire una valutazione delle prestazioni di un computer. In generale esistono due principali categorie di benchmark: sintetici o applicativi. I primi hanno lo scopo di misurare le prestazioni del sistema riguardo specifiche operazioni mentre gli ultimi si riferiscono a software applicativi. Come affermato da Wei Dai e Daniel Berleant in \textit{Benchmarking Contemporary Deep Learning Hardware and Frameworks: a Survey of Qualitative Metrics }, \cite{benchmarkIntro} ci sono sette caratteristiche fondamentali che un benchmark deve avere:
 \begin{enumerate}
  \item Rilevanza: i benchmark dovrebbero misurare caratteristiche importanti.
  \item Rappresentatività: le metriche delle prestazioni dovrebbero essere accettate dall'industria e dal mondo accademico.
@@ -505,17 +505,17 @@ Il primo benchmark citato in letteratura prende il nome di Whetstone. I suoi aut
  Un altro benchmark è LINPACK che risale al 1979(non pensato per\'o diventare un benchmark ). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per eseguire operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell'epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
  Un altro benchmark simile è il famoso Dhrystone. Questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei microprocessori e dei sistemi di elaborazione dati \cite{DhrystoneWP}.
  Tutti i programmi sviluppati prima dell'introduzione di Dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse pi\'u aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops. Questo benchmark è composto da ventiquattro loop interni che valutano aspetti differenti. 
- Dopo lo sviluppo di un programma \textit{general purpose} si iniziò a pensare a delle suite di test che permettessero l'esecuzione solo di alcuni test per valutare determinati aspetti invece di un unico programma che svolgesse ogni valutazione pensata in fase di sviluppo.
-Una delle prime raccolte di test degna di nota è la raccolta prodotta da \textit{Stanford University} e \textit{the University of California} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi di: permutazione,  risoluzione di problemi come la torre di Hanoi, le otto regine,  puzzle e altri tipo moltiplicazione di matrici, quicksort, bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (\textit{Fast Fourier Transform}).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
+ Dopo lo sviluppo di un programma \textit{general purpose}, si iniziò a pensare a delle suite di test che permettessero l'esecuzione solo di alcuni test per valutare determinati aspetti.
+Una delle prime raccolte di test degna di nota è la raccolta prodotta dalla \textit{Stanford University} e \textit{the University of California} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi di: permutazione,  risoluzione di problemi come la torre di Hanoi, le otto regine,  puzzle e altri tipo moltiplicazione di matrici, quicksort, bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (\textit{Fast Fourier Transform}).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
 %%
  Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC \cite{SPECSite}.% imparziali, significativi e pertinenti. 
- I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, non potevano valutare le nuove architetture. Cos\'i fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
- Come nei sistemi comuni sono state sviluppate delle suite di test, cosi anche nel mondo riguarda il mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
+ I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, questi programmi non potevano valutare le nuove architetture. Così fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
+ Come nei sistemi comuni sono state sviluppate delle suite di test, cosi anche nel mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
  Uno dei suoi prodotti più famosi è il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
  Sempre nel mondo embedded fu creata la suite di test Embench, nel 2019 \cite{embenchSite}. Questa suite di test è stata sviluppata da altri progetti come \textit{The Bristol Embecosm Embedded Benchmark Suite (BEEBS)}, \textit{MiBench, the WCET benchmark collection, DSPstone, the Simple Generic Library} e\textit{the Nettle low-level cryptographic library}\cite{NettleSite}\cite{vittekBorovanskyMoreauTurin2006, }\cite{DSPStoneSite} \cite{WCETSite} \cite{MiBenchSite}. % BEEBES -> For the reasoning behind the choice of benchmarks in BEEBS, see BEEBS: Open Benchmarks for Energy Measurements on Embedded Platforms (https://arxiv.org/abs/1308.5174)
  
  %Quali sono gli standard di settore?
- Oggi gli tra gli standard di settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile. 
+ Oggi tra gli standard di settore c'è il precedentemente citato SPEC, in particolare SPECint e SPECfp, il primo incentrato su prestazioni di calcolo con numeri interi e il secondo in virgola mobile. 
  Per quanto riguarda il mondo embedded, EEMBC è uno standard riconosciuto che, oltre a CoreMark, ha sviluppato altri benchmark mirati per dispositivi specifici (AutoBench per dispositivi automotive e industriali, Netwoking2.0 per router e switch e altri). % \cite{EEMBCSite}
  Altri standard di settore sono TPC (\textit{Transaction Processing Performance Council}) che si occupa di creare dei benchmark per i DBMS\cite{TPCSite}. %Meh
 
@@ -603,13 +603,14 @@ CoreMark è stato compilato con:
 
 
 
-I codici sorgente sono stati compilati utilizzando alcuni file di configurazione per RISC-V presenti nella \href{https://github.com/riscv-boom/riscv-coremark}{repository}\cite{CoreMarkWrapper}. I file utilizzati non alterano la validità dell esecuzione di CoreMark
+I codici sorgente sono stati compilati utilizzando alcuni file di configurazione per RISC-V presenti nella \href{https://github.com/riscv-boom/riscv-coremark}{repository}\cite{CoreMarkWrapper}. I file utilizzati non alterano la validità dell'esecuzione di CoreMark
 \cite{CoreMarkRepo}.
 
 Il programma è stato eseguito quindici volte con i seguenti risultati:
 
 
 \begin{table}[ht]
+\centering
 \begin{tabular}{|l|l|l|l|l|l|l|l|}
 \hline
   & Score       &   & Score       &    & Score       &    & Score       \\ \hline
@@ -917,9 +918,9 @@ Vengono presentati due codici: il primo moltiplica per un numero che dista da un
 
 \vspace{0.3 cm}
 %%%%%
-Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré, il numero successivo alla potenza di due, l'operazione di sottrazione viene sostituita con una di addizione. Nel secondo caso abbiamo un approccio differente.
+Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré, numero successivo alla potenza di due, l'operazione di sottrazione viene sostituita con una di addizione. Nel secondo caso abbiamo un approccio differente.
 
-Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei. Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l'implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta avviene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di uno (moltiplicazione per due). Quindi: 
+Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei. Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l'implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta viene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di uno (moltiplicazione per due). Quindi: 
 \begin{center}
 	\vspace{0.2cm}
 $((num * 2^4) - num ) * 2^1 = $ 
@@ -997,7 +998,7 @@ Molte ISA di tipo RISC utilizzano la stessa struttura di pipeline per le proprie
 Le cinque fasi della pipeline RISC-V sono \textit{Istruction fetch}, \textit{Istruction decode}, \textit{Execute}, \textit{Memory access}, \textit{Writeback}. %spiega le fasi
 Naturalmente la parziale parallelizzazione del codice non evita situazioni critiche(\textit{Hazard}) che vengono risolte tramite le tecniche di \textit{Bypassing} e l'\textit{Interlock}. Queste situazioni critiche portano a modifiche necessarie a livello di struttura ma comportano un miglioramento di esecuzione del codice \footnote{Core della CPU D1-H è XuanTie C906 \cite{DocH1}, ha una pipeline a 5 \textit{stages}}. 
 %architetture ARM 
-Per quanto riguarda ARM, inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare i tre stadi. Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima è pari ai tre cicli e il throughtput. Inoltre ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni non è possibile leggere l'istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI, nel 1998, la pipeline è diventata a 5 stadi. Tuttavia le architetture ARM con focus nel embedded sono caratterizzate da una pipeline a 3 stadi. 
+Per quanto riguarda ARM, inizialmente le pipeline ARM erano organizzate in pipeline a 3 \textit{stages}: \textit{Istruction fetch}, \textit{Istruction decode, Execute}. In questa situazione tre istruzioni diverse possono occupare i tre stadi.  Con questa struttura quando il processore esegue istruzioni di \textit{data processing} la latenza massima è pari ai tre cicli. Inoltre ogni istruzione di trasferimento dati causa uno stallo della pipeline \cite{3stagesPipeline}. Avendo la memoria unica per dati e per le istruzioni, non è possibile leggere l'istruzione successiva mentre si leggono dati.Quindi aumenta la latenza. Solamente dal ARM9TDMI, nel 1998, la pipeline è diventata a 5 stadi. Tuttavia le architetture ARM con focus nell'embedded sono caratterizzate da una pipeline a 3 stadi. 
 
 
 \begin{table}[ht]
@@ -1324,7 +1325,7 @@ Un altro confronto lo possiamo fare con Raspberry pi \footnote{Il modello utiliz
 \end{figure}
 
 I grafici \ref{GrafBubble} \ref{GrafInsertion} \ref{GrafQuick} \ref{GrafHeap} mostrano i tempi di esecuzione degli algoritmi di sorting comparati tra Rasberry e RISC-V. In ogni grafico si vede che il tempo di esecuzione è migliore su RISC-V. 
-La tabella \ref{Tab:confrontoPrestazioniSorting} mostra il rapporto tra gli algoritmi eseguiti sul Raspberry e quelli eseguiti sulla board RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi, la board con processore RISC-V è 3.44 volte pi\'u veloce del raspberry in altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.64 rispetto a Raspberry. In media abbiamo un miglioramento di 2.12.Il che significa che la board in esame esegue il doppio pi\'u velocemente gli algoritmi di ordinamento del Raspberry.
+La tabella \ref{Tab:confrontoPrestazioniSorting} mostra il rapporto tra gli algoritmi eseguiti sul Raspberry e quelli eseguiti sulla board RISC-V. Prendendo in considerazione il Bubblesort nel caso con 50000 elementi, la board con processore RISC-V è 3.44 volte più veloce del raspberry. In altri casi, come ad esempio per heap sort, il miglioramente di RISC-V è 1.64 rispetto a Raspberry. In media abbiamo un miglioramento di 2.12. Il che significa che la board in esame esegue il doppio più velocemente gli algoritmi di ordinamento del Raspberry.
 
 
 \begin{figure}[ht]
@@ -1398,14 +1399,14 @@ migliora il tempo di esecuzione in media di 2.12.
 Possiamo concludere osservando che la board RISC-V è una valida sostituta del Raspberry in termini di velocità di calcolo.% ma il codice che genera il compilatore RISC-V è di dimensione maggiore rispetto a quello di ARM.
 
 %consumo di potenza %potenza per watt %area x costo
-Utilizzando anche altri studi condotti su RISC-V fatte su consumi e potenza,
+Utilizzando anche altri studi condotti su RISC-V fatti su consumi e potenza,
 sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza rispetto ad ARM e offrono prestazioni migliori per watt.  Per quanto riguarda i costi dei chip, i processori RISC-V tendono ad avere dimensioni inferiori rispetto ai processori ARM quindi meno costosi in termini di silicio, rendendoli più adatti per applicazioni sensibili ai costi \cite{blogArmRISC-V}.
 
 In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, è arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi con ARM dando la possibilità ai progettisti di scegliere un'alternativa free e open-source per le loro necessità. L'offerta di RISC-V è di una tecnologia a basso consumo, a costo ridotto di materiale, con la possiblità di personalizzare liberamente l'ISA per specifiche funzionalità. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
 
 %%%
 Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT \cite{ioTRISCV}.
-Un altra area di applicazione è il \textit{machine learning} \cite{mlRISCV} grazie alla loro configurabilità ottengono la possibilità di soddisfare requisiti specifici \cite{louis2019towards}.
+Un'altra area di applicazione è il \textit{machine learning} \cite{mlRISCV}, dove RISC-V grazie alla sua configurabilità ottiene la possibilità di soddisfare requisiti specifici \cite{louis2019towards}.
 %Anche in ambito accademico 
 
 
