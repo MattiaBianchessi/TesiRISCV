@@ -190,7 +190,7 @@ La tesi è strutturata nel modo seguente\footnote{Le immagini utilizzate sono st
 \begin{itemize}
 \item \textbf{Capitolo 1}: Presenta il progetto RISC-V presentando gli obbiettivi e la storia del progetto.
 \item \textbf{Capitolo 2}: Contiene una sintesi dell'ISA di RISC-V evidenziando alcuni punti importanti.
-\item \textbf{Capitolo 3}: Descrive la \textit{tool-chain} utilizzata per la compilazione dei programmi. Il capitolo inizia con la presentazione dei compilatori e della loro storia fino ad arrivare a parlare della \textit{tool-chain}
+\item \textbf{Capitolo 3}: Descrive la \textit{toolchain} utilizzata per la compilazione dei programmi. Il capitolo inizia con la presentazione dei compilatori e della loro storia fino ad arrivare a parlare della \textit{toolchain}
 \item \textbf{Capitolo 4}: Contiene una descrizione dei programmi utilizzati. Il capitolo tratta la storia dei benchmark e, successivamente, descrive i benchmark utilizzati e gli altri programmi.
 \item \textbf{Capitolo 5}: Contiene i dati raccolti durante l'esecuzione dei programmi scelti confrontandoli e analizzandoli.
 \item \textbf{Capitolo 6}:Conclusione della tesi. 
@@ -210,14 +210,14 @@ RISC-V è una ISA basato sul principio RISC nato come progetto accademico. Nel 2
 \section{Gli obbiettivi di RISC-V}
 Durante la fase di progettazione, i progettisti hanno voluto mettere nero su bianco lo scopo di RISC-V. Gli obbiettivi dichiarati nell'introduzione della specifica dell'ISA user-mode sono:
 \begin{itemize}
-	\item un ISA con una licenza \textit{open source} disponibile per accademia e industria.
-	\item un ISA adatta ad un'implementazione hardware diretta, non una simulazione.
-	\item un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un implementazione efficiente.
-	\item un ISA modulare,organizzata in ISA più piccole con la possibilità di usare estensioni\footnote{Insiemi di istruzioni opzionali che possono essere aggiunte alla base dell'ISA di RISC-V per fornire funzionalità specifiche. Sezione \ref{estensioni}.}.
-	\item supporto per lo standard floating-point 2008 IEEE-754 \footnote{ \url{https://ieeexplore.ieee.org/document/4610935} \cite{IEEE754-2008}}.
-	\item supporto delle estensioni. 
-	\item spazio di indirizzamento 32 e 64 bit.
-	\item supporto a delle implementazioni multi core e manycore \footnote{I processori Manycore sono un tipo speciale di processori multi-core progettati per un alto grado di elaborazione parallela. Contengono numerose core più semplici e indipendenti. } sia eterogenei che omogenei.
+	\item Un ISA con una licenza \textit{open source} disponibile per accademia e industria.
+	\item Un ISA adatta ad un'implementazione hardware diretta, non una simulazione.
+	\item Un ISA non specifica per una micro-architettura o una tecnologia ma che permetta un'implementazione efficiente.
+	\item Un ISA modulare,organizzata in ISA più piccole con la possibilità di usare estensioni\footnote{Insiemi di istruzioni opzionali che possono essere aggiunte alla base dell'ISA di RISC-V per fornire funzionalità specifiche. Sezione \ref{estensioni}.}.
+	\item Supporto per lo standard floating-point 2008 IEEE-754 \footnote{ \url{https://ieeexplore.ieee.org/document/4610935} \cite{IEEE754-2008}}.
+	\item Supporto delle estensioni. 
+	\item Spazio di indirizzamento 32 e 64 bit.
+	\item Supporto a delle implementazioni multi core e manycore \footnote{I processori Manycore sono un tipo speciale di processori multi-core progettati per un alto grado di elaborazione parallela. Contengono numerose core più semplici e indipendenti. } sia eterogenei che omogenei.
 	\item istruzioni a lunghezza variabile.
 	\item un ISA completamente virtualizzabile.
 	\item un ISA che permetta la semplificazione degli esperimenti con nuovi progetti ISA con \textit{supervisor-level} e \textit{hypervisor-level}. 
@@ -233,7 +233,7 @@ Le celle della memoria principale sono di lunghezza variabile a seconda dell'ISA
 %Modalita indirizzamento
 Avendo tutte le istruzioni di lunghezza fissa, non è possibile avere direttamente costanti o indirizzi superiori alla lunghezza assegnata al campo dell'istruzione. La soluzione è l'utilizzo della modalità di indirizzamento:
 \begin{itemize}
-	\item \textbf{indirizzamento immediato}: l’operando è una costante nell’istruzione è comunque limitato dai bit assegnati del campo.
+	\item \textbf{indirizzamento immediato}: l’operando è una costante nell’istruzione, è comunque limitato dai bit assegnati del campo.
 	\item \textbf{indirizzamento a registro}: l’operando è un registro.
 	\item \textbf{indirizzamento di base con spostamento}: l’operando è la somma tra il
 contenuto di un registro e una costante.
@@ -404,7 +404,7 @@ L'ISA presenta 4 categorie di istruzioni:
 
 
 \section{RV32I}
-L'ISA base è stata progettata per supportare i moderni sistemi operativi. Questa base contiene 47 istruzioni uniche. I 32 registri sono di 32 bit (XLEN = 32) vengono identificati da x seguito da un numero. Il primo registro x0 contiene la costante zero e ogni istruzione che cerca di modificarlo solleva una eccezione. Gli altri registri x1 - x31 sono \textit{general purpose}. L'ABI definisce le convenzioni di utilizzo dei registri(Figura \ref{Fig:ConvenzioneRegistri}).
+L'ISA base è stata progettata per supportare i moderni sistemi operativi. Questa base contiene 47 istruzioni uniche. I 32 registri sono di 32 bit (XLEN = 32) e vengono identificati da x seguito da un numero. Il primo registro x0 contiene la costante zero e ogni istruzione che cerca di modificarlo solleva una eccezione. Gli altri registri x1 - x31 sono \textit{general purpose}. L'ABI definisce le convenzioni di utilizzo dei registri(Figura \ref{Fig:ConvenzioneRegistri}).
 
 \begin{figure}[h!]
 \centering
@@ -440,17 +440,19 @@ Un compilatore è un programma che trasforma il codice sorgente in linguaggio ma
 \end{figure}
 \todo{atrent: fonte?
 - mattia: Questa l'ho fatta io
-- atrent: ok allora in intro aggiungi una nota in cui avvisi che tutte le immagini sono tue salvo citazione di altra fonte}
+- atrent: ok allora in intro aggiungi una nota in cui avvisi che tutte le immagini sono tue salvo citazione di altra fonte
+-mattia: ok}
 
 Qualsiasi programma scritto in un linguaggio di programmazione di alto livello deve essere tradotto in codice oggetto prima di poter essere eseguito. Tutti i programmatori che utilizzano tale linguaggio utilizzano un compilatore o un interprete. I miglioramenti a un compilatore possono portare a un gran numero di funzionalità migliorate nei programmi eseguibili.
 
 \section{Storia}
-Il primo compilatore teorico fu pensato da Corrado Böhm che nel 1951 che lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. %Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
+Il primo compilatore teorico fu pensato da Corrado Böhm,  nel 1951, lo sviluppò per la sua tesi di dottorato. Una prima implementazione di un compilatore è dovuta a Grace Hopper che ha anche coniato il termine ``compilatore''. Il programma, chiamato \textit{A-0 System}\cite{SystemA0}, funzionava come caricatore o linker, non come i moderni compilatori. \'E importante menzionare che il codice sorgente della versione A-2, datata 1953, fu rilasciato ai clienti con lo scopo di sviluppare dei miglioramenti. %Possiamo dire che A-2 potrebbe essere considerato un esempio precoce di licenza libera \cite{openSource1, openOrg, stallman2003software}. 
 %della filosofia del software libero e open source \cite{openSource1, openOrg, stallman2003software}. 
 
 \todo{aveva una licenza considerabile libera?!?
 - mattia: non ho trovato nessun riferimento al tipo di licenza
-- atrent: allora non puoi dire "licenza libera", a meno che nei bibref che citi non ci siano affermazioni che ti supportano, nel caso citale direttamente}
+- atrent: allora non puoi dire "licenza libera", a meno che nei bibref che citi non ci siano affermazioni che ti supportano, nel caso citale direttamente
+-mattia: ok}
 
 \section{Cross-compilazione}
 \label{Sec:Cross}
@@ -461,17 +463,17 @@ La cross-compilazione è il processo di compilazione del codice sorgente su un s
 Nell'ecosistema dei compilatori moderni i due pi\'u famosi sono: GCC e CLANG.
 Il primo GCC (GNU Compiler Collection) fu creato nel 1987 ed oggi viene sviluppato da programmatori di tutto il mondo. Inizialmente nato per il linguaggio C oggi supporta altri linguaggi come Java, C++, Objective C \cite{GCCstory}.
 
-Il secondo è nato nel 2005 e sviluppato da Apple Inc. Con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
+Il secondo è nato nel 2005 e sviluppato da Apple Inc.  con lo scopo di avere un compilatore Apple ottimizzato per i loro dispositivi\cite{ClangStory}.
 
 \section{Un buon compilatore} %
 La scelta di un compilatore per un progetto è una scelta importante.I processori, oggi, sono strutturati in pipeline superscalari e in altre complesse strutture interne. Inoltre i linguaggi moderni astraggono dalla struttura hardware per ottenere un linguaggio logico più generale. Quindi si predilige un approccio meno specifico e non incentrato sulla struttura della macchina.Gli standard dei linguaggi, si fanno sempre più espressivi e astratti. Questa espressività dei linguaggi aumenta l'onere dei compilatori che devono essere in grado di generare un buon codice assembly. La selezione di un compilatore è una scelta cruciale per il proprio progetto. Si deve tener conto che la stessa porzione di codice, utilizzando compilatori differenti, può generare comandi assembly più o meno efficienti.
 Oltre a generare programmi eseguibili ad alte prestazioni, i compilatori devono anche avere prestazioni elevate. Un progetto software di grandi dimensioni può contenere da centinaia a migliaia di singole unità di traduzione. Le unità di traduzione sono parti del codice sorgente che vengono tradotte dal compilatore in un file oggetto o in un file eseguibile. Ogni unità di traduzione può contenere migliaia di righe di codice. Oltre all'efficienza delle prestazioni del codice generato si deve tener conto anche del tempo in cui si genera il codice.
 
-Quindi, un buon compilatore ci permette di concentrarci sul processo di programmazione piuttosto che farci preoccupare della struttura del sistema e deve essere in grado di produrre un codice che abbia delle buone performance in tempo relativamente breve.
+Quindi, un buon compilatore permette di concentrarci sul processo di programmazione piuttosto che farci preoccupare della struttura del sistema e deve essere in grado di produrre un codice che abbia delle buone performance in tempo relativamente breve.
 
 
 \section{Toolchain di RISC-V}
-In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}). RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. In generale i programmi presenti sono un compilatore, un linker, un assembler, un debugger, un profiler, degli strumenti di analisi del codice e strumenti di gestione del progetto. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community.Quella pi\'u aggiornata e utilizzata è quella del progetto GNU. Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sito} sono elencate tutte le \textit{toolchain} disponibili e il sito offre una panoramica su tutto l'ecosistema RISC-V.
+In sistemi privi di un compilatore viene utilizzata la tecnica della \textbf{cross-compilazione}(Sezione \ref{Sec:Cross}). RISC-V mette a disposizione alcune \textit{toolchain} di compilazione. Una \textit{toolchain} è un insieme di programmi utilizzati sequenzialmente per la creazione di un software. In generale i programmi presenti sono un compilatore, un linker, un assembler, un debugger, un profiler, degli strumenti di analisi del codice e strumenti di gestione del progetto. Per RISC-V sono disponibili le \textit{toolchain gcc}\cite{toolchain_gcc} e \textit{toolchain clang}\cite{toolchain_clang}. Entrambe le \textit{toolchain} sono mantenute dalle community.Quella pi\'u aggiornata e utilizzata è quella del progetto GNU. Sul \href{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem}{sito} \footnote{https://wiki.riscv.org/display/HOME/RISC-V+Software+Ecosystem} sono elencate tutte le \textit{toolchain} disponibili e il sito offre una panoramica su tutto l'ecosistema RISC-V.
 
 
 \subsubsection{GCC toolchain}
@@ -502,13 +504,13 @@ In questa sezione viene prima presentata la storia dei programmi di benchmark da
  
 \section{Storia}
 Il primo benchmark citato in letteratura prende il nome di Whetstone. I suoi autori, H.J. Curnow e B.A. Wichmann, svilupparono un programma con lo scopo di valutare le prestazioni in virgola mobile. Pubblicato nel 1976 questo benchmark fu il primo esempio di benchmark sintetico. La sua semplicità è data dalla sua organizzazione in moduli, ognuno specializzato per un aspetto.
- Un altro benchmark è LINPACK che risale al 1979(non pensato per\'o diventare un benchmark ). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per eseguire operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell'epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
+ Un altro benchmark è LINPACK che risale al 1979(non pensato per diventare un benchmark ). Questo benchmark utilizza una libreria \textit{BLAS (Basic Linear Algebra Subprograms) } per eseguire operazioni su vettori e su matrici per risolvere sistemi lineari. Lo scopo originale era quello di valutare le prestazioni in virgola mobile dei supercomputer dell'epoca ma poi fu utilizzato anche su architetture meno potenti\cite{LinpackSite}.
  Un altro benchmark simile è il famoso Dhrystone. Questo benchmark sintetico pubblicato nel 1984 ha lo scopo di valutare le prestazioni dei microprocessori e dei sistemi di elaborazione dati \cite{DhrystoneWP}.
  Tutti i programmi sviluppati prima dell'introduzione di Dhrystone erano pensati e scritti per valutare un unico aspetto. Il primo tentativo di avere un programma che valutasse pi\'u aspetti ci fu nel 1986. Il benchmark si chiama Livermore loops. Questo benchmark è composto da ventiquattro loop interni che valutano aspetti differenti. 
  Dopo lo sviluppo di un programma \textit{general purpose}, si iniziò a pensare a delle suite di test che permettessero l'esecuzione solo di alcuni test per valutare determinati aspetti.
 Una delle prime raccolte di test degna di nota è la raccolta prodotta dalla \textit{Stanford University} e \textit{the University of California} quando in corrispondenza con la progettazione del primo sistema RISC furono raccolti piccoli programmi. Tra questi erano presenti programmi di: permutazione,  risoluzione di problemi come la torre di Hanoi, le otto regine,  puzzle e altri tipo moltiplicazione di matrici, quicksort, bubblesort, treesort, moltiplicazione di matrici con valori in virgola mobile e FFT (\textit{Fast Fourier Transform}).  L'importanza di questo \textit{Stanford Small Programs Benchmark Set} è dovuta al primo confronto tra architetture RISC e CISC \cite{CommonBench}.
 %%
- Nel 1988 fu fondata una cooperativa con lo scopo di produrre benchmark validi lo SPEC \cite{SPECSite}.% imparziali, significativi e pertinenti. 
+ Nel 1988 fu fondato lo SPEC una cooperativa con lo scopo di produrre benchmark validi \cite{SPECSite}.% imparziali, significativi e pertinenti. 
  I programmi utilizzati fino ad ora erano di piccole dimensioni e, con il miglioramento delle tecnologie, questi programmi non potevano valutare le nuove architetture. Così fu fondato lo SPEC (\textit{The Standard Performance Evaluation Corporation}) il cui scopo era ed è quello di mantenere delle suite di test standardizzate per le nuove generazioni di computer. 
  Come nei sistemi comuni sono state sviluppate delle suite di test, cosi anche nel mondo embedded. Nel 1997 fu fondata EEMBC (\textit{l'Embedded Microprocessor Benchmark Consortium}) che, negli anni 2000, pubblicò una prima suite di test dedicati al mondo embedded \cite{EEMBCSite}. % nomi dei set in v1 ?
  Uno dei suoi prodotti più famosi è il benchmark chiamato CoreMark pubblicato nel 2009. %sezione core Mark
@@ -560,7 +562,7 @@ viene calcolato il risultato elemento per elemento e viene memorizzato il
 tempo di esecuzione. Il risultato del programma \`e il tempo medio di esecuzione
 di mille operazioni per tipo (moltiplicazione, divisione, 
 moltiplicazione tramite shift, divisione tramite shift). 
-Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{tool-chain} di RISC-V e confrontarle con le stesse operazioni compilate per ARM.
+Lo scopo di questo programma è osservare la differenza delle implementazioni delle operazioni a livello assembly compilato con la \textit{toolchain} di RISC-V e confrontarle con le stesse operazioni compilate per ARM.
 		
 		
 \subsection{Sorting}
@@ -920,7 +922,7 @@ Vengono presentati due codici: il primo moltiplica per un numero che dista da un
 %%%%%
 Nel caso della moltiplicazione per trentuno l'approccio dei tre sorgenti è identico. Viene calcolata la moltiplicazione per trentadue attraverso shift logici e poi viene sottratto una volta il valore per ottenere la moltiplicazione per trentuno. Se il valore costante fosse trentatré, numero successivo alla potenza di due, l'operazione di sottrazione viene sostituita con una di addizione. Nel secondo caso abbiamo un approccio differente.
 
-Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei. Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l'implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta viene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato avviene applicato uno shift di uno (moltiplicazione per due). Quindi: 
+Partendo dal x86 la moltiplicazione avviene semplicemente con l'istruzione imul a riga sei. Nel caso ARM l'operazione di moltiplicazione viene comunque eseguita da una singola istruzione(riga otto) ma vengono utilizzati i registri r2 e r3 che precedentemente (riga sei e sette) vengono riempiti con gli operandi. Infine l'implementazione di RISC-V utilizza ancora shift. Nel caso della moltiplicazione per trenta viene prima uno shift di quattro ( moltiplicazione per sedici) successivamente sottratto una volta il numero e infine al risultato viene applicato uno shift di uno (moltiplicazione per due). Quindi: 
 \begin{center}
 	\vspace{0.2cm}
 $((num * 2^4) - num ) * 2^1 = $ 
@@ -932,7 +934,7 @@ $ = 15 * num * 2 = num *30 $
 
 
 \vspace{0.2 cm}
-In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazioni per ottenere il valore della costante.
+In generale RISC-V utilizza opportune operazioni di shift combinate con addizioni e sottrazioni per ottenere il valore della costante.
 
 \begin{figure}[ht]
 
@@ -989,7 +991,7 @@ In generale RISC-V utilizza opportuni shift combinate con addizioni e sottrazion
 \vspace{2cm}
 
 \subsection{Divisione}
-Per quanto riguarda la divisione viene utilizzato la stessa metodologia della moltiplicazione.
+Per quanto riguarda la divisione viene utilizzata la stessa metodologia della moltiplicazione.
 
 \subsection{Confronto ISA}
 Le ISA, RISC-V e ARM, prese in esame hanno un approccio RISC. 
@@ -1383,7 +1385,7 @@ Media & 3.01       & 1.63          & 1.52     & 2.34      & 2.12 \\ \hline
 % commentare
 
 %ISA
-In questa tesi si sono fatti alcuni test su RISC-V. 
+In questa tesi sono stati fatti alcuni test su RISC-V. 
 
 %CoreMark, Linpack
 
@@ -1402,12 +1404,11 @@ Possiamo concludere osservando che la board RISC-V è una valida sostituta del R
 Utilizzando anche altri studi condotti su RISC-V fatti su consumi e potenza,
 sempre comparando RISC-V con ARM, i processori RISC-V consumano meno potenza rispetto ad ARM e offrono prestazioni migliori per watt.  Per quanto riguarda i costi dei chip, i processori RISC-V tendono ad avere dimensioni inferiori rispetto ai processori ARM quindi meno costosi in termini di silicio, rendendoli più adatti per applicazioni sensibili ai costi \cite{blogArmRISC-V}.
 
-In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, è arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi con ARM dando la possibilità ai progettisti di scegliere un'alternativa free e open-source per le loro necessità. L'offerta di RISC-V è di una tecnologia a basso consumo, a costo ridotto di materiale, con la possiblità di personalizzare liberamente l'ISA per specifiche funzionalità. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
+In conclusione possiamo affermare che il progetto RISC-V, nato come progetto didattico, è arrivato sul mercato supportato da una community sempre pi\'u crescente che lo ha portato a notevoli sviluppi. Oggi si affaccia sul mercato affiancandosi ad ARM dando la possibilità ai progettisti di scegliere un'alternativa free e open-source per le loro necessità. L'offerta di RISC-V è di una tecnologia a basso consumo, a costo ridotto di materiale, con la possibilità di personalizzare liberamente l'ISA per specifiche funzionalità. Con queste premesse le aree di applicazione della tecnologia RISC-V sono molteplici. 
 
 %%%
 Le aree di applicazione di RISC-V oggi sono i \textit{microcontrollers} e il mondo embedded dove vengono progettati piccoli dispositivi a basso consumo per svolgere determinate funzioni che possono essere per \textit{smart home} o dispositivi IoT \cite{ioTRISCV}.
-Un'altra area di applicazione è il \textit{machine learning} \cite{mlRISCV}, dove RISC-V grazie alla sua configurabilità ottiene la possibilità di soddisfare requisiti specifici \cite{louis2019towards}.
-%Anche in ambito accademico 
+Un'altra area di applicazione è il \textit{machine learning}, come mostrato in \textit{Towards Deep Learning using TensorFlow Lite on RISC-V} \cite{mlRISCV},  RISC-V, grazie alla sua configurabilità, riesce ad ottiene la possibilità di soddisfare requisiti specifici \cite{louis2019towards}.
 
 
 Questa tesi analizza solo alcuni aspetti di RISC-V. 
